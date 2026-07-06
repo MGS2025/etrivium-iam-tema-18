@@ -62,10 +62,10 @@
   <style>.t2{font:700 12px system-ui,sans-serif;fill:#fff}.b2{font:600 11px system-ui,sans-serif;fill:#123}.l2{font:11px system-ui,sans-serif;fill:#444}.h2{font:700 13px system-ui,sans-serif;fill:#0055a0}</style>
   <text x="170" y="24" text-anchor="middle" class="h2">COMPILADOR</text>
   <rect x="60" y="40" width="90" height="40" rx="5" fill="#9cc3e0"/><text x="105" y="64" text-anchor="middle" class="b2">Código fuente</text>
-  <rect x="180" y="40" width="90" height="40" rx="5" fill="#0055a0"/><text x="225" y="60" text-anchor="middle" class="t2">Compilador</text><text x="225" y="74" text-anchor="middle" class="t2">(traduce todo)</text>
+  <rect x="164" y="40" width="120" height="40" rx="5" fill="#0055a0"/><text x="224" y="60" text-anchor="middle" class="t2">Compilador</text><text x="224" y="74" text-anchor="middle" class="t2">(traduce todo)</text>
   <rect x="300" y="40" width="90" height="40" rx="5" fill="#2d8659"/><text x="345" y="64" text-anchor="middle" class="t2">Ejecutable</text>
-  <path d="M150 60 L178 60" stroke="#888" stroke-width="2" marker-end="url(#a2)"/>
-  <path d="M270 60 L298 60" stroke="#888" stroke-width="2" marker-end="url(#a2)"/>
+  <path d="M150 60 L162 60" stroke="#888" stroke-width="2" marker-end="url(#a2)"/>
+  <path d="M286 60 L298 60" stroke="#888" stroke-width="2" marker-end="url(#a2)"/>
   <text x="225" y="102" text-anchor="middle" class="l2">Se traduce UNA vez; luego se ejecuta muchas · rápido</text>
   <line x1="40" y1="130" x2="640" y2="130" stroke="#ccc" stroke-dasharray="4 4"/>
   <text x="170" y="162" text-anchor="middle" class="h2">INTÉRPRETE</text>
@@ -250,7 +250,8 @@
   <rect x="390" y="64" width="160" height="30" rx="4" fill="#2d8659"/><text x="470" y="84" text-anchor="middle" class="t8">4 · 6 = 24</text>
   <path d="M470 172 L470 166" stroke="#2d8659" marker-end="url(#g8m)"/><path d="M470 136 L470 130" stroke="#2d8659" marker-end="url(#g8m)"/><path d="M470 100 L470 94" stroke="#2d8659" marker-end="url(#g8m)"/>
   <path d="M232 187 L388 187" stroke="#d13c3c" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#r8)"/>
-  <rect x="180" y="250" width="280" height="60" rx="8" fill="#fdf6ec" stroke="#e89822"/><text x="320" y="274" text-anchor="middle" class="g8">Resultado: 24</text><text x="320" y="296" text-anchor="middle" class="l8">Sin caso base → recursión infinita → desbordamiento de pila</text>
+  <rect x="238" y="248" width="164" height="34" rx="8" fill="#fdf6ec" stroke="#e89822"/><text x="320" y="270" text-anchor="middle" class="g8">Resultado: 24</text>
+  <text x="320" y="302" text-anchor="middle" class="l8">Sin caso base → recursión infinita → desbordamiento de pila</text>
   <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#888"/></marker><marker id="g8m" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#2d8659"/></marker><marker id="r8" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#d13c3c"/></marker></defs>
   <text x="630" y="332" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: ABELSON; CLRS cap. 2]</text>
 </svg>
@@ -334,10 +335,10 @@
   <line x1="345" y1="44" x2="345" y2="250" stroke="#ccc" stroke-dasharray="4 4"/>
   <text x="520" y="52" text-anchor="middle" class="h11">REGISTRO / STRUCT</text>
   <text x="520" y="70" text-anchor="middle" class="l11">tipos distintos · acceso por nombre r.campo</text>
-  <rect x="410" y="82" width="220" height="24" fill="#e89822"/><text x="420" y="99" class="c11">dni : cadena</text><text x="560" y="99" class="c11">"12345678Z"</text>
-  <rect x="410" y="106" width="220" height="24" fill="#f0a94a"/><text x="420" y="123" class="c11">nombre : cadena</text><text x="560" y="123" class="c11">"Ana"</text>
-  <rect x="410" y="130" width="220" height="24" fill="#e89822"/><text x="420" y="147" class="c11">edad : entero</text><text x="560" y="147" class="c11">34</text>
-  <rect x="410" y="154" width="220" height="24" fill="#f0a94a"/><text x="420" y="171" class="c11">distrito : entero</text><text x="560" y="171" class="c11">1</text>
+  <rect x="410" y="82" width="220" height="24" fill="#e89822"/><text x="420" y="99" class="c11">dni : cadena</text><text x="542" y="99" class="c11">"12345678Z"</text>
+  <rect x="410" y="106" width="220" height="24" fill="#f0a94a"/><text x="420" y="123" class="c11">nombre : cadena</text><text x="542" y="123" class="c11">"Ana"</text>
+  <rect x="410" y="130" width="220" height="24" fill="#e89822"/><text x="420" y="147" class="c11">edad : entero</text><text x="542" y="147" class="c11">34</text>
+  <rect x="410" y="154" width="220" height="24" fill="#f0a94a"/><text x="420" y="171" class="c11">distrito : entero</text><text x="542" y="171" class="c11">1</text>
   <text x="520" y="196" text-anchor="middle" class="l11">ciudadano.edad → 34 (por campo)</text>
   <rect x="60" y="266" width="560" height="40" rx="8" fill="#f2f2f2"/><text x="340" y="290" text-anchor="middle" class="l11">Array de registros = tabla de datos (p. ej. el Padrón: una fila = un registro Habitante)</text>
   <text x="670" y="318" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: KNUTH1; K&amp;R cap. 6]</text>
