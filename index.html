@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tema 18 v1.0 — ETRIVIUM IAM</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#0055a0;--azul-dark:#003d73;--azul-deep:#002a52;--azul-light:#e8f0f8;--azul-05:rgba(0,85,160,.05);--azul-10:rgba(0,85,160,.10);--verde:#2d8659;--verde-bg:#e8f5ee;--rojo:#d13c3c;--rojo-bg:#fbeeed;--amber:#e89822;--amber-bg:#fdf4e4;--g100:#f5f7fa;--g200:#e8ecf0;--g300:#d1d7df;--g600:#4a5568;--g800:#2d3748;--font:'DM Sans',-apple-system,system-ui,sans-serif;--rad:8px;--sh:0 1px 3px rgba(0,0,0,.08);--shl:0 4px 16px rgba(0,0,0,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--g800);background:var(--g100);line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:24px 20px 80px}
+.tabs{position:sticky;top:0;z-index:10;background:var(--g100);display:flex;flex-wrap:wrap;gap:6px;padding:12px 0;border-bottom:2px solid var(--azul-10);margin-bottom:24px}
+.tab-btn{border:1px solid var(--g300);background:#fff;color:var(--g600);padding:8px 14px;border-radius:6px;font:600 13px var(--font);cursor:pointer}
+.tab-btn:hover{border-color:var(--azul)}
+.tab-btn.active{background:var(--azul);color:#fff;border-color:var(--azul)}
+.tab-btn .version-badge{background:var(--azul);color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;margin-left:6px}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:f .2s ease}
+@keyframes f{from{opacity:0}to{opacity:1}}
+h1{font-size:26px;color:var(--azul-dark);margin-bottom:10px;line-height:1.25}
+h2{font-size:20px;color:var(--azul-dark);font-weight:700;margin:26px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--azul-10)}
+h3{font-size:16px;color:var(--azul);font-weight:600;margin:18px 0 8px}
+h4{font-size:14px;color:var(--azul-dark);font-weight:600;margin:14px 0 6px}
+p{margin:8px 0}
+ul,ol{margin:8px 0 12px 22px}li{margin:4px 0}
+hr{border:0;border-top:1px solid var(--g200);margin:18px 0}
+code{background:var(--g200);padding:1px 6px;border-radius:3px;font-family:'SF Mono',Menlo,monospace;font-size:.88em;color:var(--azul-dark)}
+pre{background:#0d1b2a;color:#e7ecf2;padding:14px 16px;border-radius:var(--rad);overflow-x:auto;margin:12px 0}
+pre code{background:none;color:inherit;padding:0;font-size:13px;line-height:1.5}
+table{width:100%;border-collapse:collapse;margin:12px 0;background:#fff;border-radius:var(--rad);overflow:hidden;box-shadow:var(--sh);font-size:14px}
+th{background:var(--azul);color:#fff;padding:10px 12px;text-align:left;font-weight:600;font-size:13px}
+td{padding:9px 12px;border-top:1px solid var(--g200);vertical-align:top}
+tr:nth-child(even) td{background:var(--azul-05)}
+.callout{border-left:4px solid var(--azul);background:var(--azul-light);padding:12px 16px;border-radius:4px;margin:14px 0}
+.callout .kicker{display:inline-block;font:700 11px var(--font);letter-spacing:.6px;text-transform:uppercase;color:var(--azul-dark);margin-right:8px}
+.callout.dato{border-left-color:var(--amber);background:var(--amber-bg)}.callout.dato .kicker{color:var(--amber)}
+.callout.ejercicio{border-left-color:var(--verde);background:var(--verde-bg)}.callout.ejercicio .kicker{color:var(--verde)}
+.callout.ayto{border-left-color:var(--azul);background:var(--azul-light)}
+.callout.ref{border-left-color:var(--g600);background:var(--g100)}.callout.ref .kicker{color:var(--g600)}
+svg{max-width:100%;height:auto;display:block;margin:14px auto;background:#fff;border:1px solid var(--g200);border-radius:var(--rad);padding:8px}
+.hero{background:linear-gradient(135deg,var(--azul-deep),var(--azul));color:#fff;padding:30px 28px;border-radius:var(--rad);margin-bottom:22px;box-shadow:var(--shl);position:relative}
+.hero h1{color:#fff}
+.hero .vbadge{position:absolute;top:18px;right:22px;background:var(--amber);color:#fff;padding:6px 12px;border-radius:6px;font:700 13px var(--font);letter-spacing:1px}
+.hero .sub{opacity:.92;font-size:14px;margin-top:6px}
+.hero .banner{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.22);font-size:13px;opacity:.92}
+/* TEST */
+.test-bar{position:sticky;top:64px;z-index:5;background:#fff;border:1px solid var(--g200);border-radius:var(--rad);padding:12px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;box-shadow:var(--sh);margin-bottom:18px}
+.test-bar .kpi{font-size:13px;color:var(--g600)}
+.test-bar .kpi b{font-size:18px;color:var(--azul-dark);display:block}
+.test-bar button{border:0;border-radius:6px;padding:8px 14px;font:600 13px var(--font);cursor:pointer}
+.btn-c{background:var(--verde);color:#fff}.btn-r{background:var(--g200);color:var(--g800)}
+.question{background:#fff;border:1px solid var(--g200);border-radius:var(--rad);padding:16px 18px;margin-bottom:14px;box-shadow:var(--sh)}
+.q-num{font:700 12px var(--font);color:var(--azul);letter-spacing:.5px;margin-bottom:6px}
+.q-text{font-weight:600;margin-bottom:10px}
+.q-opt{display:flex;gap:10px;align-items:center;border:1px solid var(--g200);border-radius:6px;padding:9px 12px;margin:6px 0;cursor:pointer}
+.q-opt:hover{border-color:var(--azul)}
+.q-opt.selected{border-color:var(--azul);background:var(--azul-05)}
+.q-opt.correct{border-color:var(--verde);background:var(--verde-bg)}
+.q-opt.wrong{border-color:var(--rojo);background:var(--rojo-bg)}
+.q-letter{width:26px;height:26px;flex:0 0 26px;border-radius:50%;background:var(--azul);color:#fff;display:flex;align-items:center;justify-content:center;font:700 13px var(--font)}
+.q-answer{display:none;margin-top:10px;padding:12px 14px;background:var(--verde-bg);border-left:4px solid var(--verde);border-radius:4px;font-size:14px}
+.q-answer.show{display:block}
+.q-ref{font-size:12px;color:var(--g600);margin-top:6px}
+.footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--g300);font-size:12px;color:var(--g600);text-align:center}
+@media(max-width:640px){.tabs{top:0}.test-bar{top:0}}
+
+.indice-outline ol{margin:6px 0 6px 18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="tabs"><button class="tab-btn active" data-tab="inicio">Inicio <span class='version-badge'>v1.0</span></button><button class="tab-btn" data-tab="contenido">Contenido</button><button class="tab-btn" data-tab="indice">Índice</button><button class="tab-btn" data-tab="diagramas">Diagramas</button><button class="tab-btn" data-tab="test">Test</button><button class="tab-btn" data-tab="casos">Casos</button><button class="tab-btn" data-tab="validacion">Validación</button><button class="tab-btn" data-tab="fuentes">Fuentes</button></nav>
+<section id="tab-inicio" class="tab-content active"><div class="hero">
+  <span class="vbadge">v1.0</span>
+  <h1>Tema 18 — Lenguajes de programación</h1>
+  <div class="sub">Tipos de datos · Operadores · Estructuras de control y recursividad · Procedimientos y funciones · Vectores y registros</div>
+  <div class="banner"><strong>Parte II — Técnico · C1 Ayuntamiento de Madrid</strong> · Piloto v1.0 · 2026-07-06 · Pendiente de validación</div>
+</div>
+<h2>Qué incluye este tema</h2>
+<table><thead><tr><th>Entregable</th><th>Cantidad</th></tr></thead><tbody>
+<tr><td>Contenido teórico</td><td>7 secciones · 26 epígrafes · ~13.500 palabras</td></tr>
+<tr><td>Diagramas SVG inline</td><td>12 diagramas autosuficientes</td></tr>
+<tr><td>Banco de preguntas tipo test</td><td>60 preguntas A/B/C (balanceadas 20/20/20) con corrección y penalización 1/3</td></tr>
+<tr><td>Casos prácticos Ayto Madrid</td><td>3 casos (tasas, censo del Padrón, expedientes)</td></tr>
+<tr><td>Fuentes Tier 1</td><td>14 referencias canónicas (Sebesta, Scott, Aho, Knuth, Dijkstra…)</td></tr>
+</tbody></table>
+<div class="callout ref"><span class="kicker">Cómo estudiar</span>Lee el <strong>Contenido</strong>, usa el <strong>Índice</strong> para navegar, apóyate en los <strong>Diagramas</strong>, autoevalúate en el <strong>Test</strong> y practica con los <strong>Casos</strong>. Las cajas naranjas (DATO CLAVE) marcan lo más memorizable.</div></section>
+<section id="tab-contenido" class="tab-content"><hr>
+<hr>
+<h2>Convenciones del documento</h2>
+<p>Este tema incluye cuatro tipos de <strong>cajas callout</strong> para facilitar el estudio:</p>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Información de alta densidad memorística, con alta probabilidad de aparecer en el test oficial.</div>
+<div class="callout ejercicio"><span class="kicker">EJERCICIO RESUELTO</span>Problema + solución paso a paso (traza de un algoritmo, cálculo de una expresión, diseño de una función).</div>
+<div class="callout ayto"><span class="kicker">EJEMPLO AYTO MADRID</span>Aplicación real de la teoría al entorno municipal (Padrón, tributos, expedientes, multas, callejero).</div>
+<div class="callout ref"><span class="kicker">REFERENCIA CRUZADA</span>Enlace conceptual a otros temas del temario oficial.</div>
+<p>Los ejemplos de código se escriben en <strong>pseudocódigo neutro en castellano</strong> (<code>si … entonces … fin_si</code>, <code>mientras … fin_mientras</code>, <code>funcion … devolver</code>), independiente de cualquier lenguaje concreto, tal como se usa en los enunciados de oposición. Cuando conviene ilustrar una particularidad real se nombra el lenguaje (C, Java, Python, JavaScript). Las fuentes se citan con etiquetas breves tipo <code>[SEBESTA]</code> o <code>[SCOTT, cap. 8]</code>; el registro completo está en <code>tema-18-fuentes.md</code>.</p>
+<hr>
+<h2>1. Lenguajes de programación</h2>
+<h3>1.1. Concepto de lenguaje de programación</h3>
+<p>Un <strong>lenguaje de programación</strong> es una notación formal, con reglas precisas, que permite escribir <strong>algoritmos</strong> de forma que una computadora los pueda ejecutar y una persona los pueda leer y mantener [SEBESTA, cap. 1]. Es el puente entre la manera humana de razonar un problema y la manera en que la máquina —que solo entiende secuencias de ceros y unos— lo ejecuta.</p>
+<p>Todo lenguaje de programación se define mediante tres componentes, igual que un lenguaje natural [ASU, cap. 1]:</p>
+<ul><li><strong>Léxico</strong>: el vocabulario, es decir, el conjunto de palabras y símbolos válidos (palabras reservadas como <code>si</code>, <code>mientras</code>; identificadores; números; operadores).</li><li><strong>Sintaxis</strong>: las reglas gramaticales que dicen cómo se combinan esos símbolos para formar instrucciones correctas.</li><li><strong>Semántica</strong>: el significado de cada construcción, esto es, qué hace realmente el programa cuando se ejecuta.</li></ul>
+<p>Un <strong>programa</strong> es un texto escrito en un lenguaje de programación (el <strong>código fuente</strong>). Como la máquina no ejecuta directamente ese texto, hace falta un <strong>traductor</strong> que lo convierta a instrucciones que el procesador entienda (código máquina).</p>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>No confundir <strong>algoritmo</strong> con <strong>programa</strong>. El <strong>algoritmo</strong> es la secuencia lógica de pasos para resolver un problema, independiente del lenguaje; el <strong>programa</strong> es ese algoritmo escrito en un lenguaje concreto y ejecutable. Un mismo algoritmo puede programarse en C, Java o Python.</div>
+<div class="callout ref"><span class="kicker">REFERENCIA CRUZADA</span>El <strong>Tema 13</strong> trata los <strong>algoritmos</strong> y las estructuras de datos abstractas (pilas, colas, árboles) y su análisis de coste; el <strong>Tema 11</strong>, la <strong>representación binaria</strong> de la información (cómo se almacenan en el fondo los enteros, reales y caracteres que aquí manejamos como tipos). Este Tema 18 es el eslabón intermedio: cómo se <strong>expresan</strong> esos algoritmos y datos en un lenguaje.</div>
+<h3>1.2. Evolución y clasificación de los lenguajes</h3>
+<p><strong>Según su nivel de abstracción</strong> —la distancia respecto al hardware— los lenguajes se clasifican en [PRATT, cap. 1]:</p>
+<ul><li><strong>Lenguaje máquina</strong> (bajo nivel): instrucciones en binario que el procesador ejecuta directamente. Depende totalmente de la arquitectura de la CPU. Ilegible para las personas.</li><li><strong>Lenguaje ensamblador</strong> (bajo nivel): sustituye los códigos binarios por <strong>mnemónicos</strong> (<code>MOV</code>, <code>ADD</code>, <code>JMP</code>). Sigue atado a la máquina, pero es legible. Necesita un <strong>ensamblador</strong> que lo traduzca.</li><li><strong>Lenguajes de alto nivel</strong>: cercanos al lenguaje humano y matemático (C, Java, Python, C#). Son <strong>independientes de la máquina</strong>: el mismo programa puede ejecutarse en distintos procesadores si existe un traductor para cada uno.</li></ul>
+<p>Una clasificación clásica y muy preguntada es la de <strong>generaciones</strong>:</p>
+<table><thead><tr><th>Generación</th><th>Tipo</th><th>Ejemplos</th><th>Idea</th></tr></thead><tbody><tr><td><strong>1GL</strong></td><td>Lenguaje máquina</td><td>Binario puro</td><td>Ceros y unos; máxima eficiencia, nula portabilidad</td></tr><tr><td><strong>2GL</strong></td><td>Ensamblador</td><td>ASM x86</td><td>Mnemónicos; dependiente de la CPU</td></tr><tr><td><strong>3GL</strong></td><td>Alto nivel, procedimental/estructurado</td><td>C, Pascal, Fortran, Java</td><td>Se dice <strong>qué</strong> hacer paso a paso; independiente de la máquina</td></tr><tr><td><strong>4GL</strong></td><td>Muy alto nivel, declarativo</td><td>SQL, informes, generadores</td><td>Se dice <strong>qué</strong> se quiere, no <strong>cómo</strong> obtenerlo</td></tr><tr><td><strong>5GL</strong></td><td>Lógico / IA</td><td>Prolog, sistemas expertos</td><td>Se describen restricciones y el motor deduce la solución</td></tr></tbody></table>
+<p><strong>Según el paradigma</strong> —la forma de concebir y estructurar el programa— [SEBESTA, cap. 1; PRATT, cap. 1]:</p>
+<ul><li><strong>Imperativo</strong>: el programa es una secuencia de <strong>órdenes</strong> que cambian el estado de la memoria (variables). Se subdivide en:<ul><li><strong>Estructurado / procedimental</strong>: se organiza en procedimientos y funciones con las tres estructuras de control básicas (C, Pascal).</li><li><strong>Orientado a objetos</strong>: el programa se organiza en <strong>objetos</strong> que combinan datos y comportamiento (Java, C++, Python). → <strong>Tema 20</strong>.</li></ul></li><li><strong>Declarativo</strong>: se describe <strong>qué</strong> se quiere obtener, no la secuencia de pasos. Incluye:<ul><li><strong>Funcional</strong>: el cálculo se expresa como evaluación de funciones matemáticas, evitando estado mutable (Lisp, Haskell, y rasgos en Python/JavaScript).</li><li><strong>Lógico</strong>: se enuncian hechos y reglas y el sistema infiere respuestas (Prolog).</li></ul></li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Distinción imperativo vs declarativo: en el <strong>imperativo</strong> el programador dice <strong>CÓMO</strong> resolver el problema (los pasos); en el <strong>declarativo</strong> dice <strong>QUÉ</strong> quiere y el sistema decide cómo. <strong>SQL</strong> (Tema 19) es el ejemplo típico de lenguaje <strong>declarativo</strong> de 4.ª generación.</div>
+<p><strong>Según la forma de traducirse y ejecutarse</strong>:</p>
+<ul><li><strong>Compilados</strong>: un <strong>compilador</strong> traduce <strong>todo</strong> el código fuente a código máquina (o a un objeto ejecutable) <strong>antes</strong> de ejecutarlo. La traducción se hace una vez; la ejecución es rápida (C, C++). → <em>Diagrama D2</em>.</li><li><strong>Interpretados</strong>: un <strong>intérprete</strong> lee y ejecuta el programa <strong>instrucción a instrucción</strong> en tiempo de ejecución, sin producir un ejecutable independiente. Más flexible y portable, algo más lento (Python clásico, JavaScript).</li><li><strong>Híbridos (bytecode + máquina virtual)</strong>: el fuente se compila a un <strong>código intermedio</strong> portable (<em>bytecode</em>) que ejecuta una <strong>máquina virtual</strong> (Java → JVM; C# → CLR). Combina portabilidad e interpretación con compilación <strong>JIT</strong> (<em>just-in-time</em>) para acelerar. → <strong>Tema 21</strong> (Java EE).</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Compilador ≠ intérprete. El <strong>compilador</strong> traduce el programa <strong>completo</strong> antes de ejecutar y detecta muchos errores en compilación; el <strong>intérprete</strong> traduce y ejecuta <strong>línea a línea</strong> y los errores afloran en ejecución. Java usa un <strong>modelo híbrido</strong>: compila a <em>bytecode</em> y lo ejecuta la <strong>JVM</strong> («compile once, run anywhere»).</div>
+<h3>1.3. Elementos fundamentales de un lenguaje</h3>
+<p>Con independencia del paradigma, casi todo lenguaje de alto nivel proporciona [SEBESTA, cap. 1]:</p>
+<ol><li><strong>Tipos de datos</strong>: qué clases de valores maneja (enteros, reales, caracteres, booleanos, estructuras).</li><li><strong>Variables y constantes</strong>: cómo se nombran y almacenan los datos.</li><li><strong>Operadores y expresiones</strong>: cómo se combinan los datos para producir nuevos valores.</li><li><strong>Estructuras de control</strong>: cómo se decide el orden de ejecución (secuencia, selección, iteración).</li><li><strong>Subprogramas</strong> (procedimientos y funciones): cómo se organiza y reutiliza el código.</li><li><strong>Entrada/salida</strong>: cómo el programa lee datos y comunica resultados.</li><li><strong>Gestión de memoria</strong>: cómo se reserva y libera el espacio de los datos (manual en C, automática por <em>garbage collector</em> en Java/Python).</li></ol>
+<p>Estos elementos son precisamente el esqueleto de este tema.</p>
+<h3>1.4. Sintaxis, semántica y pragmática</h3>
+<p>Los tres niveles con que se estudia todo lenguaje formal [ASU, cap. 1; SCOTT, cap. 1]:</p>
+<ul><li><strong>Sintaxis</strong>: reglas que determinan <strong>qué secuencias de símbolos están bien formadas</strong>. Se describe con <strong>gramáticas</strong> (típicamente en notación <strong>BNF</strong>, <em>Backus-Naur Form</em>). Ejemplo: en muchos lenguajes toda sentencia termina en <code>;</code>, y un <code>si</code> va seguido de una condición entre paréntesis. Un error de sintaxis (olvidar un paréntesis) impide compilar.</li><li><strong>Semántica</strong>: el <strong>significado</strong> de las construcciones sintácticamente correctas. Una sentencia puede ser sintácticamente válida y semánticamente errónea (dividir entre cero, usar una variable no inicializada). Distinguimos <strong>semántica estática</strong> (comprobaciones en compilación: tipos, declaraciones) y <strong>semántica dinámica</strong> (comportamiento en ejecución).</li><li><strong>Pragmática</strong>: cómo se <strong>usa</strong> el lenguaje en la práctica: convenciones de estilo, legibilidad, idioms, buenas prácticas. No la impone la gramática, pero determina la calidad del código.</li></ul>
+<div class="callout ejercicio"><span class="kicker">EJERCICIO RESUELTO</span>Clasifica el error en cada caso (pseudocódigo). (a) <code>si x &gt; 0 entonces</code> sin <code>fin_si</code> → <strong>error de sintaxis</strong> (falta cerrar la estructura). (b) <code>resultado = total / num_habitantes</code> cuando <code>num_habitantes</code> vale 0 → <strong>error semántico dinámico</strong> (división por cero en ejecución). (c) <code>x = "hola" + 5</code> en un lenguaje de tipado fuerte → <strong>error semántico estático</strong> (tipos incompatibles, detectado al compilar).</div>
+<p><strong>Notación BNF (introducción):</strong> una gramática BNF define reglas de producción. Por ejemplo, un número entero podría describirse así:</p>
+<pre><code>&lt;digito&gt;  ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+&lt;entero&gt;  ::= &lt;digito&gt; | &lt;digito&gt; &lt;entero&gt;</code></pre>
+<p>Se lee: «un entero es un dígito, o un dígito seguido de otro entero». Esta recursión permite describir números de cualquier longitud con reglas finitas. El <strong>compilador</strong>, en su fase de <strong>análisis sintáctico</strong>, comprueba que el código respeta estas reglas [ASU, cap. 4].</p>
+<h3>1.5. Variables, constantes e identificadores</h3>
+<p>Un <strong>identificador</strong> es el <strong>nombre</strong> que el programador da a los elementos del programa (variables, constantes, funciones, tipos). Las reglas habituales: empieza por letra o guion bajo, continúa con letras/dígitos/guiones bajos, no coincide con una palabra reservada y —en la mayoría de lenguajes— <strong>distingue mayúsculas de minúsculas</strong> (<code>Total</code> ≠ <code>total</code>) [SEBESTA, cap. 5].</p>
+<p>Una <strong>variable</strong> es una posición de memoria <strong>con nombre</strong> cuyo <strong>valor puede cambiar</strong> durante la ejecución. Toda variable tiene cuatro atributos [SCOTT, cap. 3]:</p>
+<ul><li><strong>Nombre</strong> (identificador),</li><li><strong>Tipo</strong> (qué valores admite y qué operaciones permite),</li><li><strong>Valor</strong> (el contenido actual),</li><li><strong>Dirección</strong> (dónde reside en memoria; a veces llamada <em>l-value</em>).</li></ul>
+<p>Una <strong>constante</strong> es un dato con nombre cuyo <strong>valor no cambia</strong> una vez fijado (<code>PI = 3.1416</code>, <code>IVA = 0.21</code>). Aporta legibilidad (un nombre en vez de un «número mágico») y seguridad (el compilador impide modificarla). Un <strong>literal</strong> es un valor escrito directamente en el código (<code>42</code>, <code>"Madrid"</code>, <code>verdadero</code>).</p>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span><strong>Declaración</strong> vs <strong>inicialización</strong> vs <strong>asignación</strong>. <strong>Declarar</strong> = presentar la variable y su tipo (<code>entero edad</code>). <strong>Inicializar</strong> = darle su <strong>primer</strong> valor (<code>edad = 0</code>). <strong>Asignar</strong> = darle un valor <strong>nuevo</strong> después (<code>edad = 34</code>). Usar una variable <strong>declarada pero no inicializada</strong> es una fuente clásica de errores (valor «basura» en C).</div>
+<div class="callout ayto"><span class="kicker">EJEMPLO AYTO MADRID</span>En un módulo del Padrón, <code>MAX_HABITANTES_VIVIENDA</code> sería una <strong>constante</strong>; <code>dni_ciudadano</code> y <code>codigo_distrito</code>, <strong>variables</strong>; y <code>21</code> (número de distritos de Madrid) aparecería mejor como constante con nombre <code>NUM_DISTRITOS</code> que como literal repetido por el código, evitando «números mágicos» difíciles de mantener [MCCONNELL, cap. 12].</div>
+<h3>1.6. Expresiones y sentencias</h3>
+<p>Una <strong>expresión</strong> es una combinación de valores, variables, constantes, operadores y llamadas a función que, al <strong>evaluarse</strong>, produce <strong>un valor</strong> [SEBESTA, cap. 7]. Ejemplos: <code>2 + 3</code>, <code>base * altura / 2</code>, <code>edad &gt;= 18</code>.</p>
+<p>Una <strong>sentencia</strong> (o instrucción) es una <strong>orden completa</strong> que el programa ejecuta y que, por lo general, produce un <strong>efecto</strong> (cambiar una variable, decidir un camino, repetir un bloque). Tipos habituales:</p>
+<ul><li><strong>Sentencia de asignación</strong>: <code>area = base * altura</code> (evalúa la expresión de la derecha y guarda el resultado en la variable de la izquierda).</li><li><strong>Sentencia de control</strong>: <code>si</code>, <code>mientras</code>, <code>para</code>, <code>segun</code> (deciden el flujo).</li><li><strong>Sentencia de llamada</strong>: <code>imprimir(area)</code> (invoca un subprograma).</li><li><strong>Sentencia compuesta o bloque</strong>: agrupa varias sentencias como una sola (entre <code>inicio…fin</code>, <code>{ }</code> o por indentación).</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Regla mnemotécnica: <strong>una expresión se evalúa (da un valor); una sentencia se ejecuta (produce un efecto)</strong>. <code>x + 1</code> es una expresión; <code>x = x + 1</code> es una sentencia (de asignación) que contiene una expresión.</div>
+<hr>
+<h2>2. Representación de tipos de datos</h2>
+<h3>2.1. Concepto y clasificación de los tipos de datos</h3>
+<p>Un <strong>tipo de dato</strong> es la definición de un <strong>conjunto de valores</strong> posibles junto con las <strong>operaciones</strong> permitidas sobre ellos [PIERCE, cap. 1]. El tipo <code>entero</code>, por ejemplo, es el conjunto de los números enteros representables y operaciones como suma, resta o módulo. El tipo cumple tres funciones: acota los valores válidos, determina cuánta <strong>memoria</strong> ocupa el dato y permite al lenguaje <strong>detectar errores</strong> (sumar un número a un texto).</p>
+<p>Clasificación general [SEBESTA, cap. 6]:</p>
+<ul><li><strong>Tipos simples o primitivos</strong>: valores atómicos e indivisibles (entero, real, carácter, booleano).</li><li><strong>Tipos estructurados o compuestos</strong>: agrupan varios valores (array, registro, cadena, conjunto, fichero).</li><li><strong>Tipos definidos por el usuario</strong>: enumerados, subrangos, tipos abstractos y, en POO, clases (→ Tema 20).</li><li><strong>Tipos puntero/referencia</strong>: contienen la <strong>dirección</strong> de otro dato en memoria.</li></ul>
+<div class="callout ref"><span class="kicker">REFERENCIA CRUZADA</span>Cómo se <strong>codifican en binario</strong> estos tipos (complemento a dos para enteros, coma flotante IEEE 754 para reales, ASCII/Unicode para caracteres) corresponde al <strong>Tema 11</strong> (representación de la información). Las <strong>estructuras de datos abstractas</strong> que se construyen sobre estos tipos (listas, pilas, colas, árboles) se estudian en el <strong>Tema 13</strong>.</div>
+<h3>2.2. Tipos de datos simples o primitivos</h3>
+<p>Los cuatro primitivos clásicos [ISO-C; JLS]:</p>
+<ul><li><strong>Entero</strong> (<code>entero</code>, <em>int</em>): números sin parte decimal. Con signo (positivos y negativos) o sin signo. El <strong>rango</strong> depende del número de bits: un entero de 32 bits con signo abarca de −2 147 483 648 a 2 147 483 647. Si un cálculo excede el rango se produce <strong>desbordamiento</strong> (<em>overflow</em>).</li><li><strong>Real / coma flotante</strong> (<code>real</code>, <em>float</em>/<em>double</em>): números con parte decimal. Se representan según la norma <strong>IEEE 754</strong> con signo, mantisa y exponente. <strong>Precisión limitada</strong>: no todos los decimales se representan exactamente (por eso <code>0.1 + 0.2</code> no da exactamente <code>0.3</code> en coma flotante).</li><li><strong>Carácter</strong> (<code>caracter</code>, <em>char</em>): un símbolo individual (<code>'A'</code>, <code>'ñ'</code>, <code>'7'</code>). Internamente es un código numérico (ASCII de 8 bits o <strong>Unicode</strong>, que cubre prácticamente todos los idiomas). Ojo: <code>'7'</code> (carácter) ≠ <code>7</code> (entero).</li><li><strong>Booleano</strong> (<code>logico</code>, <em>bool</em>): solo dos valores, <strong>verdadero</strong> o <strong>falso</strong>. Es la base de las condiciones y de la lógica de control.</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>El tipo <strong>real</strong> tiene <strong>precisión finita</strong>: los números en coma flotante (IEEE 754) son aproximaciones. <strong>Nunca</strong> se deben comparar dos reales con <code>=</code> directamente (<code>a = b</code>); se comprueba si su diferencia es menor que una tolerancia pequeña (<code>|a − b| &lt; ε</code>). Para dinero (tributos, tasas) se recomienda <strong>entero de céntimos</strong> o un tipo decimal exacto, no coma flotante.</div>
+<div class="callout ayto"><span class="kicker">EJEMPLO AYTO MADRID</span>Al liquidar el <strong>IBI</strong>, guardar el importe como <code>real</code> puede introducir céntimos erróneos por redondeo de coma flotante. La práctica correcta es almacenar el importe en <strong>céntimos como entero</strong> (<code>long</code>) o usar un tipo <strong>decimal</strong> exacto, y redondear solo al presentar. Un error de un céntimo multiplicado por miles de recibos es un problema contable real.</div>
+<h3>2.3. Tipos de datos estructurados</h3>
+<p>Agrupan varios valores bajo una organización [SEBESTA, cap. 6]:</p>
+<ul><li><strong>Cadena de caracteres</strong> (<em>string</em>): secuencia de caracteres (<code>"Ayuntamiento de Madrid"</code>). En unos lenguajes es un tipo primitivo (Python, Java); en otros (C) es un <strong>array de caracteres</strong> terminado en nulo.</li><li><strong>Array o vector</strong>: colección <strong>indexada</strong> de elementos del <strong>mismo tipo</strong> (se desarrolla en §5.1).</li><li><strong>Registro o estructura</strong> (<em>struct</em>): colección de <strong>campos</strong> de tipos <strong>posiblemente distintos</strong> (se desarrolla en §5.2).</li><li><strong>Conjunto</strong> (<em>set</em>): colección <strong>sin orden y sin duplicados</strong> de elementos de un mismo tipo, con operaciones de unión, intersección y diferencia.</li><li><strong>Enumerado</strong> (<em>enum</em>): tipo definido por el usuario cuyos valores son una lista fija de nombres (<code>ESTADO = {ABIERTO, EN_TRAMITE, RESUELTO, ARCHIVADO}</code>). Mejora la legibilidad frente a usar números.</li><li><strong>Fichero</strong>: secuencia de datos en almacenamiento persistente (→ Tema 13 para organizaciones de ficheros).</li></ul>
+<h3>2.4. Conversión y compatibilidad de tipos</h3>
+<p>Cuando una operación mezcla tipos distintos hay que <strong>convertir</strong> (<em>type casting</em>) [SCOTT, cap. 7]:</p>
+<ul><li><strong>Conversión implícita (coerción)</strong>: la realiza <strong>automáticamente</strong> el lenguaje, normalmente <strong>ampliando</strong> (<em>widening</em>) de un tipo «menor» a uno «mayor» sin pérdida (<code>entero → real</code>). Ejemplo: en <code>3 + 2.5</code>, el <code>3</code> se convierte a <code>3.0</code> antes de sumar.</li><li><strong>Conversión explícita (cast)</strong>: la <strong>fuerza el programador</strong> indicando el tipo destino. Necesaria cuando hay riesgo de <strong>pérdida</strong> (<em>narrowing</em>, <code>real → entero</code> trunca los decimales) o el lenguaje no la hace sola.</li></ul>
+<p>El comportamiento depende del <strong>sistema de tipos</strong> del lenguaje [PIERCE, cap. 1; SEBESTA, cap. 6]:</p>
+<ul><li><strong>Tipado fuerte vs débil</strong>: un lenguaje <strong>fuertemente tipado</strong> (Java, Python) impide o controla las mezclas de tipos incoherentes; uno <strong>débilmente tipado</strong> (C en muchos casos, JavaScript) las permite con coerciones automáticas que pueden sorprender (<code>"5" + 3</code> puede dar <code>"53"</code>).</li><li><strong>Tipado estático vs dinámico</strong>: en el <strong>estático</strong> (C, Java) el tipo de cada variable se conoce y comprueba en <strong>compilación</strong>; en el <strong>dinámico</strong> (Python, JavaScript) el tipo va asociado al <strong>valor</strong> y se comprueba en <strong>ejecución</strong>, y una variable puede contener a lo largo del tiempo valores de distinto tipo.</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>No confundir los dos ejes. <strong>Fuerte/débil</strong> = cuán estricto es el lenguaje con las mezclas de tipos. <strong>Estático/dinámico</strong> = <strong>cuándo</strong> se comprueba el tipo (compilación vs ejecución). Son independientes: Python es <strong>fuerte y dinámico</strong>; C es <strong>estático y relativamente débil</strong>. → <em>Diagrama D5</em>.</div>
+<div class="callout ejercicio"><span class="kicker">EJERCICIO RESUELTO</span>¿Qué vale <code>resultado</code> tras <code>entero a = 7; entero b = 2; real resultado = a / b;</code> en un lenguaje con <strong>división entera</strong>? La división <code>a / b</code> se evalúa <strong>primero</strong> entre enteros → <code>3</code> (se pierde el decimal), y <strong>luego</strong> se convierte a real → <code>resultado = 3.0</code>, <strong>no</strong> <code>3.5</code>. Para obtener <code>3.5</code> hay que convertir <strong>antes</strong> de dividir: <code>resultado = (real) a / b</code>. Es un error clásico de examen.</div>
+<hr>
+<h2>3. Operadores</h2>
+<p>Los <strong>operadores</strong> son símbolos que representan operaciones sobre uno o varios <strong>operandos</strong> produciendo un resultado. Según el número de operandos: <strong>unarios</strong> (uno, <code>−x</code>, <code>no p</code>), <strong>binarios</strong> (dos, <code>a + b</code>) y <strong>ternario</strong> (tres, el operador condicional <code>cond ? v1 : v2</code>) [SEBESTA, cap. 7].</p>
+<h3>3.1. Operadores aritméticos</h3>
+<p>Operan sobre números y devuelven un número:</p>
+<table><thead><tr><th>Operador</th><th>Operación</th><th>Ejemplo</th><th>Resultado</th></tr></thead><tbody><tr><td><code>+</code></td><td>Suma</td><td><code>7 + 2</code></td><td><code>9</code></td></tr><tr><td><code>−</code></td><td>Resta</td><td><code>7 − 2</code></td><td><code>5</code></td></tr><tr><td><code>*</code></td><td>Multiplicación</td><td><code>7 * 2</code></td><td><code>14</code></td></tr><tr><td><code>/</code></td><td>División</td><td><code>7 / 2</code></td><td><code>3.5</code> (real) o <code>3</code> (entera)</td></tr><tr><td><code>div</code> / <code>//</code></td><td>División <strong>entera</strong></td><td><code>7 div 2</code></td><td><code>3</code></td></tr><tr><td><code>mod</code> / <code>%</code></td><td><strong>Módulo</strong> (resto)</td><td><code>7 mod 2</code></td><td><code>1</code></td></tr><tr><td><code>^</code> / <code>**</code></td><td>Potencia</td><td><code>2 ^ 10</code></td><td><code>1024</code></td></tr></tbody></table>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>El operador <strong>módulo</strong> (<code>mod</code>, <code>%</code>) devuelve el <strong>resto</strong> de la división entera. Usos típicos de examen: <code>n mod 2 == 0</code> comprueba si <code>n</code> es <strong>par</strong>; <code>n mod k == 0</code> comprueba si <code>n</code> es <strong>múltiplo</strong> de <code>k</code>. La <strong>división entera</strong> (<code>div</code>) devuelve el <strong>cociente</strong> sin decimales.</div>
+<h3>3.2. Operadores relacionales y lógicos</h3>
+<p>Los <strong>relacionales (o de comparación)</strong> comparan dos valores y devuelven un <strong>booleano</strong>:</p>
+<table><thead><tr><th>Operador</th><th>Significado</th></tr></thead><tbody><tr><td><code>==</code></td><td>Igual a</td></tr><tr><td><code>!=</code> / <code>&lt;&gt;</code></td><td>Distinto de</td></tr><tr><td><code>&lt;</code>  <code>&gt;</code></td><td>Menor / mayor que</td></tr><tr><td><code>&lt;=</code>  <code>&gt;=</code></td><td>Menor o igual / mayor o igual</td></tr></tbody></table>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>No confundir <code>=</code> (asignación: <strong>guarda</strong> un valor) con <code>==</code> (comparación: <strong>pregunta</strong> si son iguales y devuelve verdadero/falso). Escribir <code>si (x = 5)</code> en vez de <code>si (x == 5)</code> es uno de los errores más frecuentes; en muchos lenguajes ni siquiera da error de compilación y provoca un fallo lógico difícil de encontrar.</div>
+<p>Los <strong>lógicos (o booleanos)</strong> combinan condiciones:</p>
+<table><thead><tr><th>Operador</th><th>Nombre</th><th>Resultado</th></tr></thead><tbody><tr><td><code>Y</code> / <code>&amp;&amp;</code> / <code>AND</code></td><td>Conjunción</td><td>Verdadero solo si <strong>ambos</strong> operandos son verdaderos</td></tr><tr><td><code>O</code> / `</td><td></td><td><code> / </code>OR`</td><td>Disyunción</td><td>Verdadero si <strong>al menos uno</strong> es verdadero</td></tr><tr><td><code>NO</code> / <code>!</code> / <code>NOT</code></td><td>Negación</td><td>Invierte el valor (unario)</td></tr></tbody></table>
+<p>Muchos lenguajes aplican <strong>evaluación en cortocircuito</strong> (<em>short-circuit</em>): en <code>a Y b</code>, si <code>a</code> es falso, <code>b</code> <strong>ni se evalúa</strong> (el resultado ya es falso); en <code>a O b</code>, si <code>a</code> es verdadero, <code>b</code> no se evalúa. Esto se aprovecha para proteger operaciones: <code>si (divisor != 0 Y dividendo / divisor &gt; 1)</code> evita la división por cero.</p>
+<div class="callout ejercicio"><span class="kicker">EJERCICIO RESUELTO</span>Tabla de verdad de <code>(p O q) Y NO r</code> con <code>p=V, q=F, r=F</code>: <code>p O q = V O F = V</code>; <code>NO r = NO F = V</code>; <code>V Y V = V</code>. Resultado: <strong>verdadero</strong>.</div>
+<p>Existen también los <strong>operadores a nivel de bits</strong> (<em>bitwise</em>), que operan sobre la representación binaria: AND <code>&amp;</code>, OR <code>|</code>, XOR <code>^</code>, NOT <code>~</code>, desplazamientos <code>&lt;&lt;</code> y <code>&gt;&gt;</code>. Se usan en programación de bajo nivel, máscaras y optimizaciones (→ Tema 11).</p>
+<h3>3.3. Operadores de asignación y otros operadores</h3>
+<ul><li><strong>Asignación simple</strong>: <code>=</code> guarda en la variable de la izquierda el valor de la expresión de la derecha.</li><li><strong>Asignación compuesta</strong>: combina una operación con la asignación: <code>x += 3</code> equivale a <code>x = x + 3</code>; también <code>−=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>.</li><li><strong>Incremento/decremento</strong>: <code>x++</code> (post-incremento) y <code>++x</code> (pre-incremento) suman 1; <code>x--</code> resta 1. La diferencia pre/post importa cuando se usan dentro de una expresión mayor.</li><li><strong>Operador condicional (ternario)</strong>: <code>condicion ? valor_si_verdadero : valor_si_falso</code>. Ejemplo: <code>mayoria = (edad &gt;= 18) ? "sí" : "no"</code>.</li><li><strong>Operadores de acceso</strong>: al elemento de un array (<code>vector[i]</code>), al campo de un registro (<code>persona.dni</code>), o a través de un puntero.</li></ul>
+<h3>3.4. Precedencia y asociatividad</h3>
+<p>Cuando una expresión combina varios operadores, la <strong>precedencia</strong> decide <strong>cuáles se evalúan antes</strong> y la <strong>asociatividad</strong> decide el orden entre operadores de igual precedencia (normalmente de <strong>izquierda a derecha</strong>) [SEBESTA, cap. 7]. La jerarquía habitual, de mayor a menor:</p>
+<ol><li>Paréntesis <code>( )</code> — fuerzan el orden y <strong>siempre</strong> mandan.</li><li>Operadores unarios (<code>−</code>, <code>NO</code>, <code>++</code>).</li><li>Multiplicativos (<code>*</code>, <code>/</code>, <code>mod</code>).</li><li>Aditivos (<code>+</code>, <code>−</code>).</li><li>Relacionales (<code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>).</li><li>Igualdad (<code>==</code>, <code>!=</code>).</li><li>Lógico <code>Y</code>.</li><li>Lógico <code>O</code>.</li><li>Asignación (<code>=</code>, <code>+=</code>…).</li></ol>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>«Primero lo de dentro del paréntesis; luego se multiplica y divide antes de sumar y restar; las comparaciones y la lógica, al final.» En caso de duda, <strong>usar paréntesis</strong>: mejoran la legibilidad y evitan errores de precedencia. <code>2 + 3 * 4</code> = <code>2 + 12</code> = <strong>14</strong>, no <code>20</code>.</div>
+<hr>
+<h2>4. Estructuras de control</h2>
+<h3>4.1. Programación estructurada: el teorema de Böhm-Jacopini</h3>
+<p>El <strong>teorema del programa estructurado</strong> (Böhm y Jacopini, 1966) demuestra que <strong>cualquier</strong> algoritmo computable puede escribirse combinando únicamente <strong>tres</strong> estructuras de control [BOHM66]:</p>
+<ol><li><strong>Secuencia</strong>: ejecutar instrucciones una tras otra en orden.</li><li><strong>Selección</strong> (condicional): elegir entre caminos según una condición.</li><li><strong>Iteración</strong> (bucle): repetir un bloque mientras se cumpla una condición.</li></ol>
+<p>De aquí nace la <strong>programación estructurada</strong>, que proscribe el salto incondicional <strong><code>goto</code></strong> por hacer el código ilegible e inmantenible («código espagueti»), como argumentó Dijkstra en su célebre artículo de 1968 [DIJKSTRA68]. Un programa estructurado tiene <strong>un único punto de entrada y uno de salida</strong> por bloque, lo que facilita razonar sobre su corrección. → <em>Diagrama D6</em>.</p>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Las <strong>tres</strong> estructuras de control suficientes (Böhm-Jacopini, 1966) son <strong>secuencia, selección e iteración</strong>. La programación estructurada <strong>evita el <code>goto</code></strong> (Dijkstra, 1968). Es una pregunta recurrente por sus nombres y fechas.</div>
+<h3>4.2. Instrucciones condicionales</h3>
+<p>Permiten ejecutar unas instrucciones u otras según se cumpla una condición booleana [SEBESTA, cap. 8].</p>
+<p><strong>Condicional simple</strong> (<code>si</code>): ejecuta el bloque solo si la condición es verdadera.</p>
+<pre><code>si (edad &gt;= 18) entonces
+    imprimir(&quot;Mayor de edad&quot;)
+fin_si</code></pre>
+<p><strong>Condicional doble</strong> (<code>si … si_no</code>): un camino si la condición es verdadera y otro si es falsa.</p>
+<pre><code>si (nota &gt;= 5) entonces
+    imprimir(&quot;Apto&quot;)
+si_no
+    imprimir(&quot;No apto&quot;)
+fin_si</code></pre>
+<p><strong>Condicional múltiple anidado</strong> (<code>si … si_no si …</code>): encadena varias condiciones.</p>
+<pre><code>si (renta &lt; 12000) entonces
+    bonificacion = 0.50
+si_no si (renta &lt; 20000) entonces
+    bonificacion = 0.25
+si_no
+    bonificacion = 0.00
+fin_si</code></pre>
+<p><strong>Selección múltiple</strong> (<code>segun</code> / <code>switch</code> / <code>case</code>): compara una expresión contra varios valores constantes. Más legible que muchos <code>si</code> encadenados cuando se decide sobre un mismo valor discreto.</p>
+<pre><code>segun (codigo_distrito) hacer
+    caso 1: nombre = &quot;Centro&quot;
+    caso 2: nombre = &quot;Arganzuela&quot;
+    ...
+    por_defecto: nombre = &quot;Desconocido&quot;
+fin_segun</code></pre>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>En muchos lenguajes (C, Java) cada <code>caso</code> de un <code>switch</code> necesita un <strong><code>break</code></strong> para no «caer» (<em>fall-through</em>) al siguiente caso. Olvidar el <code>break</code> es un error frecuente. La rama <strong><code>por_defecto</code></strong> (<em>default</em>) captura los valores no contemplados.</div>
+<h3>4.3. Bucles e iteraciones</h3>
+<p>Repiten un bloque de instrucciones. Se distinguen por <strong>cuándo</strong> y <strong>cómo</strong> se comprueba la condición [SEBESTA, cap. 8]:</p>
+<p><strong>Bucle <code>mientras</code></strong> (<em>while</em>) — <strong>precondicional</strong>: comprueba la condición <strong>antes</strong> de cada repetición. Si es falsa de entrada, el cuerpo <strong>no se ejecuta ninguna vez</strong>.</p>
+<pre><code>i = 1
+mientras (i &lt;= 10) hacer
+    imprimir(i)
+    i = i + 1
+fin_mientras</code></pre>
+<p><strong>Bucle <code>repetir … hasta</code></strong> (<em>do-while</em>) — <strong>postcondicional</strong>: ejecuta el cuerpo <strong>y luego</strong> comprueba la condición. Se ejecuta <strong>al menos una vez</strong>.</p>
+<pre><code>repetir
+    opcion = leer_menu()
+hasta (opcion == &quot;salir&quot;)</code></pre>
+<p><strong>Bucle <code>para</code></strong> (<em>for</em>) — <strong>con contador</strong>: se usa cuando se conoce <strong>de antemano</strong> el número de repeticiones. Integra inicialización, condición e incremento del contador.</p>
+<pre><code>para i desde 1 hasta 21 hacer
+    procesar_distrito(i)
+fin_para</code></pre>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Diferencia clave: el <strong><code>mientras</code></strong> (precondicional) puede ejecutarse <strong>cero</strong> veces; el <strong><code>repetir…hasta</code></strong> (postcondicional) se ejecuta <strong>como mínimo una</strong> vez. El <strong><code>para</code></strong> se usa cuando el número de iteraciones es <strong>conocido</strong>; el <code>mientras</code>, cuando depende de una condición que puede cambiar. → <em>Diagrama D7</em>.</div>
+<p><strong>Control del bucle</strong>: <code>romper</code> (<em>break</em>) sale del bucle inmediatamente; <code>continuar</code> (<em>continue</em>) salta a la siguiente iteración. Un <strong>bucle infinito</strong> ocurre cuando la condición nunca se hace falsa (olvidar incrementar el contador) — error grave que cuelga el programa.</p>
+<div class="callout ejercicio"><span class="kicker">EJERCICIO RESUELTO</span>¿Cuántas veces se imprime? <code>i = 5; mientras (i &lt; 5) hacer imprimir(i); i = i + 1; fin_mientras</code>. La condición <code>5 &lt; 5</code> es <strong>falsa</strong> de entrada → el cuerpo se ejecuta <strong>0 veces</strong>. Si fuera <code>repetir imprimir(i); i=i+1; hasta (i&gt;=5)</code> con <code>i=5</code>, imprimiría <strong>una</strong> vez (postcondicional).</div>
+<h3>4.4. Recursividad</h3>
+<p>La <strong>recursividad</strong> es la técnica por la cual una función <strong>se llama a sí misma</strong> para resolver un problema descomponiéndolo en subproblemas más pequeños del mismo tipo [ABELSON, cap. 1; CLRS, cap. 2]. Toda función recursiva <strong>bien construida</strong> tiene dos partes:</p>
+<ul><li><strong>Caso base</strong>: la condición de parada, un caso tan simple que se resuelve directamente <strong>sin</strong> volver a llamarse. <strong>Imprescindible</strong>: sin él la recursión no termina.</li><li><strong>Caso recursivo</strong>: la función se llama a sí misma con un problema <strong>más pequeño</strong>, acercándose al caso base.</li></ul>
+<p>Ejemplo clásico, el <strong>factorial</strong> (n! = n × (n−1)!):</p>
+<pre><code>funcion factorial(n)
+    si (n &lt;= 1) entonces          // caso base
+        devolver 1
+    si_no
+        devolver n * factorial(n - 1)   // caso recursivo
+    fin_si
+fin_funcion</code></pre>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Una función recursiva <strong>debe</strong> tener <strong>caso base</strong> (parada) y <strong>caso recursivo</strong> (que se acerque al caso base). Si falta el caso base o no se avanza hacia él, se produce <strong>recursión infinita</strong> y se agota la <strong>pila</strong> de llamadas (<em>stack overflow</em>). Cada llamada pendiente ocupa un marco en la <strong>pila</strong>.</div>
+<p><strong>Recursividad vs iteración</strong>: todo algoritmo recursivo puede reescribirse de forma <strong>iterativa</strong> (con un bucle) y viceversa [CLRS]. La recursión suele ser <strong>más elegante y legible</strong> para problemas naturalmente recursivos (recorridos de árboles, <em>divide y vencerás</em>, Torres de Hanói), pero consume <strong>más memoria</strong> (marcos de pila) y puede ser más lenta. La iteración es más eficiente en memoria. → <em>Diagrama D8</em>.</p>
+<div class="callout ejercicio"><span class="kicker">EJERCICIO RESUELTO</span>Traza de <code>factorial(4)</code>: <code>factorial(4) = 4 <em> factorial(3) = 4 </em> (3 <em> factorial(2)) = 4 </em> (3 <em> (2 </em> factorial(1)))</code>. <code>factorial(1)</code> es el caso base → <code>1</code>. Se «desenrolla»: <code>2<em>1=2</code>, <code>3</em>2=6</code>, <code>4*6=24</code>. Resultado <strong>24</strong>. Hubo 4 llamadas apiladas.</div>
+<div class="callout ref"><span class="kicker">REFERENCIA CRUZADA</span>El análisis del <strong>coste</strong> de los algoritmos recursivos e iterativos (notación O grande, ecuaciones de recurrencia) y las estructuras de datos sobre las que operan (pilas, árboles) se desarrollan en el <strong>Tema 13</strong> (Tipos abstractos, estructuras de datos y algoritmos).</div>
+<h3>4.5. Programación modular: procedimientos y funciones</h3>
+<p>La <strong>modularidad</strong> consiste en dividir un programa grande en <strong>subprogramas</strong> (módulos) pequeños, con una responsabilidad clara, que se pueden desarrollar, probar y reutilizar por separado. Es la aplicación del principio «divide y vencerás» al diseño del software [ABELSON; MCCONNELL, cap. 5]. Un <strong>subprograma</strong> tiene un nombre, recibe <strong>parámetros</strong> (datos de entrada) y encapsula un bloque de código. Dos variantes:</p>
+<ul><li><strong>Función</strong>: subprograma que <strong>devuelve un valor</strong> como resultado (<code>funcion area(base, altura) … devolver base * altura</code>). Se usa dentro de expresiones.</li><li><strong>Procedimiento</strong>: subprograma que <strong>no devuelve valor</strong>; ejecuta una acción por sus <strong>efectos</strong> (<code>procedimiento imprimir_recibo(datos) …</code>). En muchos lenguajes modernos (C, Java) se unifican como funciones que devuelven «nada» (<code>void</code>).</li></ul>
+<p>Ventajas de la modularidad [MCCONNELL, cap. 5-6]: <strong>reutilización</strong> (escribir una vez, usar muchas), <strong>legibilidad</strong>, <strong>mantenimiento</strong> (un cambio en un solo sitio), <strong>abstracción</strong> (usar un módulo sabiendo qué hace sin saber cómo) y <strong>prueba</strong> independiente. El <strong>acoplamiento</strong> entre módulos debe ser <strong>bajo</strong> y la <strong>cohesión</strong> dentro de cada módulo, <strong>alta</strong>.</p>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span><strong>Función</strong> = devuelve un valor (se usa en una expresión). <strong>Procedimiento</strong> = no devuelve valor, actúa por sus efectos. La <strong>firma</strong> (o cabecera) de un subprograma es su nombre + la lista de parámetros + el tipo devuelto. La <strong>interfaz</strong> es lo que el módulo expone; la <strong>implementación</strong>, cómo lo hace por dentro (encapsulación).</div>
+<h3>4.6. Parámetros y mecanismos de paso de argumentos</h3>
+<p>Hay que distinguir [SCOTT, cap. 8; SEBESTA, cap. 9]:</p>
+<ul><li><strong>Parámetro formal</strong>: la variable que aparece en la <strong>definición</strong> del subprograma (<code>funcion area(base, altura)</code> → <code>base</code>, <code>altura</code>).</li><li><strong>Argumento (o parámetro real)</strong>: el valor concreto que se pasa en la <strong>llamada</strong> (<code>area(10, 5)</code> → <code>10</code>, <code>5</code>).</li></ul>
+<p>Los <strong>mecanismos de paso</strong> más importantes:</p>
+<ul><li><strong>Paso por valor</strong>: se pasa una <strong>copia</strong> del argumento. El subprograma trabaja sobre la copia; los cambios <strong>no</strong> afectan a la variable original del llamador. Es el más seguro y el predeterminado en muchos lenguajes (Java para primitivos, C por defecto).</li><li><strong>Paso por referencia</strong>: se pasa la <strong>dirección</strong> (referencia) de la variable original. El subprograma accede a la variable real; los cambios <strong>sí</strong> persisten fuera. Permite que un subprograma modifique datos del llamador o devuelva varios resultados. En C se emula con <strong>punteros</strong>; en C++ y otros hay referencias explícitas.</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span><strong>Por valor</strong> = se copia el argumento → el original <strong>no</strong> cambia. <strong>Por referencia</strong> = se pasa la dirección → el original <strong>sí</strong> puede cambiar. Matiz frecuente: en Java y Python los <strong>objetos</strong> se pasan «por valor de la referencia», por lo que se puede modificar el objeto apuntado pero no reasignar la variable del llamador; los <strong>primitivos</strong> en Java van siempre por valor.</div>
+<div class="callout ejercicio"><span class="kicker">EJERCICIO RESUELTO</span><code>procedimiento duplica(x) { x = x * 2 }</code>. Si <code>a = 10</code> y llamamos <code>duplica(a)</code>: <strong>por valor</strong>, <code>a</code> sigue valiendo <strong>10</strong> (se duplicó la copia); <strong>por referencia</strong>, <code>a</code> pasa a <strong>20</strong> (se duplicó el original). Es un clásico de examen para distinguir ambos mecanismos.</div>
+<p>Otros mecanismos citados en la bibliografía: <strong>por valor-resultado</strong> (copia-restaura), <strong>por nombre</strong> (sustitución textual, en Algol) y <strong>por defecto</strong> (parámetros con valor predefinido si se omiten, en Python).</p>
+<h3>4.7. Ámbito y ciclo de vida de las variables</h3>
+<p>El <strong>ámbito</strong> (<em>scope</em>) de una variable es la <strong>región del programa donde es visible</strong> y se puede usar [SCOTT, cap. 3; SEBESTA, cap. 5]:</p>
+<ul><li><strong>Variable local</strong>: declarada <strong>dentro</strong> de un subprograma o bloque; solo es visible ahí. Distintos subprogramas pueden tener variables locales con el mismo nombre sin interferir.</li><li><strong>Variable global</strong>: declarada <strong>fuera</strong> de todo subprograma; visible desde cualquier parte del programa. Cómodas pero <strong>peligrosas</strong>: crean acoplamiento oculto y dificultan el mantenimiento; se desaconseja abusar de ellas [MCCONNELL, cap. 13].</li><li><strong>Ámbito de bloque</strong>: en lenguajes modernos, una variable declarada dentro de un <code>{ }</code> o de un bucle solo vive en ese bloque.</li></ul>
+<p>Cuando una variable local tiene el mismo nombre que una global, la local <strong>oculta</strong> (<em>shadowing</em>) a la global dentro de su ámbito.</p>
+<p>El <strong>tiempo de vida</strong> (<em>lifetime</em>) es el periodo durante el cual la variable <strong>existe en memoria</strong> [SCOTT, cap. 3]:</p>
+<ul><li><strong>Automática</strong>: la variable local nace al entrar en el subprograma y <strong>muere al salir</strong> (se ubica en la <strong>pila</strong>). Es el caso normal.</li><li><strong>Estática</strong>: conserva su valor entre llamadas sucesivas al subprograma (palabra <code>static</code> en C).</li><li><strong>Dinámica</strong>: se reserva y libera <strong>explícitamente</strong> en tiempo de ejecución (memoria del <em><strong>heap</strong></em>/montículo, con <code>new</code>/<code>malloc</code>); su vida la controla el programador o el recolector de basura.</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span><strong>Ámbito</strong> = <strong>dónde</strong> es visible la variable (local/global). <strong>Tiempo de vida</strong> = <strong>cuánto tiempo</strong> existe en memoria. No son lo mismo: una variable <code>static</code> local tiene ámbito local (solo visible en su función) pero tiempo de vida <strong>global</strong> (persiste entre llamadas). La memoria se organiza en <strong>pila</strong> (variables automáticas, marcos de llamada) y <em><strong>heap</strong></em> (memoria dinámica). → <em>Diagrama D9</em>.</div>
+<div class="callout ayto"><span class="kicker">EJEMPLO AYTO MADRID</span>En un módulo que calcula la tasa de un expediente, <code>importe_base</code> y <code>bonificacion</code> deben ser <strong>variables locales</strong> de la función de cálculo, no globales: así dos expedientes tramitados «a la vez» (dos llamadas) no se pisan los valores. Reservar una tabla de los 21 distritos que debe sobrevivir a toda la ejecución sería un caso de dato con <strong>tiempo de vida</strong> largo (estático o en <em>heap</em>).</div>
+<hr>
+<h2>5. Estructuras de datos básicas</h2>
+<h3>5.1. Vectores o arrays</h3>
+<p>Un <strong>array</strong> (vector o arreglo) es una colección de elementos del <strong>mismo tipo</strong>, almacenados en posiciones <strong>contiguas</strong> de memoria y accesibles mediante un <strong>índice</strong> [KNUTH1, cap. 2]. Sus rasgos definitorios:</p>
+<ul><li><strong>Homogéneo</strong>: todos los elementos son del mismo tipo.</li><li><strong>Tamaño fijo</strong> (en arrays estáticos): se declara de antemano.</li><li><strong>Acceso directo</strong> por índice en tiempo <strong>constante</strong> O(1): <code>notas[3]</code> va directamente al cuarto elemento sin recorrer los anteriores. Esta es su gran ventaja.</li></ul>
+<pre><code>declarar poblacion : array[1..21] de entero   // 21 distritos
+poblacion[1] = 149000                          // asignar
+total = poblacion[1] + poblacion[2]            // leer</code></pre>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Los índices suelen empezar en <strong>0</strong> (C, Java, Python) o en <strong>1</strong> (según el pseudocódigo). Acceder a un índice fuera del rango declarado (<code>array[i]</code> con <code>i</code> inválido) es un error grave: en C corrompe memoria silenciosamente; en Java/Python lanza una <strong>excepción</strong> (<code>IndexOutOfBounds</code>). El acceso por índice es <strong>O(1)</strong> (constante).</div>
+<p>Un <strong>array multidimensional</strong> (matriz) usa varios índices: <code>tarifa[distrito][tramo]</code>. Un array de dos dimensiones se recorre con <strong>bucles anidados</strong>.</p>
+<div class="callout ref"><span class="kicker">REFERENCIA CRUZADA</span>El array es la base para construir estructuras de datos más ricas —listas, pilas, colas, tablas <em>hash</em>— que se estudian como <strong>tipos abstractos de datos</strong> en el <strong>Tema 13</strong>. Frente a la <strong>lista enlazada</strong>, el array da acceso directo O(1) pero coste alto al insertar/borrar en medio (hay que desplazar elementos).</div>
+<h3>5.2. Registros o estructuras</h3>
+<p>Un <strong>registro</strong> (<em>struct</em> o estructura) agrupa varios <strong>campos</strong> de tipos <strong>posiblemente distintos</strong> bajo un único nombre, para representar una <strong>entidad</strong> con varios atributos [KNUTH1; K&amp;R, cap. 6]. A diferencia del array (homogéneo, acceso por índice), el registro es <strong>heterogéneo</strong> y se accede por <strong>nombre de campo</strong>.</p>
+<pre><code>tipo Ciudadano = registro
+    dni        : cadena
+    nombre     : cadena
+    edad       : entero
+    distrito   : entero
+    empadronado: logico
+fin_registro
+
+declarar c : Ciudadano
+c.dni = &quot;12345678Z&quot;        // acceso por nombre de campo con el punto
+c.edad = 34</code></pre>
+<p>Combinando ambos se obtiene un <strong>array de registros</strong>, la estructura más habitual para representar una tabla o listado: <code>declarar censo : array[1..N] de Ciudadano</code> → <code>censo[i].nombre</code>.</p>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span><strong>Array vs registro</strong>: el <strong>array</strong> agrupa elementos del <strong>mismo tipo</strong> y se accede por <strong>índice</strong> (<code>v[i]</code>); el <strong>registro</strong> agrupa campos de <strong>tipos distintos</strong> y se accede por <strong>nombre de campo</strong> (<code>r.campo</code>). Un <strong>array de registros</strong> combina ambos y es la representación natural de una tabla de datos.</div>
+<div class="callout ayto"><span class="kicker">EJEMPLO AYTO MADRID</span>El <strong>Padrón Municipal</strong> se modela de forma natural como un <strong>array (o lista) de registros</strong> <code>Habitante</code>, con campos <code>dni</code>, <code>nombre</code>, <code>fecha_nacimiento</code>, <code>codigo_distrito</code>, <code>codigo_via</code>. Cada habitante es un registro; el censo completo, la colección. Esta representación en memoria es el paso previo a persistirlo en una <strong>base de datos relacional</strong> (Temas 17 y 19), donde el registro se convierte en <strong>fila</strong> y los campos en <strong>columnas</strong>.</div>
+<h3>5.3. Operaciones fundamentales sobre vectores y registros</h3>
+<p>Operaciones típicas sobre un <strong>array</strong> [CLRS; KNUTH1]:</p>
+<ul><li><strong>Recorrido</strong>: visitar todos los elementos con un bucle <code>para</code> (para sumar, imprimir, transformar).</li><li><strong>Búsqueda</strong>: localizar un elemento. <strong>Secuencial/lineal</strong>: recorrer hasta encontrarlo, O(n); sirve en cualquier array. <strong>Binaria (dicotómica)</strong>: sobre un array <strong>ordenado</strong>, divide el rango a la mitad en cada paso, O(log n) — mucho más rápida.</li><li><strong>Inserción / borrado</strong>: añadir o quitar un elemento; en un array puede exigir <strong>desplazar</strong> los demás (coste O(n)).</li><li><strong>Ordenación</strong>: reordenar los elementos (métodos de la burbuja, inserción, <em>quicksort</em>, <em>mergesort</em> — detalle en Tema 13).</li><li><strong>Actualización</strong>: modificar el valor de una posición (<code>v[i] = nuevo</code>).</li></ul>
+<p>Sobre un <strong>registro</strong>: <strong>acceso</strong> a un campo (lectura), <strong>modificación</strong> de un campo, y <strong>copia</strong> del registro completo.</p>
+<div class="callout ejercicio"><span class="kicker">EJERCICIO RESUELTO</span>Suma y máximo de un array <code>v</code> de <code>n</code> enteros (un solo recorrido):</div>
+<pre><code>funcion resumen(v, n)
+    suma = 0
+    maximo = v[1]
+    para i desde 1 hasta n hacer
+        suma = suma + v[i]
+        si (v[i] &gt; maximo) entonces
+            maximo = v[i]
+        fin_si
+    fin_para
+    devolver (suma, maximo)
+fin_funcion</code></pre>
+<p>Un único recorrido O(n) calcula ambos resultados; inicializar <code>maximo</code> con el <strong>primer</strong> elemento (no con 0) evita errores si todos los valores son negativos.</p>
+<hr>
+<h2>6. Estructura de un programa</h2>
+<h3>6.1. Organización del código</h3>
+<p>Aunque varía según el lenguaje, un programa de alto nivel suele organizarse en estas partes [MCCONNELL, cap. 4; SEBESTA, cap. 1]:</p>
+<ol><li><strong>Cabecera / importaciones</strong>: inclusión de bibliotecas y módulos externos que se van a usar (<code>#include</code>, <code>import</code>, <code>using</code>).</li><li><strong>Declaraciones globales</strong>: constantes, tipos y (con moderación) variables globales.</li><li><strong>Definición de subprogramas</strong>: las funciones y procedimientos.</li><li><strong>Programa principal</strong> (<code>main</code>): el punto de entrada por donde comienza la ejecución; orquesta las llamadas a los subprogramas.</li></ol>
+<p>Un buen código separa <strong>datos</strong> (tipos, estructuras), <strong>lógica</strong> (funciones) y <strong>flujo principal</strong>, y agrupa lo relacionado en <strong>módulos/ficheros</strong> cohesionados. La organización física en archivos y paquetes refleja la organización lógica.</p>
+<div class="callout ayto"><span class="kicker">EJEMPLO AYTO MADRID</span>Una aplicación de gestión de tributos se organizaría en módulos: <code>padron</code> (altas/consultas de habitantes), <code>tributos</code> (cálculo de IBI, IVTM, tasas), <code>expedientes</code> (tramitación) y <code>comun</code> (utilidades, constantes como <code>NUM_DISTRITOS = 21</code>, tipos como <code>Ciudadano</code>). Cada módulo con <strong>alta cohesión</strong> (hace una cosa) y <strong>bajo acoplamiento</strong> (depende poco de los demás), de modo que tocar el cálculo del IBI no obligue a recompilar el Padrón.</div>
+<h3>6.2. Buenas prácticas de programación</h3>
+<p>Prácticas ampliamente aceptadas para escribir código de calidad [MCCONNELL; KP]:</p>
+<ul><li><strong>Nombres significativos</strong>: <code>importe_total</code> mejor que <code>x</code>; los nombres deben revelar la intención.</li><li><strong>Sangría (indentación) y formato consistentes</strong>: hacen visible la estructura de bloques y anidamientos.</li><li><strong>Modularidad</strong>: funciones cortas, con una única responsabilidad; evitar funciones kilométricas.</li><li><strong>Evitar «números mágicos»</strong>: sustituir literales por constantes con nombre.</li><li><strong>No repetir código</strong> (principio <strong>DRY</strong>, <em>Don't Repeat Yourself</em>): factorizar lo común en funciones.</li><li><strong>Comentarios útiles</strong>: explicar el <strong>porqué</strong>, no el <strong>qué</strong> obvio; mantenerlos actualizados.</li><li><strong>Programación defensiva</strong>: validar entradas, comprobar rangos, controlar errores y casos límite (divisor cero, array vacío, nulos).</li><li><strong>KISS</strong> (<em>Keep It Simple</em>): preferir la solución simple a la ingeniosa pero opaca.</li><li><strong>Control de versiones</strong>: gestionar el código con herramientas como Git.</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Siglas frecuentes: <strong>DRY</strong> (no repetir código), <strong>KISS</strong> (mantenlo simple), <strong>YAGNI</strong> (<em>You Aren't Gonna Need It</em>: no programar lo que no hace falta aún). La <strong>legibilidad</strong> prima: el código se lee muchas más veces de las que se escribe [MCCONNELL].</div>
+<h3>6.3. Documentación, pruebas y mantenimiento</h3>
+<p><strong>Documentación</strong> [MCCONNELL, cap. 32]:</p>
+<ul><li><strong>Interna</strong>: comentarios en el propio código y nombres autoexplicativos.</li><li><strong>Externa</strong>: manuales técnicos, de usuario, documentación de la API (a veces generada desde comentarios, como <em>Javadoc</em>).</li></ul>
+<p><strong>Pruebas</strong> (<em>testing</em>) — verificar que el programa hace lo esperado [KP, cap. 6]:</p>
+<ul><li><strong>Pruebas unitarias</strong>: comprueban una función o módulo aislado.</li><li><strong>Pruebas de integración</strong>: comprueban que los módulos funcionan juntos.</li><li><strong>Pruebas de sistema y de aceptación</strong>: el conjunto completo frente a los requisitos, con el usuario.</li><li><strong>Caja blanca vs caja negra</strong>: mirando el código interno (cobertura de caminos) vs solo entradas/salidas.</li><li><strong>Depuración</strong> (<em>debugging</em>): localizar y corregir los errores (<em>bugs</em>) que las pruebas revelan.</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>No confundir tipos de error. <strong>Error de compilación (sintáctico)</strong>: el código no cumple la gramática; no llega a ejecutarse. <strong>Error de ejecución (runtime)</strong>: falla al ejecutar (división por cero, índice fuera de rango). <strong>Error lógico</strong>: el programa se ejecuta sin fallar pero da un <strong>resultado incorrecto</strong> — el más difícil de detectar, se caza con <strong>pruebas</strong>.</div>
+<p><strong>Mantenimiento</strong> — la fase <strong>más larga y costosa</strong> del ciclo de vida del software [ISO25010]. Tipos:</p>
+<ul><li><strong>Correctivo</strong>: arreglar errores detectados.</li><li><strong>Adaptativo</strong>: ajustar el software a cambios del entorno (nueva ley, nuevo sistema operativo).</li><li><strong>Perfectivo</strong>: mejorar rendimiento o añadir funcionalidad.</li><li><strong>Preventivo</strong>: mejorar la estructura para facilitar el mantenimiento futuro (refactorización).</li></ul>
+<p>La <strong>mantenibilidad</strong> —lo fácil que resulta modificar el software— es un atributo de calidad de la norma <strong>ISO/IEC 25010</strong> y depende directamente de las buenas prácticas de §6.2.</p>
+<div class="callout ref"><span class="kicker">REFERENCIA CRUZADA</span>Los aspectos de <strong>seguridad en el desarrollo</strong> (validación de entradas frente a inyecciones, gestión segura de errores) se tratan en el <strong>Tema 25</strong>; la materialización de estos programas como <strong>aplicaciones web</strong> y <strong>lenguajes de script</strong>, en el <strong>Tema 23</strong>; y el salto al paradigma de <strong>objetos</strong> (clases, herencia, encapsulación) que reorganiza esta «estructura de un programa», en el <strong>Tema 20</strong>.</div>
+<hr>
+<h2>7. Tendencias actuales en los lenguajes de programación</h2>
+<p>El diseño de lenguajes evoluciona, pero los fundamentos de este tema (tipos, operadores, control, modularidad) permanecen. Las <strong>líneas de fondo</strong> más relevantes en la actualidad —planteadas de forma duradera, sin atarse a versiones concretas— son [SEBESTA, cap. 1; SCOTT, cap. 1]:</p>
+<ul><li><strong>Seguridad de memoria y de tipos</strong>: lenguajes modernos (p. ej. Rust) buscan eliminar en tiempo de compilación errores clásicos de C (accesos inválidos, fugas de memoria) sin recolector de basura, mediante sistemas de propiedad. Es una respuesta a que gran parte de las vulnerabilidades graves proceden de la gestión manual de memoria.</li><li><strong>Tipado gradual</strong>: acercar lo mejor del tipado estático y del dinámico, añadiendo <strong>anotaciones de tipo opcionales</strong> a lenguajes dinámicos (<em>type hints</em> en Python, TypeScript sobre JavaScript) para detectar errores antes sin perder flexibilidad.</li><li><strong>Auge del paradigma funcional</strong>: características funcionales (funciones como valores, inmutabilidad, expresiones lambda, <em>map/filter/reduce</em>) incorporadas a lenguajes imperativos y orientados a objetos (Java, C#, Python, JavaScript) por su encaje con la <strong>concurrencia</strong>.</li><li><strong>Concurrencia y paralelismo</strong>: con los procesadores multinúcleo, los lenguajes ofrecen modelos de alto nivel (corrutinas, <em>async/await</em>, actores) para aprovechar varios núcleos con menos errores que los hilos tradicionales.</li><li><strong>Multiplataforma y web</strong>: <em>bytecode</em> y máquinas virtuales, <strong>WebAssembly</strong> (WASM) para ejecutar código de alto rendimiento en el navegador, y lenguajes/<em>frameworks</em> que compilan a múltiples destinos.</li><li><strong>Productividad e IA</strong>: <strong>asistentes de programación basados en IA</strong> (autocompletado y generación de código) que aceleran el desarrollo, y plataformas <strong>low-code / no-code</strong> que permiten construir aplicaciones sencillas con poca o ninguna escritura de código. No sustituyen el criterio del programador: exigen saber leer, validar y corregir el código resultante.</li></ul>
+<div class="callout dato"><span class="kicker">DATO CLAVE EXAMEN</span>Tendencias de fondo (no memorizar versiones): <strong>seguridad de memoria</strong> (Rust), <strong>tipado gradual</strong> (TypeScript, <em>type hints</em> de Python), rasgos <strong>funcionales</strong> e <strong>inmutabilidad</strong> en lenguajes clásicos, <strong>concurrencia</strong> de alto nivel (<em>async/await</em>), <strong>WebAssembly</strong> y <strong>asistentes de IA / low-code</strong>. Los <strong>fundamentos</strong> del tema (tipos, operadores, estructuras de control, modularidad) siguen plenamente vigentes por debajo de todas ellas.</div>
+<div class="callout ayto"><span class="kicker">EJEMPLO AYTO MADRID</span>En una administración, estas tendencias se traducen en decisiones prácticas: elegir lenguajes con <strong>tipado</strong> que reduzca errores en aplicaciones críticas (tributos, Padrón), aprovechar el <strong>tipado gradual</strong> para modernizar aplicaciones heredadas sin reescribirlas, y adoptar asistentes de IA <strong>con revisión humana</strong> y control de versiones, garantizando siempre la <strong>trazabilidad</strong> y la seguridad que exige el Esquema Nacional de Seguridad (Tema 39).</div></section>
+<section id="tab-indice" class="tab-content"><hr>
+<h2>Estructura del tema</h2>
+<div class="indice-outline"><ol style="list-style:none"><li><strong>1. Lenguajes de programación</strong><ol style="list-style:none"><li>1.1. Concepto de lenguaje de programación</li><li>1.2. Evolución y clasificación de los lenguajes</li><li>1.3. Elementos fundamentales de un lenguaje</li><li>1.4. Sintaxis, semántica y pragmática</li><li>1.5. Variables, constantes e identificadores</li><li>1.6. Expresiones y sentencias</li></ol></li><li><strong>2. Representación de tipos de datos</strong><ol style="list-style:none"><li>2.1. Concepto y clasificación de los tipos de datos</li><li>2.2. Tipos de datos simples o primitivos</li><li>2.3. Tipos de datos estructurados</li><li>2.4. Conversión y compatibilidad de tipos</li></ol></li><li><strong>3. Operadores</strong><ol style="list-style:none"><li>3.1. Operadores aritméticos</li><li>3.2. Operadores relacionales y lógicos</li><li>3.3. Operadores de asignación y otros operadores</li><li>3.4. Precedencia y asociatividad</li></ol></li><li><strong>4. Estructuras de control</strong><ol style="list-style:none"><li>4.1. Programación estructurada: el teorema de Böhm-Jacopini</li><li>4.2. Instrucciones condicionales</li><li>4.3. Bucles e iteraciones</li><li>4.4. Recursividad</li><li>4.5. Programación modular: procedimientos y funciones</li><li>4.6. Parámetros y mecanismos de paso de argumentos</li><li>4.7. Ámbito y ciclo de vida de las variables</li></ol></li><li><strong>5. Estructuras de datos básicas</strong><ol style="list-style:none"><li>5.1. Vectores o arrays</li><li>5.2. Registros o estructuras</li><li>5.3. Operaciones fundamentales sobre vectores y registros</li></ol></li><li><strong>6. Estructura de un programa</strong><ol style="list-style:none"><li>6.1. Organización del código</li><li>6.2. Buenas prácticas de programación</li><li>6.3. Documentación, pruebas y mantenimiento</li></ol></li><li><strong>7. Tendencias actuales en los lenguajes de programación</strong></li></ol></div>
+<h2>Conceptos clave para memorizar</h2>
+<table><thead><tr><th>Concepto</th><th>Dato clave</th></tr></thead><tbody><tr><td>Lenguaje de programación</td><td>Notación formal para expresar algoritmos que una máquina puede ejecutar; tiene léxico, sintaxis y semántica</td></tr><tr><td>Nivel del lenguaje</td><td>Bajo (máquina, ensamblador) ↔ alto (cercano al humano, independiente de la máquina)</td></tr><tr><td>Generaciones</td><td>1GL máquina · 2GL ensamblador · 3GL estructurados (C, Java) · 4GL declarativos (SQL) · 5GL lógicos/IA</td></tr><tr><td>Paradigma</td><td>Imperativo, declarativo (funcional, lógico), orientado a objetos — formas de estructurar el programa</td></tr><tr><td>Traductor</td><td>Compilador (traduce todo antes) vs intérprete (traduce y ejecuta línea a línea)</td></tr><tr><td>Sintaxis / Semántica / Pragmática</td><td>Forma (reglas gramaticales) / significado / uso en la práctica</td></tr><tr><td>Identificador</td><td>Nombre que damos a variables, constantes, funciones…</td></tr><tr><td>Variable / Constante</td><td>Espacio de memoria con nombre cuyo valor cambia / valor fijo que no cambia</td></tr><tr><td>Tipo de dato</td><td>Conjunto de valores + operaciones permitidas sobre ellos</td></tr><tr><td>Tipos primitivos</td><td>Entero, real (coma flotante IEEE 754), carácter, booleano</td></tr><tr><td>Tipos estructurados</td><td>Array (vector), registro (struct), cadena, conjunto, fichero</td></tr><tr><td>Tipado fuerte / débil</td><td>Cuánto controla el lenguaje las mezclas de tipos</td></tr><tr><td>Tipado estático / dinámico</td><td>El tipo se comprueba en compilación / en ejecución</td></tr><tr><td>Casting</td><td>Conversión de tipo, implícita (automática) o explícita (forzada por el programador)</td></tr><tr><td>Operadores</td><td>Aritméticos, relacionales, lógicos, de asignación, a nivel de bits</td></tr><tr><td>Precedencia</td><td>Orden en que se evalúan los operadores en una expresión</td></tr><tr><td>Estructuras de control</td><td>Secuencia, selección (if/switch) e iteración (bucles)</td></tr><tr><td>Recursividad</td><td>Función que se llama a sí misma; necesita <strong>caso base</strong> y <strong>caso recursivo</strong></td></tr><tr><td>Procedimiento / Función</td><td>Subprograma sin valor de retorno / que devuelve un valor</td></tr><tr><td>Paso por valor / por referencia</td><td>Se copia el valor del argumento / se pasa su dirección (puede modificar el original)</td></tr><tr><td>Ámbito (scope)</td><td>Zona del programa donde una variable es visible (local, global)</td></tr><tr><td>Tiempo de vida</td><td>Periodo en que la variable existe en memoria</td></tr><tr><td>Array</td><td>Colección indexada de elementos del <strong>mismo</strong> tipo, contiguos en memoria</td></tr><tr><td>Registro</td><td>Colección de campos de tipos <strong>distintos</strong> agrupados bajo un nombre</td></tr><tr><td>Programa estructurado</td><td>Solo secuencia, selección e iteración; sin <code>goto</code> (Böhm-Jacopini)</td></tr></tbody></table>
+<p><em>Tiempo estimado de estudio: 12-14 horas</em></p>
+<p><em>Extensión del contenido: ~13.000-15.000 palabras · 12 diagramas SVG embebidos</em></p></section>
+<section id="tab-diagramas" class="tab-content"><hr>
+<hr>
+<h2>Índice de diagramas</h2>
+<table><thead><tr><th>ID</th><th>Título</th><th>Sección</th><th>Tipo</th><th>Formato</th></tr></thead><tbody><tr><td>D1</td><td>Niveles y generaciones de lenguajes</td><td>§1.2</td><td>Escala</td><td>660×320</td></tr><tr><td>D2</td><td>Compilador frente a intérprete</td><td>§1.2</td><td>Flujo</td><td>680×300</td></tr><tr><td>D3</td><td>Sintaxis, semántica y pragmática</td><td>§1.4</td><td>Bloques</td><td>660×300</td></tr><tr><td>D4</td><td>Clasificación de los tipos de datos</td><td>§2.1</td><td>Árbol</td><td>680×320</td></tr><tr><td>D5</td><td>Sistema de tipos: dos ejes</td><td>§2.4</td><td>Matriz</td><td>640×360</td></tr><tr><td>D6</td><td>Las tres estructuras de control</td><td>§4.1</td><td>Comparativa</td><td>680×300</td></tr><tr><td>D7</td><td>Tipos de bucle</td><td>§4.3</td><td>Comparativa</td><td>680×320</td></tr><tr><td>D8</td><td>Recursividad: pila del factorial</td><td>§4.4</td><td>Pila</td><td>640×340</td></tr><tr><td>D9</td><td>Memoria: pila y montículo</td><td>§4.7</td><td>Estructura</td><td>660×320</td></tr><tr><td>D10</td><td>Paso por valor y por referencia</td><td>§4.6</td><td>Comparativa</td><td>680×300</td></tr><tr><td>D11</td><td>Array frente a registro</td><td>§5.2</td><td>Comparativa</td><td>680×320</td></tr><tr><td>D12</td><td>Estructura de un programa</td><td>§6.1</td><td>Bloques</td><td>640×340</td></tr></tbody></table>
+<hr>
+<h2>D1 · Niveles y generaciones de lenguajes</h2>
+<p><strong>Sección</strong>: §1.2 — Evolución y clasificación de los lenguajes <strong>Propósito</strong>: Situar los lenguajes del más cercano a la máquina (1GL) al más cercano al humano (5GL).</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 320" role="img" aria-label="Escala de generaciones de lenguajes desde lenguaje máquina de bajo nivel hasta lenguajes de quinta generación de alto nivel">
+  <style>.t1{font:700 13px system-ui,sans-serif;fill:#fff}.s1{font:11px system-ui,sans-serif;fill:#fff}.l1{font:11px system-ui,sans-serif;fill:#444}.h1{font:700 13px system-ui,sans-serif;fill:#0055a0}</style>
+  <text x="330" y="26" text-anchor="middle" class="h1">De la máquina al humano: generaciones de lenguajes</text>
+  <rect x="150" y="44" width="400" height="42" rx="5" fill="#003d73"/><text x="350" y="62" text-anchor="middle" class="t1">1GL · Lenguaje máquina (binario)</text><text x="350" y="78" text-anchor="middle" class="s1">Ceros y unos · dependiente de la CPU</text>
+  <rect x="150" y="92" width="400" height="42" rx="5" fill="#0055a0"/><text x="350" y="110" text-anchor="middle" class="t1">2GL · Ensamblador (mnemónicos)</text><text x="350" y="126" text-anchor="middle" class="s1">MOV, ADD, JMP · aún ligado a la máquina</text>
+  <rect x="150" y="140" width="400" height="42" rx="5" fill="#3778b5"/><text x="350" y="158" text-anchor="middle" class="t1">3GL · Alto nivel estructurado (C, Java)</text><text x="350" y="174" text-anchor="middle" class="s1">Se dice CÓMO · independiente de la máquina</text>
+  <rect x="150" y="188" width="400" height="42" rx="5" fill="#6ea3d2"/><text x="350" y="206" text-anchor="middle" class="t1">4GL · Declarativo (SQL, informes)</text><text x="350" y="222" text-anchor="middle" class="s1">Se dice QUÉ, no cómo</text>
+  <rect x="150" y="236" width="400" height="42" rx="5" fill="#9cc3e0"/><text x="350" y="254" text-anchor="middle" style="font:700 13px system-ui;fill:#123">5GL · Lógico / IA (Prolog)</text><text x="350" y="270" text-anchor="middle" style="font:11px system-ui;fill:#123">Restricciones y reglas · el motor deduce</text>
+  <text x="40" y="66" class="l1">▼ bajo nivel</text>
+  <text x="40" y="258" class="l1">▲ alto nivel</text>
+  <text x="650" y="308" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: PRATT, cap. 1]</text>
+</svg>
+<hr>
+<h2>D2 · Compilador frente a intérprete</h2>
+<p><strong>Sección</strong>: §1.2 — Formas de traducción <strong>Propósito</strong>: Contrastar la traducción completa previa (compilador) con la traducción línea a línea (intérprete).</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" role="img" aria-label="Comparación entre compilador que traduce todo el código a ejecutable antes de ejecutar e intérprete que traduce y ejecuta instrucción a instrucción">
+  <style>.t2{font:700 12px system-ui,sans-serif;fill:#fff}.b2{font:600 11px system-ui,sans-serif;fill:#123}.l2{font:11px system-ui,sans-serif;fill:#444}.h2{font:700 13px system-ui,sans-serif;fill:#0055a0}</style>
+  <text x="170" y="24" text-anchor="middle" class="h2">COMPILADOR</text>
+  <rect x="60" y="40" width="90" height="40" rx="5" fill="#9cc3e0"/><text x="105" y="64" text-anchor="middle" class="b2">Código fuente</text>
+  <rect x="180" y="40" width="90" height="40" rx="5" fill="#0055a0"/><text x="225" y="60" text-anchor="middle" class="t2">Compilador</text><text x="225" y="74" text-anchor="middle" class="t2">(traduce todo)</text>
+  <rect x="300" y="40" width="90" height="40" rx="5" fill="#2d8659"/><text x="345" y="64" text-anchor="middle" class="t2">Ejecutable</text>
+  <path d="M150 60 L178 60" stroke="#888" stroke-width="2" marker-end="url(#a2)"/>
+  <path d="M270 60 L298 60" stroke="#888" stroke-width="2" marker-end="url(#a2)"/>
+  <text x="225" y="102" text-anchor="middle" class="l2">Se traduce UNA vez; luego se ejecuta muchas · rápido</text>
+  <line x1="40" y1="130" x2="640" y2="130" stroke="#ccc" stroke-dasharray="4 4"/>
+  <text x="170" y="162" text-anchor="middle" class="h2">INTÉRPRETE</text>
+  <rect x="60" y="178" width="90" height="40" rx="5" fill="#9cc3e0"/><text x="105" y="202" text-anchor="middle" class="b2">Código fuente</text>
+  <rect x="200" y="178" width="110" height="40" rx="5" fill="#e89822"/><text x="255" y="198" text-anchor="middle" class="t2">Intérprete</text><text x="255" y="212" text-anchor="middle" class="t2">línea a línea</text>
+  <rect x="360" y="178" width="90" height="40" rx="5" fill="#2d8659"/><text x="405" y="202" text-anchor="middle" class="t2">Resultado</text>
+  <path d="M150 198 L198 198" stroke="#888" stroke-width="2" marker-end="url(#a2)"/>
+  <path d="M310 198 L358 198" stroke="#888" stroke-width="2" marker-end="url(#a2)"/>
+  <text x="255" y="240" text-anchor="middle" class="l2">Traduce y ejecuta a la vez · portable · más lento</text>
+  <text x="255" y="262" text-anchor="middle" class="l2">Híbrido (Java): fuente → bytecode → máquina virtual (JVM)</text>
+  <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#888"/></marker></defs>
+  <text x="670" y="292" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: SEBESTA, cap. 1]</text>
+</svg>
+<hr>
+<h2>D3 · Sintaxis, semántica y pragmática</h2>
+<p><strong>Sección</strong>: §1.4 — Los tres niveles de descripción de un lenguaje <strong>Propósito</strong>: Separar la forma (sintaxis), el significado (semántica) y el uso (pragmática).</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 300" role="img" aria-label="Tres niveles de un lenguaje: sintaxis como forma o gramática, semántica como significado, pragmática como uso práctico">
+  <style>.t3{font:700 13px system-ui,sans-serif;fill:#fff}.s3{font:11px system-ui,sans-serif;fill:#fff}.l3{font:11px system-ui,sans-serif;fill:#444}.h3{font:700 13px system-ui,sans-serif;fill:#0055a0}</style>
+  <text x="330" y="26" text-anchor="middle" class="h3">Cómo se describe un lenguaje de programación</text>
+  <rect x="40" y="48" width="180" height="130" rx="8" fill="#0055a0"/><text x="130" y="76" text-anchor="middle" class="t3">SINTAXIS</text><text x="130" y="100" text-anchor="middle" class="s3">La FORMA</text><text x="130" y="122" text-anchor="middle" class="s3">Reglas gramaticales</text><text x="130" y="140" text-anchor="middle" class="s3">(BNF): qué está</text><text x="130" y="156" text-anchor="middle" class="s3">bien escrito</text>
+  <rect x="240" y="48" width="180" height="130" rx="8" fill="#2d8659"/><text x="330" y="76" text-anchor="middle" class="t3">SEMÁNTICA</text><text x="330" y="100" text-anchor="middle" class="s3">El SIGNIFICADO</text><text x="330" y="122" text-anchor="middle" class="s3">Qué hace cada</text><text x="330" y="140" text-anchor="middle" class="s3">construcción al</text><text x="330" y="156" text-anchor="middle" class="s3">ejecutarse</text>
+  <rect x="440" y="48" width="180" height="130" rx="8" fill="#e89822"/><text x="530" y="76" text-anchor="middle" class="t3">PRAGMÁTICA</text><text x="530" y="100" text-anchor="middle" class="s3">El USO</text><text x="530" y="122" text-anchor="middle" class="s3">Estilo, legibilidad,</text><text x="530" y="140" text-anchor="middle" class="s3">buenas prácticas</text><text x="530" y="156" text-anchor="middle" class="s3">(no la impone la gramática)</text>
+  <text x="130" y="206" text-anchor="middle" class="l3">Falta un `;` →</text><text x="130" y="222" text-anchor="middle" class="l3">error de sintaxis</text>
+  <text x="330" y="206" text-anchor="middle" class="l3">Dividir por 0 →</text><text x="330" y="222" text-anchor="middle" class="l3">error semántico</text>
+  <text x="530" y="206" text-anchor="middle" class="l3">Nombres claros →</text><text x="530" y="222" text-anchor="middle" class="l3">buen estilo</text>
+  <text x="650" y="288" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: ASU, cap. 1]</text>
+</svg>
+<hr>
+<h2>D4 · Clasificación de los tipos de datos</h2>
+<p><strong>Sección</strong>: §2.1 — Concepto y clasificación <strong>Propósito</strong>: Distinguir tipos simples de estructurados y ver ejemplos de cada uno.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 320" role="img" aria-label="Árbol de clasificación de tipos de datos: simples o primitivos (entero, real, carácter, booleano) y estructurados (array, registro, cadena, conjunto)">
+  <style>.t4{font:700 12px system-ui,sans-serif;fill:#fff}.s4{font:11px system-ui,sans-serif;fill:#123}.l4{font:11px system-ui,sans-serif;fill:#444}.h4{font:700 13px system-ui,sans-serif;fill:#0055a0}</style>
+  <text x="340" y="24" text-anchor="middle" class="h4">Tipos de datos</text>
+  <rect x="280" y="38" width="120" height="34" rx="6" fill="#0055a0"/><text x="340" y="60" text-anchor="middle" class="t4">TIPO DE DATO</text>
+  <path d="M340 72 L200 100" stroke="#888" stroke-width="1.5"/><path d="M340 72 L480 100" stroke="#888" stroke-width="1.5"/>
+  <rect x="120" y="100" width="160" height="34" rx="6" fill="#2d8659"/><text x="200" y="122" text-anchor="middle" class="t4">SIMPLES / PRIMITIVOS</text>
+  <rect x="400" y="100" width="160" height="34" rx="6" fill="#e89822"/><text x="480" y="122" text-anchor="middle" class="t4">ESTRUCTURADOS</text>
+  <rect x="70" y="152" width="100" height="30" rx="4" fill="#d7e6f4"/><text x="120" y="172" text-anchor="middle" class="s4">Entero</text>
+  <rect x="70" y="188" width="100" height="30" rx="4" fill="#d7e6f4"/><text x="120" y="208" text-anchor="middle" class="s4">Real (IEEE 754)</text>
+  <rect x="70" y="224" width="100" height="30" rx="4" fill="#d7e6f4"/><text x="120" y="244" text-anchor="middle" class="s4">Carácter</text>
+  <rect x="70" y="260" width="100" height="30" rx="4" fill="#d7e6f4"/><text x="120" y="280" text-anchor="middle" class="s4">Booleano</text>
+  <rect x="200" y="152" width="90" height="30" rx="4" fill="#d7e6f4"/><text x="245" y="172" text-anchor="middle" class="s4">atómicos,</text>
+  <rect x="200" y="188" width="90" height="30" rx="4" fill="#d7e6f4"/><text x="245" y="208" text-anchor="middle" class="s4">indivisibles</text>
+  <rect x="420" y="152" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="475" y="172" text-anchor="middle" class="s4">Array / vector</text>
+  <rect x="420" y="188" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="475" y="208" text-anchor="middle" class="s4">Registro / struct</text>
+  <rect x="420" y="224" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="475" y="244" text-anchor="middle" class="s4">Cadena (string)</text>
+  <rect x="420" y="260" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="475" y="280" text-anchor="middle" class="s4">Conjunto, fichero</text>
+  <rect x="558" y="188" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="613" y="208" text-anchor="middle" class="s4">agrupan varios</text>
+  <text x="670" y="312" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: SEBESTA, cap. 6]</text>
+</svg>
+<hr>
+<h2>D5 · Sistema de tipos: dos ejes</h2>
+<p><strong>Sección</strong>: §2.4 — Conversión y compatibilidad de tipos <strong>Propósito</strong>: Separar los dos ejes independientes (estático/dinámico y fuerte/débil) con ejemplos.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Matriz de dos ejes del sistema de tipos: eje horizontal fuerte a débil, eje vertical estático a dinámico, con Java, C, Python y JavaScript ubicados">
+  <style>.l5{font:11px system-ui,sans-serif;fill:#444}.h5{font:700 13px system-ui,sans-serif;fill:#0055a0}.a5{font:700 12px system-ui,sans-serif;fill:#0055a0}.c5{font:600 12px system-ui,sans-serif;fill:#123}</style>
+  <text x="320" y="24" text-anchor="middle" class="h5">Los dos ejes del sistema de tipos (independientes)</text>
+  <line x1="120" y1="70" x2="120" y2="320" stroke="#0055a0" stroke-width="2" marker-end="url(#a5)"/>
+  <line x1="120" y1="320" x2="560" y2="320" stroke="#0055a0" stroke-width="2" marker-end="url(#a5)"/>
+  <text x="112" y="66" text-anchor="end" class="a5">estático</text>
+  <text x="112" y="316" text-anchor="end" class="a5">dinámico</text>
+  <text x="128" y="66" class="l5">(tipo en compilación)</text>
+  <text x="128" y="316" class="l5">(tipo en ejecución)</text>
+  <text x="150" y="340" class="a5">fuerte</text>
+  <text x="560" y="340" text-anchor="end" class="a5">débil</text>
+  <rect x="150" y="90" width="150" height="60" rx="8" fill="#d7e6f4" stroke="#0055a0"/><text x="225" y="116" text-anchor="middle" class="c5">JAVA</text><text x="225" y="136" text-anchor="middle" class="l5">estático + fuerte</text>
+  <rect x="380" y="90" width="150" height="60" rx="8" fill="#fbe9cf" stroke="#e89822"/><text x="455" y="116" text-anchor="middle" class="c5">C</text><text x="455" y="136" text-anchor="middle" class="l5">estático + más débil</text>
+  <rect x="150" y="240" width="150" height="60" rx="8" fill="#d7ecd9" stroke="#2d8659"/><text x="225" y="266" text-anchor="middle" class="c5">PYTHON</text><text x="225" y="286" text-anchor="middle" class="l5">dinámico + fuerte</text>
+  <rect x="380" y="240" width="150" height="60" rx="8" fill="#f6d9d9" stroke="#d13c3c"/><text x="455" y="266" text-anchor="middle" class="c5">JAVASCRIPT</text><text x="455" y="286" text-anchor="middle" class="l5">dinámico + débil</text>
+  <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#0055a0"/></marker></defs>
+  <text x="630" y="352" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: PIERCE; SEBESTA cap. 6]</text>
+</svg>
+<hr>
+<h2>D6 · Las tres estructuras de control</h2>
+<p><strong>Sección</strong>: §4.1 — Teorema de Böhm-Jacopini <strong>Propósito</strong>: Las tres únicas estructuras necesarias: secuencia, selección e iteración.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" role="img" aria-label="Las tres estructuras de control de la programación estructurada: secuencia, selección con dos ramas e iteración con bucle de retorno">
+  <style>.t6{font:700 12px system-ui,sans-serif;fill:#0055a0}.b6{font:600 11px system-ui,sans-serif;fill:#fff}.l6{font:11px system-ui,sans-serif;fill:#444}.h6{font:700 13px system-ui,sans-serif;fill:#0055a0}</style>
+  <text x="340" y="22" text-anchor="middle" class="h6">Böhm-Jacopini (1966): tres estructuras bastan</text>
+  <text x="110" y="52" text-anchor="middle" class="t6">1 · SECUENCIA</text>
+  <rect x="70" y="64" width="80" height="26" rx="4" fill="#0055a0"/><text x="110" y="81" text-anchor="middle" class="b6">paso A</text>
+  <rect x="70" y="98" width="80" height="26" rx="4" fill="#0055a0"/><text x="110" y="115" text-anchor="middle" class="b6">paso B</text>
+  <rect x="70" y="132" width="80" height="26" rx="4" fill="#0055a0"/><text x="110" y="149" text-anchor="middle" class="b6">paso C</text>
+  <path d="M110 90 L110 98" stroke="#888" marker-end="url(#a6)"/><path d="M110 124 L110 132" stroke="#888" marker-end="url(#a6)"/>
+  <text x="110" y="182" text-anchor="middle" class="l6">Una tras otra</text>
+  <text x="340" y="52" text-anchor="middle" class="t6">2 · SELECCIÓN</text>
+  <polygon points="340,64 380,86 340,108 300,86" fill="#e89822"/><text x="340" y="90" text-anchor="middle" class="b6">¿cond?</text>
+  <rect x="258" y="128" width="70" height="26" rx="4" fill="#2d8659"/><text x="293" y="145" text-anchor="middle" class="b6">verdadero</text>
+  <rect x="352" y="128" width="70" height="26" rx="4" fill="#d13c3c"/><text x="387" y="145" text-anchor="middle" class="b6">falso</text>
+  <path d="M320 100 L293 128" stroke="#888" marker-end="url(#a6)"/><path d="M360 100 L387 128" stroke="#888" marker-end="url(#a6)"/>
+  <text x="340" y="182" text-anchor="middle" class="l6">Elige un camino (si / segun)</text>
+  <text x="575" y="52" text-anchor="middle" class="t6">3 · ITERACIÓN</text>
+  <polygon points="575,64 615,86 575,108 535,86" fill="#e89822"/><text x="575" y="90" text-anchor="middle" class="b6">¿cond?</text>
+  <rect x="540" y="128" width="70" height="26" rx="4" fill="#0055a0"/><text x="575" y="145" text-anchor="middle" class="b6">cuerpo</text>
+  <path d="M575 108 L575 128" stroke="#888" marker-end="url(#a6)"/>
+  <path d="M610 141 C660 141 660 86 617 86" stroke="#2d8659" stroke-width="1.5" fill="none" marker-end="url(#a6)"/>
+  <text x="575" y="182" text-anchor="middle" class="l6">Repite mientras se cumpla</text>
+  <rect x="60" y="210" width="560" height="30" rx="6" fill="#f2f2f2"/><text x="340" y="230" text-anchor="middle" class="l6">La programación estructurada usa SOLO estas tres · evita el `goto` (Dijkstra, 1968)</text>
+  <defs><marker id="a6" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#888"/></marker></defs>
+  <text x="670" y="288" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: BOHM66; DIJKSTRA68]</text>
+</svg>
+<hr>
+<h2>D7 · Tipos de bucle</h2>
+<p><strong>Sección</strong>: §4.3 — Bucles e iteraciones <strong>Propósito</strong>: Distinguir precondicional (while), postcondicional (do-while) y con contador (for).</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 320" role="img" aria-label="Comparación de tres bucles: mientras precondicional que puede ejecutarse cero veces, repetir hasta postcondicional que se ejecuta al menos una vez, y para con contador conocido">
+  <style>.t7{font:700 12px system-ui,sans-serif;fill:#fff}.l7{font:11px system-ui,sans-serif;fill:#444}.h7{font:700 13px system-ui,sans-serif;fill:#0055a0}.k7{font:700 11px system-ui,sans-serif;fill:#d13c3c}</style>
+  <text x="340" y="24" text-anchor="middle" class="h7">Tres tipos de bucle</text>
+  <rect x="30" y="44" width="200" height="34" rx="6" fill="#0055a0"/><text x="130" y="66" text-anchor="middle" class="t7">MIENTRAS (while)</text>
+  <text x="130" y="98" text-anchor="middle" class="l7">Comprueba ANTES</text>
+  <text x="130" y="118" text-anchor="middle" class="k7">Puede ejecutarse 0 veces</text>
+  <text x="130" y="140" text-anchor="middle" class="l7">precondicional</text>
+  <rect x="40" y="158" width="180" height="90" rx="6" fill="#f2f6fb" stroke="#0055a0"/><text x="130" y="182" text-anchor="middle" class="l7">i = 1</text><text x="130" y="202" text-anchor="middle" class="l7">mientras (i &lt;= 10)</text><text x="130" y="222" text-anchor="middle" class="l7">   procesar(i)</text><text x="130" y="242" text-anchor="middle" class="l7">   i = i + 1</text>
+  <rect x="240" y="44" width="200" height="34" rx="6" fill="#2d8659"/><text x="340" y="66" text-anchor="middle" class="t7">REPETIR…HASTA (do-while)</text>
+  <text x="340" y="98" text-anchor="middle" class="l7">Comprueba DESPUÉS</text>
+  <text x="340" y="118" text-anchor="middle" class="k7">Se ejecuta ≥ 1 vez</text>
+  <text x="340" y="140" text-anchor="middle" class="l7">postcondicional</text>
+  <rect x="250" y="158" width="180" height="90" rx="6" fill="#f2faf5" stroke="#2d8659"/><text x="340" y="188" text-anchor="middle" class="l7">repetir</text><text x="340" y="210" text-anchor="middle" class="l7">   opcion = leer()</text><text x="340" y="232" text-anchor="middle" class="l7">hasta (opcion = salir)</text>
+  <rect x="450" y="44" width="200" height="34" rx="6" fill="#e89822"/><text x="550" y="66" text-anchor="middle" class="t7">PARA (for)</text>
+  <text x="550" y="98" text-anchor="middle" class="l7">Con CONTADOR</text>
+  <text x="550" y="118" text-anchor="middle" class="k7">Nº de vueltas conocido</text>
+  <text x="550" y="140" text-anchor="middle" class="l7">init · condición · incremento</text>
+  <rect x="460" y="158" width="180" height="90" rx="6" fill="#fdf6ec" stroke="#e89822"/><text x="550" y="192" text-anchor="middle" class="l7">para i desde 1</text><text x="550" y="214" text-anchor="middle" class="l7">      hasta 21</text><text x="550" y="236" text-anchor="middle" class="l7">   procesar(i)</text>
+  <rect x="60" y="266" width="560" height="30" rx="6" fill="#f2f2f2"/><text x="340" y="286" text-anchor="middle" class="l7">Un bucle sin avanzar hacia la salida = bucle infinito (cuelga el programa)</text>
+  <text x="670" y="314" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: SEBESTA, cap. 8]</text>
+</svg>
+<hr>
+<h2>D8 · Recursividad: pila del factorial</h2>
+<p><strong>Sección</strong>: §4.4 — Recursividad <strong>Propósito</strong>: Visualizar el apilamiento de llamadas de factorial(4) y su desenrollado desde el caso base.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Pila de llamadas de factorial de 4: se apilan factorial 4, 3, 2 y 1, el caso base factorial 1 devuelve 1 y se desenrolla multiplicando hasta 24">
+  <style>.t8{font:700 12px system-ui,sans-serif;fill:#fff}.l8{font:11px system-ui,sans-serif;fill:#444}.h8{font:700 13px system-ui,sans-serif;fill:#0055a0}.g8{font:700 12px system-ui,sans-serif;fill:#2d8659}</style>
+  <text x="320" y="24" text-anchor="middle" class="h8">factorial(4) — apilar (bajar) y desenrollar (subir)</text>
+  <text x="150" y="52" text-anchor="middle" class="l8">① Llamadas que se apilan ↓</text>
+  <rect x="70" y="64" width="160" height="30" rx="4" fill="#0055a0"/><text x="150" y="84" text-anchor="middle" class="t8">factorial(4) = 4 · …</text>
+  <rect x="70" y="100" width="160" height="30" rx="4" fill="#0055a0"/><text x="150" y="120" text-anchor="middle" class="t8">factorial(3) = 3 · …</text>
+  <rect x="70" y="136" width="160" height="30" rx="4" fill="#0055a0"/><text x="150" y="156" text-anchor="middle" class="t8">factorial(2) = 2 · …</text>
+  <rect x="70" y="172" width="160" height="30" rx="4" fill="#d13c3c"/><text x="150" y="192" text-anchor="middle" class="t8">factorial(1) = 1 (BASE)</text>
+  <path d="M150 94 L150 100" stroke="#888" marker-end="url(#a8)"/><path d="M150 130 L150 136" stroke="#888" marker-end="url(#a8)"/><path d="M150 166 L150 172" stroke="#888" marker-end="url(#a8)"/>
+  <text x="470" y="52" text-anchor="middle" class="l8">② Resultados que suben ↑</text>
+  <rect x="390" y="172" width="160" height="30" rx="4" fill="#2d8659"/><text x="470" y="192" text-anchor="middle" class="t8">devuelve 1</text>
+  <rect x="390" y="136" width="160" height="30" rx="4" fill="#2d8659"/><text x="470" y="156" text-anchor="middle" class="t8">2 · 1 = 2</text>
+  <rect x="390" y="100" width="160" height="30" rx="4" fill="#2d8659"/><text x="470" y="120" text-anchor="middle" class="t8">3 · 2 = 6</text>
+  <rect x="390" y="64" width="160" height="30" rx="4" fill="#2d8659"/><text x="470" y="84" text-anchor="middle" class="t8">4 · 6 = 24</text>
+  <path d="M470 172 L470 166" stroke="#2d8659" marker-end="url(#g8m)"/><path d="M470 136 L470 130" stroke="#2d8659" marker-end="url(#g8m)"/><path d="M470 100 L470 94" stroke="#2d8659" marker-end="url(#g8m)"/>
+  <path d="M232 187 L388 187" stroke="#d13c3c" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#r8)"/>
+  <rect x="180" y="250" width="280" height="60" rx="8" fill="#fdf6ec" stroke="#e89822"/><text x="320" y="274" text-anchor="middle" class="g8">Resultado: 24</text><text x="320" y="296" text-anchor="middle" class="l8">Sin caso base → recursión infinita → desbordamiento de pila</text>
+  <defs><marker id="a8" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#888"/></marker><marker id="g8m" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#2d8659"/></marker><marker id="r8" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#d13c3c"/></marker></defs>
+  <text x="630" y="332" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: ABELSON; CLRS cap. 2]</text>
+</svg>
+<hr>
+<h2>D9 · Memoria: pila y montículo</h2>
+<p><strong>Sección</strong>: §4.7 — Ámbito y ciclo de vida <strong>Propósito</strong>: Distinguir la pila (variables automáticas, marcos de llamada) del montículo (memoria dinámica).</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 320" role="img" aria-label="Organización de la memoria de un programa: pila para variables locales automáticas y marcos de llamada, y montículo o heap para memoria dinámica reservada explícitamente">
+  <style>.t9{font:700 12px system-ui,sans-serif;fill:#fff}.l9{font:11px system-ui,sans-serif;fill:#444}.h9{font:700 13px system-ui,sans-serif;fill:#0055a0}.s9{font:11px system-ui,sans-serif;fill:#fff}</style>
+  <text x="330" y="24" text-anchor="middle" class="h9">Memoria de un programa en ejecución</text>
+  <rect x="70" y="44" width="230" height="240" rx="8" fill="#f2f6fb" stroke="#0055a0"/>
+  <text x="185" y="66" text-anchor="middle" class="h9">PILA (stack)</text>
+  <rect x="90" y="78" width="190" height="40" rx="4" fill="#0055a0"/><text x="185" y="94" text-anchor="middle" class="t9">marco de main()</text><text x="185" y="110" text-anchor="middle" class="s9">variables locales</text>
+  <rect x="90" y="124" width="190" height="40" rx="4" fill="#3778b5"/><text x="185" y="140" text-anchor="middle" class="t9">marco de calcular()</text><text x="185" y="156" text-anchor="middle" class="s9">parámetros + locales</text>
+  <rect x="90" y="170" width="190" height="34" rx="4" fill="#6ea3d2"/><text x="185" y="191" text-anchor="middle" class="t9">marco de sumar()</text>
+  <text x="185" y="228" text-anchor="middle" class="l9">Automática · nace y muere</text><text x="185" y="246" text-anchor="middle" class="l9">con la llamada · rápida</text><text x="185" y="264" text-anchor="middle" class="l9">Crece y decrece con LIFO</text>
+  <rect x="360" y="44" width="230" height="240" rx="8" fill="#f2faf5" stroke="#2d8659"/>
+  <text x="475" y="66" text-anchor="middle" class="h9">MONTÍCULO (heap)</text>
+  <rect x="385" y="82" width="80" height="46" rx="4" fill="#2d8659"/><text x="425" y="102" text-anchor="middle" class="t9">objeto</text><text x="425" y="118" text-anchor="middle" class="s9">new/malloc</text>
+  <rect x="485" y="100" width="80" height="46" rx="4" fill="#2d8659"/><text x="525" y="120" text-anchor="middle" class="t9">array</text><text x="525" y="136" text-anchor="middle" class="s9">dinámico</text>
+  <rect x="410" y="158" width="90" height="42" rx="4" fill="#2d8659"/><text x="455" y="183" text-anchor="middle" class="t9">registro</text>
+  <text x="475" y="228" text-anchor="middle" class="l9">Dinámica · se reserva y libera</text><text x="475" y="246" text-anchor="middle" class="l9">explícitamente (o recolector</text><text x="475" y="264" text-anchor="middle" class="l9">de basura) · tamaño variable</text>
+  <text x="330" y="306" text-anchor="middle" class="l9">Ámbito = DÓNDE se ve la variable · Tiempo de vida = CUÁNTO existe en memoria</text>
+  <text x="650" y="316" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: SCOTT, cap. 3]</text>
+</svg>
+<hr>
+<h2>D10 · Paso por valor y por referencia</h2>
+<p><strong>Sección</strong>: §4.6 — Parámetros y mecanismos de paso <strong>Propósito</strong>: Mostrar por qué por valor no altera el original y por referencia sí.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" role="img" aria-label="Paso por valor copia el argumento y no cambia el original, paso por referencia pasa la dirección y sí modifica la variable original del llamador">
+  <style>.t10{font:700 12px system-ui,sans-serif;fill:#fff}.l10{font:11px system-ui,sans-serif;fill:#444}.h10{font:700 13px system-ui,sans-serif;fill:#0055a0}.v10{font:700 12px system-ui,sans-serif;fill:#123}</style>
+  <text x="340" y="22" text-anchor="middle" class="h10">duplica(x): { x = x · 2 }  con a = 10</text>
+  <text x="170" y="50" text-anchor="middle" class="h10">POR VALOR</text>
+  <rect x="70" y="62" width="90" height="46" rx="6" fill="#0055a0"/><text x="115" y="82" text-anchor="middle" class="t10">a = 10</text><text x="115" y="100" text-anchor="middle" class="t10">(llamador)</text>
+  <rect x="230" y="62" width="90" height="46" rx="6" fill="#6ea3d2"/><text x="275" y="82" text-anchor="middle" class="t10">x = 10 → 20</text><text x="275" y="100" text-anchor="middle" class="t10">(copia)</text>
+  <path d="M160 85 L228 85" stroke="#888" stroke-width="2" marker-end="url(#a10)"/><text x="194" y="78" text-anchor="middle" class="l10">copia</text>
+  <text x="170" y="138" text-anchor="middle" class="v10" fill="#2d8659">a sigue valiendo 10 ✓</text>
+  <text x="170" y="158" text-anchor="middle" class="l10">El original NO cambia</text>
+  <line x1="360" y1="46" x2="360" y2="180" stroke="#ccc" stroke-dasharray="4 4"/>
+  <text x="530" y="50" text-anchor="middle" class="h10">POR REFERENCIA</text>
+  <rect x="430" y="62" width="90" height="46" rx="6" fill="#0055a0"/><text x="475" y="82" text-anchor="middle" class="t10">a = 10 → 20</text><text x="475" y="100" text-anchor="middle" class="t10">(llamador)</text>
+  <rect x="590" y="62" width="80" height="46" rx="6" fill="#e89822"/><text x="630" y="82" text-anchor="middle" class="t10">x → dir(a)</text><text x="630" y="100" text-anchor="middle" class="t10">(referencia)</text>
+  <path d="M590 85 L522 85" stroke="#d13c3c" stroke-width="2" marker-end="url(#r10)"/><text x="556" y="78" text-anchor="middle" class="l10">dirección</text>
+  <text x="530" y="138" text-anchor="middle" class="v10" fill="#d13c3c">a pasa a valer 20 ⚠</text>
+  <text x="530" y="158" text-anchor="middle" class="l10">El original SÍ cambia</text>
+  <rect x="60" y="200" width="560" height="56" rx="8" fill="#f2f2f2"/><text x="340" y="222" text-anchor="middle" class="l10">Por valor = copia (seguro, el original intacto) · Por referencia = dirección (puede modificar el original</text><text x="340" y="242" text-anchor="middle" class="l10">y devolver varios resultados). En Java los primitivos van SIEMPRE por valor.</text>
+  <defs><marker id="a10" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#888"/></marker><marker id="r10" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#d13c3c"/></marker></defs>
+  <text x="670" y="292" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: SCOTT, cap. 8]</text>
+</svg>
+<hr>
+<h2>D11 · Array frente a registro</h2>
+<p><strong>Sección</strong>: §5.2 — Registros o estructuras <strong>Propósito</strong>: Contrastar el array (homogéneo, por índice) con el registro (heterogéneo, por campo).</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 320" role="img" aria-label="Array como colección homogénea accedida por índice numérico frente a registro como colección heterogénea de campos accedidos por nombre">
+  <style>.t11{font:700 12px system-ui,sans-serif;fill:#fff}.l11{font:11px system-ui,sans-serif;fill:#444}.h11{font:700 13px system-ui,sans-serif;fill:#0055a0}.i11{font:700 11px system-ui,sans-serif;fill:#0055a0}.c11{font:600 11px system-ui,sans-serif;fill:#123}</style>
+  <text x="340" y="24" text-anchor="middle" class="h11">Array (índice)  vs  Registro (campo)</text>
+  <text x="170" y="52" text-anchor="middle" class="h11">ARRAY / VECTOR</text>
+  <text x="170" y="70" text-anchor="middle" class="l11">mismo tipo · acceso por índice v[i] · O(1)</text>
+  <rect x="60" y="82" width="44" height="40" fill="#0055a0"/><rect x="104" y="82" width="44" height="40" fill="#0055a0"/><rect x="148" y="82" width="44" height="40" fill="#0055a0"/><rect x="192" y="82" width="44" height="40" fill="#0055a0"/><rect x="236" y="82" width="44" height="40" fill="#0055a0"/>
+  <text x="82" y="107" text-anchor="middle" class="t11">149</text><text x="126" y="107" text-anchor="middle" class="t11">37</text><text x="170" y="107" text-anchor="middle" class="t11">72</text><text x="214" y="107" text-anchor="middle" class="t11">65</text><text x="258" y="107" text-anchor="middle" class="t11">88</text>
+  <text x="82" y="138" text-anchor="middle" class="i11">[1]</text><text x="126" y="138" text-anchor="middle" class="i11">[2]</text><text x="170" y="138" text-anchor="middle" class="i11">[3]</text><text x="214" y="138" text-anchor="middle" class="i11">[4]</text><text x="258" y="138" text-anchor="middle" class="i11">[5]</text>
+  <text x="170" y="166" text-anchor="middle" class="l11">poblacion[3] → 72 (directo)</text>
+  <line x1="345" y1="44" x2="345" y2="250" stroke="#ccc" stroke-dasharray="4 4"/>
+  <text x="520" y="52" text-anchor="middle" class="h11">REGISTRO / STRUCT</text>
+  <text x="520" y="70" text-anchor="middle" class="l11">tipos distintos · acceso por nombre r.campo</text>
+  <rect x="410" y="82" width="220" height="24" fill="#e89822"/><text x="420" y="99" class="c11">dni : cadena</text><text x="560" y="99" class="c11">"12345678Z"</text>
+  <rect x="410" y="106" width="220" height="24" fill="#f0a94a"/><text x="420" y="123" class="c11">nombre : cadena</text><text x="560" y="123" class="c11">"Ana"</text>
+  <rect x="410" y="130" width="220" height="24" fill="#e89822"/><text x="420" y="147" class="c11">edad : entero</text><text x="560" y="147" class="c11">34</text>
+  <rect x="410" y="154" width="220" height="24" fill="#f0a94a"/><text x="420" y="171" class="c11">distrito : entero</text><text x="560" y="171" class="c11">1</text>
+  <text x="520" y="196" text-anchor="middle" class="l11">ciudadano.edad → 34 (por campo)</text>
+  <rect x="60" y="266" width="560" height="40" rx="8" fill="#f2f2f2"/><text x="340" y="290" text-anchor="middle" class="l11">Array de registros = tabla de datos (p. ej. el Padrón: una fila = un registro Habitante)</text>
+  <text x="670" y="318" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: KNUTH1; K&amp;R cap. 6]</text>
+</svg>
+<hr>
+<h2>D12 · Estructura de un programa</h2>
+<p><strong>Sección</strong>: §6.1 — Organización del código <strong>Propósito</strong>: Mostrar las partes típicas de un programa y el flujo de arranque en <code>main</code>.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Partes de un programa: importaciones, declaraciones globales de constantes y tipos, definición de subprogramas y programa principal main que orquesta las llamadas">
+  <style>.t12{font:700 12px system-ui,sans-serif;fill:#fff}.l12{font:11px system-ui,sans-serif;fill:#444}.h12{font:700 13px system-ui,sans-serif;fill:#0055a0}.s12{font:11px system-ui,sans-serif;fill:#fff}</style>
+  <text x="320" y="24" text-anchor="middle" class="h12">Anatomía de un programa</text>
+  <rect x="120" y="40" width="400" height="42" rx="6" fill="#6ea3d2"/><text x="320" y="60" text-anchor="middle" class="t12">1 · Importaciones / bibliotecas</text><text x="320" y="76" text-anchor="middle" class="s12">import, #include, using</text>
+  <rect x="120" y="90" width="400" height="42" rx="6" fill="#3778b5"/><text x="320" y="110" text-anchor="middle" class="t12">2 · Declaraciones globales</text><text x="320" y="126" text-anchor="middle" class="s12">constantes (NUM_DISTRITOS = 21), tipos (Ciudadano)</text>
+  <rect x="120" y="140" width="400" height="52" rx="6" fill="#0055a0"/><text x="320" y="160" text-anchor="middle" class="t12">3 · Subprogramas</text><text x="320" y="176" text-anchor="middle" class="s12">funciones y procedimientos</text><text x="320" y="190" text-anchor="middle" class="s12">alta cohesión · bajo acoplamiento</text>
+  <rect x="120" y="200" width="400" height="52" rx="6" fill="#2d8659"/><text x="320" y="220" text-anchor="middle" class="t12">4 · Programa principal — main()</text><text x="320" y="236" text-anchor="middle" class="s12">PUNTO DE ENTRADA · orquesta las llamadas</text><text x="320" y="248" text-anchor="middle" class="s12">por aquí empieza la ejecución</text>
+  <path d="M540 226 C600 226 600 161 522 161" stroke="#e89822" stroke-width="1.5" fill="none" marker-end="url(#a12)"/><text x="600" y="196" text-anchor="middle" class="l12">llama</text>
+  <rect x="90" y="270" width="460" height="34" rx="6" fill="#f2f2f2"/><text x="320" y="291" text-anchor="middle" class="l12">Separar datos (tipos), lógica (funciones) y flujo (main) · un cambio, un solo sitio</text>
+  <defs><marker id="a12" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#e89822"/></marker></defs>
+  <text x="630" y="332" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: MCCONNELL, cap. 4]</text>
+</svg></section>
+<section id="tab-test" class="tab-content">
+<div class="test-bar">
+  <div class="kpi">Respondidas<b id="s-resp">0</b></div>
+  <div class="kpi">Aciertos<b id="s-correct">0</b></div>
+  <div class="kpi">Fallos<b id="s-wrong">0</b></div>
+  <div class="kpi">Nota (−1/3)<b id="s-score">0.00</b></div>
+  <button class="btn-c" onclick="correctAll()">Corregir todo</button>
+  <button class="btn-r" onclick="resetTest()">Reiniciar</button>
+</div>
+<div id="test-container"></div></section>
+<section id="tab-casos" class="tab-content"><hr>
+<p>Los tres casos recorren el tema en pseudocódigo neutro: el <strong>Caso 1</strong> trabaja <strong>tipos, operadores y estructuras de control</strong> (cálculo de una tasa con condicionales) sobre los tributos; el <strong>Caso 2</strong>, <strong>arrays, registros y bucles</strong> (procesar el censo de los distritos); y el <strong>Caso 3</strong>, <strong>funciones, recursividad y paso de parámetros</strong> sobre la tramitación de expedientes.</p>
+<hr>
+<h2>Caso 1 — Cálculo de la tasa de un servicio municipal</h2>
+<h3>Enunciado</h3>
+<p>El Ayuntamiento aplica una <strong>tasa</strong> por la tramitación de una licencia. La cuota se calcula sobre un <strong>importe base</strong> al que se aplica una <strong>bonificación</strong> según la renta del solicitante: renta inferior a 12.000 € → 50 %; entre 12.000 y 20.000 € → 25 %; superior a 20.000 € → sin bonificación. Además, si el solicitante tiene <strong>familia numerosa</strong>, se aplica <strong>5 puntos porcentuales adicionales</strong> de bonificación (acumulables). La cuota final nunca puede ser negativa. Debe diseñar el algoritmo de cálculo.</p>
+<h3>Cuestiones</h3>
+<p><strong>Cuestión 1 — Tipos de datos (2 puntos).</strong> Indique qué tipo de dato usaría para: el importe base, la renta, el porcentaje de bonificación y el indicador de familia numerosa. Justifique la elección del tipo para importes monetarios.</p>
+<p><strong>Cuestión 2 — Estructura de control (3 puntos).</strong> Escriba en pseudocódigo la lógica que asigna la bonificación por tramos de renta. ¿Qué estructura de control es la más adecuada y por qué?</p>
+<p><strong>Cuestión 3 — Operadores y expresión (3 puntos).</strong> Escriba la expresión que calcula la <code>cuota_final</code> a partir del <code>importe_base</code> y la <code>bonificacion</code> total (en tanto por uno). Añada el ajuste de familia numerosa y garantice que la cuota no sea negativa.</p>
+<p><strong>Cuestión 4 — Constante y mantenimiento (2 puntos).</strong> Los umbrales (12.000, 20.000) y los porcentajes aparecen en el código. ¿Cómo mejoraría el mantenimiento del programa si el pleno cambia los tramos el año que viene?</p>
+<h3>Solución orientativa</h3>
+<ul><li><strong>C1</strong>: <code>importe_base</code> y <code>cuota_final</code> → <strong>entero de céntimos</strong> o tipo <strong>decimal</strong> exacto (nunca coma flotante, por el redondeo de dinero, §2.2); <code>renta</code> → real o entero de euros; <code>bonificacion</code> → real (tanto por uno); <code>familia_numerosa</code> → <strong>booleano</strong> (verdadero/falso). <em>(§2.1-2.2)</em></li><li><strong>C2</strong>: condicional <strong>múltiple anidado</strong> (<code>si … si_no si … si_no</code>), porque se decide sobre <strong>rangos</strong> de un valor continuo (la renta), no sobre valores discretos —lo que descartaría un <code>segun</code>/<code>switch</code>—. <em>(§4.2)</em></li></ul>
+<pre><code>si (renta &lt; UMBRAL_BAJO) entonces
+    bonificacion = 0.50
+si_no si (renta &lt; UMBRAL_MEDIO) entonces
+    bonificacion = 0.25
+si_no
+    bonificacion = 0.00
+fin_si</code></pre>
+<ul><li><strong>C3</strong>: se acumulan los 5 puntos (0.05) si hay familia numerosa y se aplica el operador para evitar negativos. <em>(§3.1, §3.3, §4.2)</em></li></ul>
+<pre><code>si (familia_numerosa) entonces
+    bonificacion = bonificacion + 0.05
+fin_si
+cuota_final = importe_base * (1 - bonificacion)
+si (cuota_final &lt; 0) entonces
+    cuota_final = 0
+fin_si</code></pre>
+<ul><li><strong>C4</strong>: sustituir los «números mágicos» por <strong>constantes con nombre</strong> (<code>UMBRAL_BAJO = 12000</code>, <code>UMBRAL_MEDIO = 20000</code>, <code>BONIF_BAJA = 0.50</code>…) declaradas en un solo lugar. Así, un cambio de tramos se hace en <strong>un único punto</strong> sin buscar por todo el código (principio DRY, §6.2). <em>(§1.5, §6.2)</em></li></ul>
+<h3>Criterios de evaluación</h3>
+<table><thead><tr><th>Criterio</th><th>Puntos</th></tr></thead><tbody><tr><td>Elige tipos correctos y justifica el tipo monetario exacto</td><td>2</td></tr><tr><td>Usa condicional múltiple anidado y lo justifica frente a switch</td><td>3</td></tr><tr><td>Expresión de cuota correcta con ajuste y control de no-negativo</td><td>3</td></tr><tr><td>Propone constantes con nombre para el mantenimiento (DRY)</td><td>2</td></tr></tbody></table>
+<hr>
+<h2>Caso 2 — Procesado del censo de habitantes por distrito</h2>
+<h3>Enunciado</h3>
+<p>Se dispone del <strong>censo del Padrón</strong> como un <strong>array de registros</strong> <code>Habitante</code>, con los campos <code>dni</code>, <code>nombre</code>, <code>edad</code> (entero) y <code>codigo_distrito</code> (entero de 1 a 21). Se pide un módulo que, recorriendo el censo <strong>una sola vez</strong>, calcule: (a) el <strong>número total</strong> de habitantes, (b) cuántos son <strong>mayores de edad</strong> (18 o más) y (c) la <strong>población de cada distrito</strong> en un array indexado por distrito. Los 21 distritos de Madrid se numeran del 1 al 21.</p>
+<h3>Cuestiones</h3>
+<p><strong>Cuestión 1 — Estructuras de datos (2 puntos).</strong> Defina el tipo registro <code>Habitante</code> y declare las estructuras que necesita para almacenar el censo y el resultado de población por distrito.</p>
+<p><strong>Cuestión 2 — Recorrido con bucle (3 puntos).</strong> Escriba en pseudocódigo el recorrido del censo que actualiza los tres resultados. ¿Qué tipo de bucle usa y por qué?</p>
+<p><strong>Cuestión 3 — Acceso a array y a campo (3 puntos).</strong> Explique cómo accede, dentro del bucle, al distrito de cada habitante y cómo incrementa el contador del distrito correspondiente. Distinga el acceso por índice del acceso por campo.</p>
+<p><strong>Cuestión 4 — Programación defensiva (2 puntos).</strong> ¿Qué comprobación añadiría antes de usar <code>codigo_distrito</code> como índice del array de población? ¿Qué ocurriría si un registro trae un distrito 0 o 25?</p>
+<h3>Solución orientativa</h3>
+<ul><li><strong>C1</strong>: registro y arrays. El acceso al elemento del censo es por <strong>índice</strong> (<code>censo[i]</code>) y a sus datos por <strong>nombre de campo</strong> (<code>censo[i].edad</code>). <em>(§5.1-5.2)</em></li></ul>
+<pre><code>tipo Habitante = registro
+    dni : cadena
+    nombre : cadena
+    edad : entero
+    codigo_distrito : entero
+fin_registro
+
+declarar censo : array[1..N] de Habitante
+declarar poblacion : array[1..21] de entero   // contador por distrito</code></pre>
+<ul><li><strong>C2</strong>: bucle <strong><code>para</code></strong> (for), porque el número de habitantes <code>N</code> es <strong>conocido</strong>; un único recorrido O(n) calcula los tres resultados (§4.3, §5.3).</li></ul>
+<pre><code>total = 0
+mayores = 0
+para d desde 1 hasta 21 hacer poblacion[d] = 0 fin_para   // inicializar
+para i desde 1 hasta N hacer
+    total = total + 1
+    si (censo[i].edad &gt;= 18) entonces
+        mayores = mayores + 1
+    fin_si
+    dist = censo[i].codigo_distrito
+    poblacion[dist] = poblacion[dist] + 1
+fin_para</code></pre>
+<ul><li><strong>C3</strong>: <code>censo[i]</code> accede al <strong>registro</strong> i-ésimo <strong>por índice</strong> (O(1)); <code>.codigo_distrito</code> accede a su <strong>campo</strong> <strong>por nombre</strong>. Ese valor se usa a su vez como <strong>índice</strong> del array <code>poblacion</code>, y <code>poblacion[dist] = poblacion[dist] + 1</code> incrementa el contador de ese distrito. <em>(§5.1-5.3)</em></li><li><strong>C4</strong>: antes de usarlo como índice, comprobar el <strong>rango</strong>: <code>si (dist &gt;= 1 Y dist &lt;= 21) entonces …</code>. Sin esa comprobación, un distrito 0 o 25 provocaría un <strong>acceso fuera de rango</strong> (índice inválido): corrupción de memoria en C o excepción <code>IndexOutOfBounds</code> en Java/Python (§5.1). Es programación defensiva (§6.2). <em>(§5.1, §6.2)</em></li></ul>
+<h3>Criterios de evaluación</h3>
+<table><thead><tr><th>Criterio</th><th>Puntos</th></tr></thead><tbody><tr><td>Define el registro Habitante y declara censo + array de población</td><td>2</td></tr><tr><td>Recorrido en un solo bucle <code>para</code> justificado, con inicialización</td><td>3</td></tr><tr><td>Distingue acceso por índice (censo[i]) de acceso por campo (.distrito)</td><td>3</td></tr><tr><td>Valida el rango del índice antes de usarlo (defensiva)</td><td>2</td></tr></tbody></table>
+<hr>
+<h2>Caso 3 — Tramitación y numeración de expedientes</h2>
+<h3>Enunciado</h3>
+<p>Una unidad tramita <strong>expedientes</strong> identificados por un número. Se pide: (a) una <strong>función</strong> que valide si un número de expediente es <strong>par</strong> (por criterio interno, los pares se asignan a la vía telemática); (b) una <strong>función recursiva</strong> que calcule la <strong>suma de los primeros N</strong> números de expediente (1 + 2 + … + N) para una estadística de carga; y (c) razonar el efecto de pasar un contador <strong>por valor</strong> o <strong>por referencia</strong> a un procedimiento que lo incrementa.</p>
+<h3>Cuestiones</h3>
+<p><strong>Cuestión 1 — Función y operador (2 puntos).</strong> Escriba la función <code>es_par(n)</code> que devuelve verdadero si <code>n</code> es par. ¿Qué operador utiliza?</p>
+<p><strong>Cuestión 2 — Recursividad (4 puntos).</strong> Escriba la función <strong>recursiva</strong> <code>suma_hasta(n)</code> que calcule 1 + 2 + … + n. Identifique el <strong>caso base</strong> y el <strong>caso recursivo</strong>, y explique qué pasaría sin caso base.</p>
+<p><strong>Cuestión 3 — Traza (2 puntos).</strong> Muestre la traza de <code>suma_hasta(4)</code> indicando el valor devuelto.</p>
+<p><strong>Cuestión 4 — Paso de parámetros (2 puntos).</strong> Un procedimiento <code>incrementar(c) { c = c + 1 }</code> se llama con <code>contador = 10</code>. ¿Cuánto vale <code>contador</code> después si el paso es <strong>por valor</strong>? ¿Y si es <strong>por referencia</strong>?</p>
+<h3>Solución orientativa</h3>
+<ul><li><strong>C1</strong>: usa el operador <strong>módulo</strong> (<code>mod</code>), que devuelve el resto (§3.1). Es una <strong>función</strong> porque <strong>devuelve un valor</strong> (booleano), §4.5.</li></ul>
+<pre><code>funcion es_par(n)
+    devolver (n mod 2 == 0)
+fin_funcion</code></pre>
+<ul><li><strong>C2</strong>: la función recursiva necesita <strong>caso base</strong> y <strong>caso recursivo</strong> (§4.4). Sin caso base habría <strong>recursión infinita</strong> con desbordamiento de pila.</li></ul>
+<pre><code>funcion suma_hasta(n)
+    si (n &lt;= 1) entonces          // caso base
+        devolver n
+    si_no
+        devolver n + suma_hasta(n - 1)   // caso recursivo
+    fin_si
+fin_funcion</code></pre>
+<ul><li><strong>C3</strong>: <code>suma_hasta(4) = 4 + suma_hasta(3) = 4 + (3 + suma_hasta(2)) = 4 + (3 + (2 + suma_hasta(1)))</code>. El caso base <code>suma_hasta(1) = 1</code>. Se desenrolla: <code>2+1=3</code>, <code>3+3=6</code>, <code>4+6=</code> <strong>10</strong>. <em>(§4.4)</em></li><li><strong>C4</strong>: <strong>por valor</strong>, <code>contador</code> sigue valiendo <strong>10</strong> (se incrementó una copia); <strong>por referencia</strong>, <code>contador</code> pasa a <strong>11</strong> (se modificó el original a través de su dirección). <em>(§4.6)</em></li></ul>
+<h3>Criterios de evaluación</h3>
+<table><thead><tr><th>Criterio</th><th>Puntos</th></tr></thead><tbody><tr><td>Función <code>es_par</code> correcta usando el operador módulo</td><td>2</td></tr><tr><td>Función recursiva con caso base y recursivo bien identificados</td><td>4</td></tr><tr><td>Traza de <code>suma_hasta(4)</code> = 10 correcta</td><td>2</td></tr><tr><td>Distingue el efecto de por valor (10) y por referencia (11)</td><td>2</td></tr></tbody></table>
+<hr>
+<p><em>Los tres casos son orientativos y pensados para la autoevaluación; las soluciones muestran una vía correcta, no la única posible. El contexto (tributos, Padrón, expedientes) es propio del Ayuntamiento de Madrid.</em></p></section>
+<section id="tab-validacion" class="tab-content"><hr>
+<hr>
+<h2>1. Cobertura del temario oficial</h2>
+<ul><li>[ ] <strong>Lenguajes de programación</strong>: concepto, evolución/clasificación, sintaxis/semántica/pragmática, variables, expresiones — §1.1-1.6</li><li>[ ] <strong>Tipos de datos</strong>: concepto, simples/primitivos, estructurados, conversión y compatibilidad — §2.1-2.4</li><li>[ ] <strong>Operadores</strong>: aritméticos, relacionales, lógicos, asignación, precedencia — §3.1-3.4</li><li>[ ] <strong>Estructuras de control</strong>: condicionales, bucles, recursividad — §4.1-4.4</li><li>[ ] <strong>Modularidad</strong>: procedimientos/funciones, paso de parámetros, ámbito y ciclo de vida — §4.5-4.7</li><li>[ ] <strong>Vectores y registros</strong>: arrays, registros, operaciones fundamentales — §5.1-5.3</li><li>[ ] <strong>Estructura del programa</strong>: organización, buenas prácticas, documentación/pruebas/mantenimiento — §6.1-6.3</li><li>[ ] <strong>Tendencias actuales</strong> — §7</li></ul>
+<h2>2. Contenido teórico</h2>
+<ul><li>[ ] El nivel de profundidad (ampliado) es adecuado para C1 (¿hay que ampliar o recortar alguna sección?)</li><li>[ ] Las definiciones de tipos, operadores, estructuras de control y recursividad son correctas</li><li>[ ] La distinción por valor / por referencia y ámbito / tiempo de vida es clara y correcta</li><li>[ ] El pseudocódigo neutro en castellano es adecuado y homogéneo (¿preferible otro estilo?)</li><li>[ ] La frontera con el Tema 13 (algoritmos/estructuras de datos), el Tema 20 (POO) y el Tema 19 (SQL) está clara</li><li>[ ] Los ejemplos Ayto Madrid (Padrón, tributos, expedientes, 21 distritos) son verosímiles</li></ul>
+<h2>3. Fuentes</h2>
+<ul><li>[ ] Todas las afirmaciones técnicas están respaldadas por fuente Tier 1</li><li>[ ] Las referencias inline se corresponden con <code>tema-18-fuentes.md</code></li><li>[ ] Atribuciones históricas correctas (Böhm-Jacopini 1966, Dijkstra 1968, IEEE 754)</li></ul>
+<h2>4. Test (60 preguntas)</h2>
+<ul><li>[ ] Cada pregunta tiene una sola respuesta correcta e inequívoca</li><li>[ ] Los distractores (A/B/C) son plausibles</li><li>[ ] La distribución de la opción correcta entre A/B/C está equilibrada (20/20/20 tras QA)</li><li>[ ] Las explicaciones y referencias de cada respuesta son correctas</li></ul>
+<h2>5. Casos prácticos (3)</h2>
+<ul><li>[ ] Realistas y propios del Ayuntamiento (tasas, censo/Padrón, expedientes)</li><li>[ ] Soluciones orientativas técnicamente correctas (pseudocódigo)</li><li>[ ] La puntuación de cada caso suma 10 puntos</li></ul>
+<h2>6. Diagramas (12 SVG)</h2>
+<ul><li>[ ] Cada diagrama es correcto y legible (también impreso en B/N)</li><li>[ ] Accesibilidad: todos tienen <code>role="img"</code> y <code>aria-label</code></li><li>[ ] Sin desbordes de texto ni colisiones de estilo entre SVG (clases con sufijo único)</li></ul>
+<h2>7. Referencias cruzadas a otros temas</h2>
+<ul><li>[ ] Validadas contra BOAM 10.032 (T11, T13, T17, T19, T20, T23, T25)</li><li>[ ] Ninguna referencia cruzada cita un enunciado de tema incorrecto</li></ul>
+<h2>8. Calidad editorial</h2>
+<ul><li>[ ] Ortografía verificada (tildes y ñ) — sin diacríticos perdidos</li><li>[ ] Coherencia de versión (v1.0) en title, badges, banner y footer del <code>index.html</code></li><li>[ ] El <code>index.html</code> abre, navega entre las 8 pestañas y el motor de test funciona</li><li>[ ] Las listas anidadas del Contenido se muestran con sus niveles (sin aplanar)</li></ul>
+<hr>
+<h2>Observaciones abiertas</h2>
+<p>_(Espacio para anotaciones de María, Ana y la revisión IAM.)_</p></section>
+<section id="tab-fuentes" class="tab-content"><hr>
+<hr>
+<h2>Tier 1 — Canónicas y normativas</h2>
+<table><thead><tr><th>ID</th><th>Referencia</th></tr></thead><tbody><tr><td><code>[SEBESTA]</code></td><td>Sebesta, R. W. <em>Concepts of Programming Languages</em> (11.ª ed.). Pearson. Obra de referencia sobre diseño de lenguajes: sintaxis, semántica, tipos, ámbito, subprogramas.</td></tr><tr><td><code>[SCOTT]</code></td><td>Scott, M. L. <em>Programming Language Pragmatics</em> (4.ª ed.). Morgan Kaufmann. Semántica, sistemas de tipos, paso de parámetros, gestión de memoria.</td></tr><tr><td><code>[ASU]</code></td><td>Aho, A.; Lam, M.; Sethi, R.; Ullman, J. <em>Compilers: Principles, Techniques and Tools</em> (2.ª ed., «Dragon Book»). Análisis léxico, sintáctico y semántico.</td></tr><tr><td><code>[PRATT]</code></td><td>Pratt, T. W.; Zelkowitz, M. V. <em>Programming Languages: Design and Implementation</em> (4.ª ed.). Prentice Hall. Clasificación de lenguajes y paradigmas.</td></tr><tr><td><code>[PIERCE]</code></td><td>Pierce, B. C. <em>Types and Programming Languages</em>. MIT Press. Teoría de tipos, tipado estático/dinámico, seguridad de tipos.</td></tr><tr><td><code>[BOHM66]</code></td><td>Böhm, C.; Jacopini, G. (1966). <em>Flow diagrams, Turing machines and languages with only two formation rules</em>. CACM. Teorema del programa estructurado (secuencia, selección, iteración).</td></tr><tr><td><code>[DIJKSTRA68]</code></td><td>Dijkstra, E. W. (1968). <em>Go To Statement Considered Harmful</em>. CACM 11(3). Fundamento de la programación estructurada.</td></tr><tr><td><code>[KNUTH1]</code></td><td>Knuth, D. E. <em>The Art of Computer Programming, Vol. 1: Fundamental Algorithms</em>. Addison-Wesley. Vectores, registros, representación en memoria, recursión.</td></tr><tr><td><code>[CLRS]</code></td><td>Cormen, T.; Leiserson, C.; Rivest, R.; Stein, C. <em>Introduction to Algorithms</em> (3.ª ed.). MIT Press. Recursividad, arrays, coste algorítmico.</td></tr><tr><td><code>[ABELSON]</code></td><td>Abelson, H.; Sussman, G. J. <em>Structure and Interpretation of Computer Programs</em> (SICP, 2.ª ed.). MIT Press. Abstracción, procedimientos, recursión, ámbito.</td></tr><tr><td><code>[MCCONNELL]</code></td><td>McConnell, S. <em>Code Complete</em> (2.ª ed.). Microsoft Press. Buenas prácticas, nombrado, variables, estructura del código, defensas.</td></tr><tr><td><code>[KP]</code></td><td>Kernighan, B. W.; Pike, R. <em>The Practice of Programming</em>. Addison-Wesley. Estilo, depuración, pruebas, portabilidad.</td></tr><tr><td><code>[IEEE754]</code></td><td>IEEE 754-2019 <em>Standard for Floating-Point Arithmetic</em>. Representación de reales en coma flotante.</td></tr><tr><td><code>[ISO-C]</code></td><td>ISO/IEC 9899:2018 <em>Programming languages — C</em>. Tipos primitivos, operadores, conversiones.</td></tr></tbody></table>
+<h2>Tier 2 — Manuales y documentación de lenguajes</h2>
+<table><thead><tr><th>ID</th><th>Referencia</th></tr></thead><tbody><tr><td><code>[PY-DOC]</code></td><td>Python Software Foundation. <em>The Python Language Reference &amp; Tutorial</em> — tipos, operadores, funciones, ámbito. docs.python.org</td></tr><tr><td><code>[JLS]</code></td><td>Gosling, J. et al. <em>The Java Language Specification</em> (Java SE). Tipos primitivos, operadores, paso por valor, arrays.</td></tr><tr><td><code>[K&amp;R]</code></td><td>Kernighan, B. W.; Ritchie, D. M. <em>The C Programming Language</em> (2.ª ed.). Prentice Hall. Punteros, arrays, structs.</td></tr><tr><td><code>[MDN-JS]</code></td><td>Mozilla Developer Network. <em>JavaScript Reference</em> — tipado dinámico, coerción, funciones. developer.mozilla.org</td></tr></tbody></table>
+<h2>Tier 3 — Marco de calidad y del puesto (contexto, no contenido técnico)</h2>
+<table><thead><tr><th>ID</th><th>Referencia</th></tr></thead><tbody><tr><td><code>[ISO25010]</code></td><td>ISO/IEC 25010:2011 <em>Systems and software Quality Requirements and Evaluation (SQuaRE)</em> — mantenibilidad, fiabilidad.</td></tr><tr><td><code>[ENS]</code></td><td>Real Decreto 311/2022, Esquema Nacional de Seguridad — seguridad en el desarrollo y trazabilidad del código.</td></tr><tr><td><code>[BOAM10032]</code></td><td>BOAM 10.032 (23-dic-2025). Bases específicas TIC C1 Ayto. Madrid — temario oficial.</td></tr></tbody></table>
+<hr>
+<p><em>Las referencias Tier 1 son la base del contenido; Tier 2 ilustra la materialización en lenguajes reales (C, Java, Python, JavaScript) sin atar el tema a ninguno; Tier 3 enmarca la calidad y la seguridad aplicables al desarrollo en el Ayuntamiento de Madrid.</em></p></section>
+<div class="footer">Tema 18 · v1.0 · 2026-07-06 · ETRIVIUM — IAM Ayuntamiento de Madrid · Generado desde los .md (sincronizado)</div>
+</div>
+<script>
+const questions = [
+{
+"q": "¿Qué es un lenguaje de programación de alto nivel?",
+"opts": [
+"Una notación cercana al lenguaje humano e independiente de la máquina, que necesita un traductor",
+"El conjunto de instrucciones en binario que ejecuta directamente el procesador",
+"Un lenguaje que solo funciona en una arquitectura de CPU concreta"
+],
+"correct": 0,
+"ref": "§1.2 [SEBESTA]",
+"expl": "El alto nivel abstrae el hardware; el binario (B) y el dependiente de la CPU (C) son de bajo nivel."
+},
+{
+"q": "La diferencia fundamental entre un algoritmo y un programa es que:",
+"opts": [
+"Son sinónimos exactos, no hay diferencia",
+"El algoritmo es la secuencia lógica de pasos, independiente del lenguaje; el programa es ese algoritmo escrito en un lenguaje ejecutable",
+"El programa es más abstracto que el algoritmo"
+],
+"correct": 1,
+"ref": "§1.1 [SEBESTA]",
+"expl": "Un mismo algoritmo puede programarse en C, Java o Python."
+},
+{
+"q": "¿Cuáles son los tres componentes con que se define todo lenguaje de programación?",
+"opts": [
+"Compilador, intérprete y ensamblador",
+"Variables, funciones y bucles",
+"Léxico, sintaxis y semántica"
+],
+"correct": 2,
+"ref": "§1.1 [ASU]",
+"expl": "Vocabulario (léxico), reglas gramaticales (sintaxis) y significado (semántica), igual que un lenguaje natural."
+},
+{
+"q": "En la clasificación por generaciones, SQL es un ejemplo típico de:",
+"opts": [
+"Lenguaje de 2.ª generación (ensamblador)",
+"Lenguaje de 4.ª generación (declarativo)",
+"Lenguaje de 1.ª generación (máquina)"
+],
+"correct": 1,
+"ref": "§1.2 [PRATT]",
+"expl": "Los 4GL son declarativos: se indica QUÉ se quiere, no CÓMO obtenerlo. SQL es el ejemplo clásico."
+},
+{
+"q": "¿Qué caracteriza a un lenguaje del paradigma imperativo frente a uno declarativo?",
+"opts": [
+"El imperativo solo se usa en inteligencia artificial",
+"El imperativo no admite variables",
+"En el imperativo se indica CÓMO resolver el problema (los pasos); en el declarativo, QUÉ se quiere obtener"
+],
+"correct": 2,
+"ref": "§1.2 [SEBESTA]",
+"expl": "El declarativo (SQL, Prolog) deja el «cómo» al sistema."
+},
+{
+"q": "¿Cuál es la diferencia entre un compilador y un intérprete?",
+"opts": [
+"El compilador traduce el programa completo antes de ejecutarlo; el intérprete traduce y ejecuta instrucción a instrucción",
+"El compilador es más lento porque traduce línea a línea",
+"El intérprete genera siempre un fichero ejecutable independiente"
+],
+"correct": 0,
+"ref": "§1.2 [SEBESTA]",
+"expl": "El compilador detecta muchos errores antes de ejecutar; el intérprete los revela en ejecución."
+},
+{
+"q": "El modelo de ejecución de Java («compile once, run anywhere») se basa en:",
+"opts": [
+"Interpretar directamente el código fuente sin traducirlo",
+"Compilar a código máquina específico de cada procesador",
+"Compilar a un código intermedio (bytecode) que ejecuta una máquina virtual (JVM)"
+],
+"correct": 2,
+"ref": "§1.2 [SEBESTA]",
+"expl": "Es un modelo híbrido: portabilidad del bytecode + compilación JIT para rendimiento."
+},
+{
+"q": "La descripción formal de la sintaxis de un lenguaje suele expresarse mediante:",
+"opts": [
+"Gramáticas en notación BNF (Backus-Naur Form)",
+"Tablas de verdad booleanas",
+"Diagramas entidad-relación"
+],
+"correct": 0,
+"ref": "§1.4 [ASU]",
+"expl": "La BNF define reglas de producción que el análisis sintáctico del compilador comprueba."
+},
+{
+"q": "Escribir <code>resultado = total / num</code> cuando <code>num</code> vale 0 constituye un:",
+"opts": [
+"Error de sintaxis detectado al compilar",
+"Error semántico dinámico (se manifiesta al ejecutar)",
+"Error de estilo o pragmática, sin consecuencias"
+],
+"correct": 1,
+"ref": "§1.4 [SCOTT]",
+"expl": "La sentencia es sintácticamente correcta; el fallo (división por cero) aparece en tiempo de ejecución."
+},
+{
+"q": "¿Qué es un identificador en un lenguaje de programación?",
+"opts": [
+"El nombre que el programador da a variables, constantes, funciones o tipos",
+"Un valor numérico fijo que no puede cambiar",
+"Un símbolo que representa una operación aritmética"
+],
+"correct": 0,
+"ref": "§1.5 [SEBESTA]",
+"expl": "Suele distinguir mayúsculas de minúsculas y no puede coincidir con una palabra reservada."
+},
+{
+"q": "¿Cuál es la diferencia entre una variable y una constante?",
+"opts": [
+"La constante ocupa más memoria que la variable",
+"La variable puede cambiar de valor durante la ejecución; la constante mantiene fijo su valor",
+"La variable no tiene tipo y la constante sí"
+],
+"correct": 1,
+"ref": "§1.5 [MCCONNELL]",
+"expl": "Usar constantes con nombre evita «números mágicos» y mejora el mantenimiento."
+},
+{
+"q": "En programación, ¿qué distingue a una expresión de una sentencia?",
+"opts": [
+"La sentencia siempre ocupa una sola línea; la expresión, varias",
+"Solo las expresiones pueden contener variables",
+"Una expresión se evalúa y produce un valor; una sentencia se ejecuta y produce un efecto"
+],
+"correct": 2,
+"ref": "§1.6 [SEBESTA]",
+"expl": "<code>x + 1</code> es expresión; <code>x = x + 1</code> es una sentencia de asignación."
+},
+{
+"q": "Un tipo de dato se define como:",
+"opts": [
+"La cantidad de memoria RAM instalada en el equipo",
+"Un conjunto de valores posibles junto con las operaciones permitidas sobre ellos",
+"El nombre que damos a una variable"
+],
+"correct": 1,
+"ref": "§2.1 [PIERCE]",
+"expl": "El tipo acota valores, fija la memoria ocupada y permite detectar errores."
+},
+{
+"q": "¿Cuál de los siguientes es un tipo de dato simple o primitivo?",
+"opts": [
+"El registro (struct)",
+"El array o vector",
+"El booleano"
+],
+"correct": 2,
+"ref": "§2.2 [SEBESTA]",
+"expl": "Booleano, entero, real y carácter son primitivos (atómicos); array y registro son estructurados."
+},
+{
+"q": "Los números reales se representan en los computadores según la norma:",
+"opts": [
+"IEEE 754 (coma flotante), con precisión finita",
+"ASCII de 7 bits",
+"Complemento a dos exacto sin pérdida"
+],
+"correct": 0,
+"ref": "§2.2 [IEEE754]",
+"expl": "Por eso no todos los decimales son exactos y no se deben comparar reales con <code>=</code> directamente."
+},
+{
+"q": "¿Por qué no conviene comparar dos números reales con el operador de igualdad <code>==</code>?",
+"opts": [
+"Porque el operador <code>==</code> no existe para reales en ningún lenguaje",
+"Porque los reales siempre son negativos",
+"Porque su representación en coma flotante es aproximada; se compara si su diferencia es menor que una tolerancia"
+],
+"correct": 2,
+"ref": "§2.2 [IEEE754]",
+"expl": "Se usa <code>|a − b| &lt; ε</code> en lugar de <code>a == b</code>."
+},
+{
+"q": "Para almacenar importes de dinero (tributos, tasas) sin errores de redondeo, se recomienda:",
+"opts": [
+"Usar entero de céntimos o un tipo decimal exacto, no coma flotante",
+"Usar siempre variables de tipo carácter",
+"Usar coma flotante de doble precisión, que es exacta"
+],
+"correct": 0,
+"ref": "§2.2 [IEEE754]",
+"expl": "Un error de un céntimo por recibo, multiplicado por miles, es un problema contable real."
+},
+{
+"q": "Un tipo enumerado (enum) como <code>ESTADO = {ABIERTO, EN_TRAMITE, RESUELTO}</code> sirve para:",
+"opts": [
+"Almacenar números reales con muchos decimales",
+"Definir un conjunto fijo de valores con nombre, mejorando la legibilidad frente a usar números",
+"Reservar memoria dinámica en el montículo"
+],
+"correct": 1,
+"ref": "§2.3 [SEBESTA]",
+"expl": "Es un tipo definido por el usuario."
+},
+{
+"q": "La conversión de tipo que realiza automáticamente el lenguaje, normalmente ampliando de un tipo menor a uno mayor sin pérdida, se llama:",
+"opts": [
+"Conversión implícita o coerción",
+"Conversión explícita o cast forzado",
+"Truncamiento manual"
+],
+"correct": 0,
+"ref": "§2.4 [SCOTT]",
+"expl": "Ejemplo: en <code>3 + 2.5</code> el entero <code>3</code> se convierte a <code>3.0</code> automáticamente (widening)."
+},
+{
+"q": "Python es un lenguaje de tipado fuerte y dinámico. Esto significa que:",
+"opts": [
+"El tipo se comprueba en compilación y permite mezclar tipos libremente",
+"Controla las mezclas de tipos incoherentes (fuerte) y el tipo se asocia al valor y se comprueba en ejecución (dinámico)",
+"No tiene tipos de datos"
+],
+"correct": 1,
+"ref": "§2.4 [PIERCE]",
+"expl": "Fuerte/débil y estático/dinámico son ejes independientes."
+},
+{
+"q": "Los ejes «fuerte/débil» y «estático/dinámico» de un sistema de tipos:",
+"opts": [
+"Son exactamente lo mismo expresado de dos formas",
+"Solo se aplican a lenguajes compilados",
+"Son independientes: uno mide cuán estricto es con las mezclas de tipos, el otro cuándo se comprueba el tipo"
+],
+"correct": 2,
+"ref": "§2.4 [PIERCE]",
+"expl": "Python es fuerte y dinámico; C es estático y relativamente débil."
+},
+{
+"q": "En un lenguaje con división entera, ¿qué vale <code>resultado</code> tras <code>entero a=7; entero b=2; real resultado = a / b;</code>?",
+"opts": [
+"3.5, porque el resultado es real",
+"Da error de compilación siempre",
+"3.0, porque la división se hace primero entre enteros (7/2=3) y luego se convierte a real"
+],
+"correct": 2,
+"ref": "§2.4 [SCOTT]",
+"expl": "Para obtener 3.5 hay que convertir ANTES de dividir: <code>(real)a / b</code>."
+},
+{
+"q": "El operador módulo (<code>mod</code>, <code>%</code>) devuelve:",
+"opts": [
+"El resto de la división entera entre dos números",
+"El cociente sin decimales",
+"La potencia del primer número elevado al segundo"
+],
+"correct": 0,
+"ref": "§3.1 [SEBESTA]",
+"expl": "<code>n mod 2 == 0</code> comprueba si <code>n</code> es par; es un uso clásico de examen."
+},
+{
+"q": "¿Qué operador se usa para comprobar si un número <code>n</code> es par?",
+"opts": [
+"<code>n / 2 == 0</code>",
+"<code>n mod 2 == 0</code>",
+"<code>n ^ 2 == 0</code>"
+],
+"correct": 1,
+"ref": "§3.1 [SEBESTA]",
+"expl": "Si el resto de dividir entre 2 es cero, el número es par."
+},
+{
+"q": "Los operadores relacionales (<code>&lt;</code>, <code>&gt;</code>, <code>==</code>, <code>!=</code>) devuelven un valor de tipo:",
+"opts": [
+"Entero",
+"Booleano (verdadero o falso)",
+"Carácter"
+],
+"correct": 1,
+"ref": "§3.2 [SEBESTA]",
+"expl": "Comparan dos valores y producen el resultado de la comparación."
+},
+{
+"q": "El error de escribir <code>si (x = 5)</code> en lugar de <code>si (x == 5)</code> consiste en:",
+"opts": [
+"Confundir el operador de asignación (<code>=</code>, guarda un valor) con el de comparación (<code>==</code>, pregunta si son iguales)",
+"Usar un operador que no existe",
+"Escribir un comentario mal cerrado"
+],
+"correct": 0,
+"ref": "§3.2 [SEBESTA]",
+"expl": "En muchos lenguajes no da error de compilación y provoca un fallo lógico difícil de detectar."
+},
+{
+"q": "La evaluación en cortocircuito (short-circuit) en <code>a Y b</code> significa que:",
+"opts": [
+"Siempre se evalúan ambos operandos antes de decidir",
+"Si <code>a</code> es falso, <code>b</code> no se evalúa porque el resultado ya es falso",
+"El operador <code>Y</code> se convierte en <code>O</code> automáticamente"
+],
+"correct": 1,
+"ref": "§3.2 [SEBESTA]",
+"expl": "Se aprovecha para proteger operaciones, p. ej. evitar una división por cero."
+},
+{
+"q": "¿Cuál es el resultado de la expresión <code>2 + 3 * 4</code> aplicando la precedencia habitual de operadores?",
+"opts": [
+"20",
+"24",
+"14"
+],
+"correct": 2,
+"ref": "§3.4 [SEBESTA]",
+"expl": "La multiplicación tiene mayor precedencia que la suma: <code>3*4=12</code>, luego <code>2+12=14</code>. Los paréntesis alterarían el orden."
+},
+{
+"q": "La sentencia <code>x += 3</code> es equivalente a:",
+"opts": [
+"<code>x = x + 3</code>",
+"<code>x = 3</code>",
+"<code>x = x * 3</code>"
+],
+"correct": 0,
+"ref": "§3.3 [SEBESTA]",
+"expl": "Es una asignación compuesta que combina la suma con la asignación."
+},
+{
+"q": "En una expresión con varios operadores, ¿qué elemento fuerza siempre el orden de evaluación por encima de la precedencia?",
+"opts": [
+"El operador de asignación",
+"El operador módulo",
+"Los paréntesis"
+],
+"correct": 2,
+"ref": "§3.4 [SEBESTA]",
+"expl": "Lo que está entre paréntesis se evalúa primero; en caso de duda, conviene usarlos para mayor legibilidad."
+},
+{
+"q": "Según el teorema de Böhm-Jacopini (1966), cualquier algoritmo puede escribirse combinando únicamente:",
+"opts": [
+"Compiladores, intérpretes y ensambladores",
+"Secuencia, selección e iteración",
+"Variables, constantes y punteros"
+],
+"correct": 1,
+"ref": "§4.1 [BOHM66]",
+"expl": "Es el fundamento de la programación estructurada, que evita el <code>goto</code> (Dijkstra, 1968)."
+},
+{
+"q": "¿Por qué la programación estructurada desaconseja el uso de la instrucción <code>goto</code>?",
+"opts": [
+"Porque el <code>goto</code> es más lento de ejecutar",
+"Porque el <code>goto</code> no existe en ningún lenguaje moderno",
+"Porque genera «código espagueti» difícil de leer y mantener (Dijkstra, 1968)"
+],
+"correct": 2,
+"ref": "§4.1 [DIJKSTRA68]",
+"expl": "Un programa estructurado tiene un único punto de entrada y de salida por bloque."
+},
+{
+"q": "La estructura de selección múltiple <code>segun</code> / <code>switch</code> / <code>case</code> es preferible a muchos <code>si</code> encadenados cuando:",
+"opts": [
+"Se decide sobre los distintos valores discretos de una misma expresión",
+"Solo hay dos caminos posibles",
+"No se conoce ninguna condición"
+],
+"correct": 0,
+"ref": "§4.2 [SEBESTA]",
+"expl": "Es más legible; la rama <code>por_defecto</code> captura los valores no contemplados."
+},
+{
+"q": "En un <code>switch</code> de lenguajes como C o Java, olvidar el <code>break</code> al final de cada caso provoca:",
+"opts": [
+"Un error de compilación inmediato",
+"Que el programa se detenga",
+"Que la ejecución «caiga» (fall-through) al siguiente caso"
+],
+"correct": 2,
+"ref": "§4.2 [SEBESTA]",
+"expl": "Es un error frecuente; el <code>break</code> corta la ejecución del caso."
+},
+{
+"q": "¿Cuál es la diferencia entre un bucle <code>mientras</code> (while) y un <code>repetir…hasta</code> (do-while)?",
+"opts": [
+"El <code>mientras</code> comprueba la condición antes (puede ejecutarse 0 veces); el <code>repetir…hasta</code> la comprueba después (se ejecuta al menos 1 vez)",
+"El <code>mientras</code> se ejecuta siempre exactamente 10 veces",
+"No hay ninguna diferencia entre ellos"
+],
+"correct": 0,
+"ref": "§4.3 [SEBESTA]",
+"expl": "El primero es precondicional; el segundo, postcondicional."
+},
+{
+"q": "El bucle <code>para</code> (for) es el más adecuado cuando:",
+"opts": [
+"La condición no puede evaluarse nunca",
+"Se conoce de antemano el número de repeticiones",
+"Se quiere ejecutar el cuerpo una única vez seguro"
+],
+"correct": 1,
+"ref": "§4.3 [SEBESTA]",
+"expl": "Integra inicialización, condición e incremento del contador."
+},
+{
+"q": "¿Cuántas veces se ejecuta el cuerpo de <code>i = 5; mientras (i &lt; 5) hacer … i = i + 1; fin_mientras</code>?",
+"opts": [
+"0 veces, porque la condición <code>5 &lt; 5</code> es falsa de entrada",
+"5 veces",
+"Infinitas veces"
+],
+"correct": 0,
+"ref": "§4.3 [SEBESTA]",
+"expl": "El <code>mientras</code> es precondicional; comprueba antes de entrar."
+},
+{
+"q": "Un bucle infinito se produce cuando:",
+"opts": [
+"El bucle tiene demasiadas iteraciones definidas",
+"La condición de continuación nunca llega a hacerse falsa (p. ej. se olvida incrementar el contador)",
+"Se usa un bucle <code>para</code> con contador"
+],
+"correct": 1,
+"ref": "§4.3 [SEBESTA]",
+"expl": "Es un error grave que cuelga el programa."
+},
+{
+"q": "Toda función recursiva correctamente construida debe tener:",
+"opts": [
+"Al menos tres parámetros",
+"Una variable global compartida",
+"Un caso base (condición de parada) y un caso recursivo que se acerque a él"
+],
+"correct": 2,
+"ref": "§4.4 [ABELSON]",
+"expl": "Sin caso base, la recursión es infinita y desborda la pila (stack overflow)."
+},
+{
+"q": "¿Qué ocurre si una función recursiva carece de caso base o nunca lo alcanza?",
+"opts": [
+"El compilador la convierte automáticamente en iterativa",
+"Se produce recursión infinita que agota la pila de llamadas (stack overflow)",
+"Devuelve siempre el valor 0"
+],
+"correct": 1,
+"ref": "§4.4 [CLRS]",
+"expl": "Cada llamada pendiente ocupa un marco en la pila."
+},
+{
+"q": "Comparando recursividad e iteración para el mismo problema:",
+"opts": [
+"La recursión nunca puede sustituirse por iteración",
+"La iteración siempre da resultados incorrectos",
+"Todo algoritmo recursivo puede reescribirse de forma iterativa; la recursión suele ser más elegante pero consume más memoria (marcos de pila)"
+],
+"correct": 2,
+"ref": "§4.4 [CLRS]",
+"expl": "La iteración es más eficiente en memoria."
+},
+{
+"q": "¿Qué valor devuelve <code>factorial(4)</code> según la definición <code>factorial(n) = n * factorial(n-1)</code>, con caso base <code>factorial(1) = 1</code>?",
+"opts": [
+"24",
+"10",
+"12"
+],
+"correct": 0,
+"ref": "§4.4 [ABELSON]",
+"expl": "<code>4 <em> 3 </em> 2 * 1 = 24</code>. Se apilan 4 llamadas y se desenrollan desde el caso base."
+},
+{
+"q": "¿Cuál es la diferencia entre una función y un procedimiento?",
+"opts": [
+"El procedimiento solo puede tener un parámetro",
+"La función se ejecuta más rápido siempre",
+"La función devuelve un valor (se usa en una expresión); el procedimiento no devuelve valor, actúa por sus efectos"
+],
+"correct": 2,
+"ref": "§4.5 [ABELSON]",
+"expl": "Muchos lenguajes los unifican como funciones que devuelven <code>void</code>."
+},
+{
+"q": "Los beneficios de la programación modular (dividir el programa en subprogramas) incluyen:",
+"opts": [
+"Reutilización, legibilidad, mantenimiento y prueba independiente, con alta cohesión y bajo acoplamiento",
+"Aumentar el número de líneas de código para que parezca más completo",
+"Impedir el uso de funciones y procedimientos"
+],
+"correct": 0,
+"ref": "§4.5 [MCCONNELL]",
+"expl": "Es aplicar «divide y vencerás» al diseño del software."
+},
+{
+"q": "En el paso de parámetros, el «parámetro formal» es:",
+"opts": [
+"El valor concreto que se pasa en la llamada",
+"La variable que aparece en la definición del subprograma",
+"Un tipo de dato primitivo"
+],
+"correct": 1,
+"ref": "§4.6 [SCOTT]",
+"expl": "El valor concreto de la llamada es el «argumento» o parámetro real."
+},
+{
+"q": "Si un procedimiento <code>duplica(x) { x = x * 2 }</code> recibe la variable <code>a = 10</code> por VALOR, tras la llamada <code>duplica(a)</code>:",
+"opts": [
+"<code>a</code> sigue valiendo 10, porque se duplicó una copia y el original no cambia",
+"<code>a</code> pasa a valer 20",
+"<code>a</code> queda sin valor definido"
+],
+"correct": 0,
+"ref": "§4.6 [SCOTT]",
+"expl": "Por referencia, en cambio, <code>a</code> pasaría a valer 20."
+},
+{
+"q": "En el paso por referencia, a diferencia del paso por valor:",
+"opts": [
+"Nunca se pueden modificar los datos del llamador",
+"Se copia el argumento y el original queda intacto",
+"Se pasa la dirección de la variable, por lo que el subprograma puede modificar el original"
+],
+"correct": 2,
+"ref": "§4.6 [SCOTT]",
+"expl": "En C se emula con punteros; permite devolver varios resultados."
+},
+{
+"q": "El ámbito (scope) de una variable se refiere a:",
+"opts": [
+"La cantidad de memoria que ocupa",
+"El número de veces que cambia de valor",
+"La región del programa donde la variable es visible y puede usarse"
+],
+"correct": 2,
+"ref": "§4.7 [SCOTT]",
+"expl": "Puede ser local (dentro de un subprograma) o global (todo el programa)."
+},
+{
+"q": "Una variable local declarada <code>static</code> en C tiene:",
+"opts": [
+"Ámbito global y tiempo de vida local",
+"Ámbito local (solo visible en su función) pero tiempo de vida global (conserva su valor entre llamadas)",
+"Ni ámbito ni tiempo de vida"
+],
+"correct": 1,
+"ref": "§4.7 [SCOTT]",
+"expl": "Ámbito (dónde es visible) y tiempo de vida (cuánto existe) son conceptos distintos."
+},
+{
+"q": "Las variables locales automáticas de un subprograma se ubican en la memoria denominada:",
+"opts": [
+"Pila (stack): nacen al entrar en el subprograma y mueren al salir",
+"Montículo (heap) reservado con <code>new</code>",
+"Registro del procesador exclusivamente"
+],
+"correct": 0,
+"ref": "§4.7 [SCOTT]",
+"expl": "La memoria dinámica (con <code>new</code>/<code>malloc</code>) va al montículo (heap)."
+},
+{
+"q": "Un array (vector) se caracteriza por:",
+"opts": [
+"Agrupar campos de tipos distintos accedidos por nombre",
+"No tener un orden definido entre sus elementos",
+"Ser una colección de elementos del mismo tipo, contiguos en memoria y accesibles por índice en tiempo O(1)"
+],
+"correct": 2,
+"ref": "§5.1 [KNUTH1]",
+"expl": "El acceso directo por índice es su gran ventaja."
+},
+{
+"q": "Acceder a <code>array[i]</code> con un índice <code>i</code> fuera del rango declarado:",
+"opts": [
+"Siempre devuelve el valor 0 sin problemas",
+"Es un error grave: en C corrompe memoria; en Java/Python lanza una excepción (IndexOutOfBounds)",
+"Amplía automáticamente el tamaño del array"
+],
+"correct": 1,
+"ref": "§5.1 [KNUTH1]",
+"expl": "Hay que respetar los límites del array."
+},
+{
+"q": "¿Cuál es la diferencia esencial entre un array y un registro?",
+"opts": [
+"El array agrupa elementos del mismo tipo accedidos por índice; el registro agrupa campos de tipos distintos accedidos por nombre",
+"El array no cabe en memoria y el registro sí",
+"El registro solo puede tener un campo"
+],
+"correct": 0,
+"ref": "§5.2 [KNUTH1]",
+"expl": "Un array de registros combina ambos."
+},
+{
+"q": "El Padrón Municipal (con dni, nombre, fecha de nacimiento y distrito de cada habitante) se modela de forma natural como:",
+"opts": [
+"Un único número entero muy grande",
+"Un array (o lista) de registros «Habitante», donde cada habitante es un registro",
+"Una constante booleana"
+],
+"correct": 1,
+"ref": "§5.2 [KNUTH1]",
+"expl": "Es el paso previo a persistirlo en una base de datos relacional (T17/T19)."
+},
+{
+"q": "La búsqueda binaria (dicotómica) sobre un array:",
+"opts": [
+"Funciona sobre cualquier array, esté ordenado o no",
+"Es más lenta que la búsqueda secuencial",
+"Requiere que el array esté ordenado y tiene coste O(log n), más rápida que la secuencial O(n)"
+],
+"correct": 2,
+"ref": "§5.3 [CLRS]",
+"expl": "Divide el rango a la mitad en cada paso."
+},
+{
+"q": "El principio DRY (Don't Repeat Yourself) en buenas prácticas de programación consiste en:",
+"opts": [
+"No repetir código, factorizando lo común en funciones reutilizables",
+"Repetir el código tres veces para asegurar que funciona",
+"Documentar cada línea con un comentario"
+],
+"correct": 0,
+"ref": "§6.2 [MCCONNELL]",
+"expl": "Junto con KISS (mantenlo simple) y YAGNI, mejora la mantenibilidad."
+},
+{
+"q": "Un «error lógico» en un programa se caracteriza por:",
+"opts": [
+"Impedir que el programa compile",
+"Detener el programa con un mensaje del sistema operativo",
+"Que el programa se ejecuta sin fallar pero produce un resultado incorrecto; es el más difícil de detectar"
+],
+"correct": 2,
+"ref": "§6.3 [KP]",
+"expl": "Se caza con pruebas (testing); se distingue del error de compilación y del de ejecución."
+},
+{
+"q": "Las pruebas que comprueban una función o módulo de forma aislada se denominan:",
+"opts": [
+"Pruebas de aceptación del usuario",
+"Pruebas unitarias",
+"Pruebas de sistema completo"
+],
+"correct": 1,
+"ref": "§6.3 [KP]",
+"expl": "Las de integración comprueban módulos juntos; las de sistema/aceptación, el conjunto frente a los requisitos."
+},
+{
+"q": "El «tipado gradual» (type hints en Python, TypeScript sobre JavaScript) es una tendencia que busca:",
+"opts": [
+"Añadir anotaciones de tipo opcionales a lenguajes dinámicos para detectar errores antes sin perder flexibilidad",
+"Eliminar todos los tipos de datos de los lenguajes",
+"Convertir todos los lenguajes en ensamblador"
+],
+"correct": 0,
+"ref": "§7 [SCOTT]",
+"expl": "Acerca lo mejor del tipado estático y del dinámico."
+},
+{
+"q": "Respecto a las tendencias actuales (seguridad de memoria, concurrencia, IA), los fundamentos del tema (tipos, operadores, estructuras de control, modularidad):",
+"opts": [
+"Han quedado obsoletos y ya no se usan",
+"Siguen plenamente vigentes por debajo de todas esas tendencias",
+"Solo se aplican a lenguajes de bajo nivel"
+],
+"correct": 1,
+"ref": "§7 [SEBESTA]",
+"expl": "Rust, WebAssembly o los asistentes de IA se apoyan en los mismos fundamentos."
+}
+];
+function renderQuestions(){
+  const c=document.getElementById('test-container');
+  c.innerHTML=questions.map((q,i)=>`
+    <div class="question" data-q="${i}">
+      <div class="q-num">Pregunta ${i+1}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-options">${q.opts.map((o,j)=>`<div class="q-opt" data-opt="${j}" onclick="selectOption(${i},${j})"><div class="q-letter">${String.fromCharCode(65+j)}</div><div>${o}</div></div>`).join('')}</div>
+      <div class="q-answer"><strong>Correcta: ${String.fromCharCode(65+q.correct)}) ${q.opts[q.correct]}</strong><br>${q.expl}<div class="q-ref">Referencia: tema-18-contenido.md ${q.ref}</div></div>
+    </div>`).join('');
+}
+const answers={};
+function selectOption(qi,oi){answers[qi]=oi;const q=document.querySelector(`[data-q="${qi}"]`);q.querySelectorAll('.q-opt').forEach(e=>e.classList.remove('selected'));q.querySelector(`[data-opt="${oi}"]`).classList.add('selected');updateScore();}
+function correctAll(){questions.forEach((q,i)=>{const el=document.querySelector(`[data-q="${i}"]`);el.querySelectorAll('.q-opt').forEach((e,j)=>{e.classList.remove('selected','correct','wrong');if(j===q.correct)e.classList.add('correct');else if(answers[i]===j)e.classList.add('wrong');});el.querySelector('.q-answer').classList.add('show');});}
+function resetTest(){Object.keys(answers).forEach(k=>delete answers[k]);document.querySelectorAll('.q-opt').forEach(e=>e.classList.remove('selected','correct','wrong'));document.querySelectorAll('.q-answer').forEach(e=>e.classList.remove('show'));updateScore();}
+function updateScore(){const r=Object.keys(answers).length;const ok=Object.entries(answers).filter(([i,v])=>questions[i].correct===v).length;const w=r-ok;document.getElementById('s-resp').textContent=r;document.getElementById('s-correct').textContent=ok;document.getElementById('s-wrong').textContent=w;document.getElementById('s-score').textContent=Math.max(0,ok-w/3).toFixed(2);}
+function showTab(name,btn){document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));const t=document.getElementById('tab-'+name);if(t)t.classList.add('active');if(btn)btn.classList.add('active');try{window.scrollTo(0,0);}catch(e){}}
+function initTabs(){document.querySelectorAll('.tab-btn[data-tab]').forEach(b=>b.addEventListener('click',function(){showTab(this.dataset.tab,this);}));try{renderQuestions();}catch(e){console.error(e);}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initTabs);else initTabs();
+</script>
+</body>
+</html>
