@@ -48,7 +48,7 @@
    6.2. Buenas prácticas de programación
    6.3. Documentación, pruebas y mantenimiento
 
-7. **Tendencias actuales en los lenguajes de programación**
+7. **Tendencias actuales en los lenguajes de programación (material complementario)**
 
 ---
 

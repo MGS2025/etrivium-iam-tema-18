@@ -594,6 +594,8 @@ La **mantenibilidad** —lo fácil que resulta modificar el software— es un at
 
 ## 7. Tendencias actuales en los lenguajes de programación
 
+> **Material complementario.** El enunciado oficial de este tema no nombra este apartado. Se mantiene porque esta materia envejece deprisa y conviene conocer su estado actual, pero lo exigible es lo que enumera el título del tema.
+
 El diseño de lenguajes evoluciona, pero los fundamentos de este tema (tipos, operadores, control, modularidad) permanecen. Las **líneas de fondo** más relevantes en la actualidad —planteadas de forma duradera, sin atarse a versiones concretas— son [SEBESTA, cap. 1; SCOTT, cap. 1]:
 
 - **Seguridad de memoria y de tipos**: lenguajes modernos (p. ej. Rust) buscan eliminar en tiempo de compilación errores clásicos de C (accesos inválidos, fugas de memoria) sin recolector de basura, mediante sistemas de propiedad. Es una respuesta a que gran parte de las vulnerabilidades graves proceden de la gestión manual de memoria.
