@@ -121,13 +121,13 @@
   <rect x="70" y="188" width="100" height="30" rx="4" fill="#d7e6f4"/><text x="120" y="208" text-anchor="middle" class="s4">Real (IEEE 754)</text>
   <rect x="70" y="224" width="100" height="30" rx="4" fill="#d7e6f4"/><text x="120" y="244" text-anchor="middle" class="s4">Carácter</text>
   <rect x="70" y="260" width="100" height="30" rx="4" fill="#d7e6f4"/><text x="120" y="280" text-anchor="middle" class="s4">Booleano</text>
-  <rect x="200" y="152" width="90" height="30" rx="4" fill="#d7e6f4"/><text x="245" y="172" text-anchor="middle" class="s4">atómicos,</text>
-  <rect x="200" y="188" width="90" height="30" rx="4" fill="#d7e6f4"/><text x="245" y="208" text-anchor="middle" class="s4">indivisibles</text>
+  <text x="186" y="172" class="l4" font-style="italic">atómicos,</text>
+  <text x="186" y="188" class="l4" font-style="italic">indivisibles</text>
   <rect x="420" y="152" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="475" y="172" text-anchor="middle" class="s4">Array / vector</text>
   <rect x="420" y="188" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="475" y="208" text-anchor="middle" class="s4">Registro / struct</text>
   <rect x="420" y="224" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="475" y="244" text-anchor="middle" class="s4">Cadena (string)</text>
   <rect x="420" y="260" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="475" y="280" text-anchor="middle" class="s4">Conjunto, fichero</text>
-  <rect x="558" y="188" width="110" height="30" rx="4" fill="#fbe9cf"/><text x="613" y="208" text-anchor="middle" class="s4">agrupan varios</text>
+  <text x="546" y="208" class="l4" font-style="italic">agrupan varios</text>
   <text x="670" y="312" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: SEBESTA, cap. 6]</text>
 </svg>
 ```
@@ -140,15 +140,15 @@
 **Propósito**: Separar los dos ejes independientes (estático/dinámico y fuerte/débil) con ejemplos.
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Matriz de dos ejes del sistema de tipos: eje horizontal fuerte a débil, eje vertical estático a dinámico, con Java, C, Python y JavaScript ubicados">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 374" role="img" aria-label="Matriz de dos ejes del sistema de tipos: eje horizontal fuerte a débil, eje vertical estático a dinámico, con Java, C, Python y JavaScript ubicados">
   <style>.l5{font:11px system-ui,sans-serif;fill:#444}.h5{font:700 13px system-ui,sans-serif;fill:#0055a0}.a5{font:700 12px system-ui,sans-serif;fill:#0055a0}.c5{font:600 12px system-ui,sans-serif;fill:#123}</style>
   <text x="320" y="24" text-anchor="middle" class="h5">Los dos ejes del sistema de tipos (independientes)</text>
   <line x1="120" y1="70" x2="120" y2="320" stroke="#0055a0" stroke-width="2" marker-end="url(#a5)"/>
   <line x1="120" y1="320" x2="560" y2="320" stroke="#0055a0" stroke-width="2" marker-end="url(#a5)"/>
   <text x="112" y="66" text-anchor="end" class="a5">estático</text>
-  <text x="112" y="316" text-anchor="end" class="a5">dinámico</text>
+  <text x="106" y="302" text-anchor="end" class="a5">dinámico</text>
   <text x="128" y="66" class="l5">(tipo en compilación)</text>
-  <text x="128" y="316" class="l5">(tipo en ejecución)</text>
+  <text x="106" y="316" text-anchor="end" class="l5">(tipo en ejecución)</text>
   <text x="150" y="340" class="a5">fuerte</text>
   <text x="560" y="340" text-anchor="end" class="a5">débil</text>
   <rect x="150" y="90" width="150" height="60" rx="8" fill="#d7e6f4" stroke="#0055a0"/><text x="225" y="116" text-anchor="middle" class="c5">JAVA</text><text x="225" y="136" text-anchor="middle" class="l5">estático + fuerte</text>
@@ -156,7 +156,7 @@
   <rect x="150" y="240" width="150" height="60" rx="8" fill="#d7ecd9" stroke="#2d8659"/><text x="225" y="266" text-anchor="middle" class="c5">PYTHON</text><text x="225" y="286" text-anchor="middle" class="l5">dinámico + fuerte</text>
   <rect x="380" y="240" width="150" height="60" rx="8" fill="#f6d9d9" stroke="#d13c3c"/><text x="455" y="266" text-anchor="middle" class="c5">JAVASCRIPT</text><text x="455" y="286" text-anchor="middle" class="l5">dinámico + débil</text>
   <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#0055a0"/></marker></defs>
-  <text x="630" y="352" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: PIERCE; SEBESTA cap. 6]</text>
+  <text x="630" y="366" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: PIERCE; SEBESTA cap. 6]</text>
 </svg>
 ```
 
@@ -210,7 +210,7 @@
   <text x="130" y="98" text-anchor="middle" class="l7">Comprueba ANTES</text>
   <text x="130" y="118" text-anchor="middle" class="k7">Puede ejecutarse 0 veces</text>
   <text x="130" y="140" text-anchor="middle" class="l7">precondicional</text>
-  <rect x="40" y="158" width="180" height="90" rx="6" fill="#f2f6fb" stroke="#0055a0"/><text x="130" y="182" text-anchor="middle" class="l7">i = 1</text><text x="130" y="202" text-anchor="middle" class="l7">mientras (i &lt;= 10)</text><text x="130" y="222" text-anchor="middle" class="l7">   procesar(i)</text><text x="130" y="242" text-anchor="middle" class="l7">   i = i + 1</text>
+  <rect x="40" y="158" width="180" height="90" rx="6" fill="#f2f6fb" stroke="#0055a0"/><text x="130" y="180" text-anchor="middle" class="l7">i = 1</text><text x="130" y="198" text-anchor="middle" class="l7">mientras (i &lt;= 10)</text><text x="130" y="216" text-anchor="middle" class="l7">   procesar(i)</text><text x="130" y="234" text-anchor="middle" class="l7">   i = i + 1</text>
   <rect x="240" y="44" width="200" height="34" rx="6" fill="#2d8659"/><text x="340" y="66" text-anchor="middle" class="t7">REPETIR…HASTA (do-while)</text>
   <text x="340" y="98" text-anchor="middle" class="l7">Comprueba DESPUÉS</text>
   <text x="340" y="118" text-anchor="middle" class="k7">Se ejecuta ≥ 1 vez</text>
@@ -265,7 +265,7 @@
 **Propósito**: Distinguir la pila (variables automáticas, marcos de llamada) del montículo (memoria dinámica).
 
 ```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 320" role="img" aria-label="Organización de la memoria de un programa: pila para variables locales automáticas y marcos de llamada, y montículo o heap para memoria dinámica reservada explícitamente">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 334" role="img" aria-label="Organización de la memoria de un programa: pila para variables locales automáticas y marcos de llamada, y montículo o heap para memoria dinámica reservada explícitamente">
   <style>.t9{font:700 12px system-ui,sans-serif;fill:#fff}.l9{font:11px system-ui,sans-serif;fill:#444}.h9{font:700 13px system-ui,sans-serif;fill:#0055a0}.s9{font:11px system-ui,sans-serif;fill:#fff}</style>
   <text x="330" y="24" text-anchor="middle" class="h9">Memoria de un programa en ejecución</text>
   <rect x="70" y="44" width="230" height="240" rx="8" fill="#f2f6fb" stroke="#0055a0"/>
@@ -281,7 +281,7 @@
   <rect x="410" y="158" width="90" height="42" rx="4" fill="#2d8659"/><text x="455" y="183" text-anchor="middle" class="t9">registro</text>
   <text x="475" y="228" text-anchor="middle" class="l9">Dinámica · se reserva y libera</text><text x="475" y="246" text-anchor="middle" class="l9">explícitamente (o recolector</text><text x="475" y="264" text-anchor="middle" class="l9">de basura) · tamaño variable</text>
   <text x="330" y="306" text-anchor="middle" class="l9">Ámbito = DÓNDE se ve la variable · Tiempo de vida = CUÁNTO existe en memoria</text>
-  <text x="650" y="316" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: SCOTT, cap. 3]</text>
+  <text x="650" y="328" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: SCOTT, cap. 3]</text>
 </svg>
 ```
 
@@ -358,10 +358,10 @@
   <text x="320" y="24" text-anchor="middle" class="h12">Anatomía de un programa</text>
   <rect x="120" y="40" width="400" height="42" rx="6" fill="#6ea3d2"/><text x="320" y="60" text-anchor="middle" class="t12">1 · Importaciones / bibliotecas</text><text x="320" y="76" text-anchor="middle" class="s12">import, #include, using</text>
   <rect x="120" y="90" width="400" height="42" rx="6" fill="#3778b5"/><text x="320" y="110" text-anchor="middle" class="t12">2 · Declaraciones globales</text><text x="320" y="126" text-anchor="middle" class="s12">constantes (NUM_DISTRITOS = 21), tipos (Ciudadano)</text>
-  <rect x="120" y="140" width="400" height="52" rx="6" fill="#0055a0"/><text x="320" y="160" text-anchor="middle" class="t12">3 · Subprogramas</text><text x="320" y="176" text-anchor="middle" class="s12">funciones y procedimientos</text><text x="320" y="190" text-anchor="middle" class="s12">alta cohesión · bajo acoplamiento</text>
-  <rect x="120" y="200" width="400" height="52" rx="6" fill="#2d8659"/><text x="320" y="220" text-anchor="middle" class="t12">4 · Programa principal — main()</text><text x="320" y="236" text-anchor="middle" class="s12">PUNTO DE ENTRADA · orquesta las llamadas</text><text x="320" y="248" text-anchor="middle" class="s12">por aquí empieza la ejecución</text>
-  <path d="M540 226 C600 226 600 161 522 161" stroke="#e89822" stroke-width="1.5" fill="none" marker-end="url(#a12)"/><text x="600" y="196" text-anchor="middle" class="l12">llama</text>
-  <rect x="90" y="270" width="460" height="34" rx="6" fill="#f2f2f2"/><text x="320" y="291" text-anchor="middle" class="l12">Separar datos (tipos), lógica (funciones) y flujo (main) · un cambio, un solo sitio</text>
+  <rect x="120" y="140" width="400" height="58" rx="6" fill="#0055a0"/><text x="320" y="158" text-anchor="middle" class="t12">3 · Subprogramas</text><text x="320" y="174" text-anchor="middle" class="s12">funciones y procedimientos</text><text x="320" y="189" text-anchor="middle" class="s12">alta cohesión · bajo acoplamiento</text>
+  <rect x="120" y="206" width="400" height="58" rx="6" fill="#2d8659"/><text x="320" y="224" text-anchor="middle" class="t12">4 · Programa principal — main()</text><text x="320" y="240" text-anchor="middle" class="s12">PUNTO DE ENTRADA · orquesta las llamadas</text><text x="320" y="255" text-anchor="middle" class="s12">por aquí empieza la ejecución</text>
+  <path d="M540 235 C600 235 600 169 522 169" stroke="#e89822" stroke-width="1.5" fill="none" marker-end="url(#a12)"/><text x="600" y="205" text-anchor="middle" class="l12">llama</text>
+  <rect x="90" y="276" width="460" height="34" rx="6" fill="#f2f2f2"/><text x="320" y="297" text-anchor="middle" class="l12">Separar datos (tipos), lógica (funciones) y flujo (main) · un cambio, un solo sitio</text>
   <defs><marker id="a12" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#e89822"/></marker></defs>
   <text x="630" y="332" text-anchor="end" style="font:11px system-ui;fill:#666">[Fuente: MCCONNELL, cap. 4]</text>
 </svg>
