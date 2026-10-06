@@ -16,13 +16,13 @@
 
 Este tema incluye cuatro tipos de **cajas callout** para facilitar el estudio:
 
-> **[DATO CLAVE EXAMEN]** Información de alta densidad memorística, con alta probabilidad de aparecer en el test oficial.
+> **[DATO CLAVE]** Información de alta densidad memorística.
 
 > **[EJERCICIO RESUELTO]** Problema + solución paso a paso (traza de un algoritmo, cálculo de una expresión, diseño de una función).
 
-> **[EJEMPLO AYTO MADRID]** Aplicación real de la teoría al entorno municipal (Padrón, tributos, expedientes, multas, callejero).
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Aplicación real de la teoría al entorno municipal (Padrón, tributos, expedientes, multas, callejero).
 
-> **[REFERENCIA CRUZADA]** Enlace conceptual a otros temas del temario oficial.
+> **[RELACIÓN CON OTROS TEMAS]** Enlace conceptual a otros temas del temario oficial.
 
 Los ejemplos de código se escriben en **pseudocódigo neutro en castellano** (`si … entonces … fin_si`, `mientras … fin_mientras`, `funcion … devolver`), independiente de cualquier lenguaje concreto, tal como se usa en los enunciados de oposición. Cuando conviene ilustrar una particularidad real se nombra el lenguaje (C, Java, Python, JavaScript). Las fuentes se citan con etiquetas breves tipo `[SEBESTA]` o `[SCOTT, cap. 8]`; el registro completo está en `tema-18-fuentes.md`.
 
@@ -42,9 +42,9 @@ Todo lenguaje de programación se define mediante tres componentes, igual que un
 
 Un **programa** es un texto escrito en un lenguaje de programación (el **código fuente**). Como la máquina no ejecuta directamente ese texto, hace falta un **traductor** que lo convierta a instrucciones que el procesador entienda (código máquina).
 
-> **[DATO CLAVE EXAMEN]** No confundir **algoritmo** con **programa**. El **algoritmo** es la secuencia lógica de pasos para resolver un problema, independiente del lenguaje; el **programa** es ese algoritmo escrito en un lenguaje concreto y ejecutable. Un mismo algoritmo puede programarse en C, Java o Python.
+> **[DATO CLAVE]** No confundir **algoritmo** con **programa**. El **algoritmo** es la secuencia lógica de pasos para resolver un problema, independiente del lenguaje; el **programa** es ese algoritmo escrito en un lenguaje concreto y ejecutable. Un mismo algoritmo puede programarse en C, Java o Python.
 
-> **[REFERENCIA CRUZADA]** El **Tema 13** trata los **algoritmos** y las estructuras de datos abstractas (pilas, colas, árboles) y su análisis de coste; el **Tema 11**, la **representación binaria** de la información (cómo se almacenan en el fondo los enteros, reales y caracteres que aquí manejamos como tipos). Este Tema 18 es el eslabón intermedio: cómo se **expresan** esos algoritmos y datos en un lenguaje.
+> **[RELACIÓN CON OTROS TEMAS]** El **Tema 13** trata los **algoritmos** y las estructuras de datos abstractas (pilas, colas, árboles) y su análisis de coste; el **Tema 11**, la **representación binaria** de la información (cómo se almacenan en el fondo los enteros, reales y caracteres que aquí manejamos como tipos). Este Tema 18 es el eslabón intermedio: cómo se **expresan** esos algoritmos y datos en un lenguaje.
 
 ### 1.2. Evolución y clasificación de los lenguajes
 
@@ -54,7 +54,7 @@ Un **programa** es un texto escrito en un lenguaje de programación (el **códig
 - **Lenguaje ensamblador** (bajo nivel): sustituye los códigos binarios por **mnemónicos** (`MOV`, `ADD`, `JMP`). Sigue atado a la máquina, pero es legible. Necesita un **ensamblador** que lo traduzca.
 - **Lenguajes de alto nivel**: cercanos al lenguaje humano y matemático (C, Java, Python, C#). Son **independientes de la máquina**: el mismo programa puede ejecutarse en distintos procesadores si existe un traductor para cada uno.
 
-Una clasificación clásica y muy preguntada es la de **generaciones**:
+Una clasificación clásica es la de **generaciones**:
 
 | Generación | Tipo | Ejemplos | Idea |
 |---|---|---|---|
@@ -73,7 +73,7 @@ Una clasificación clásica y muy preguntada es la de **generaciones**:
   - **Funcional**: el cálculo se expresa como evaluación de funciones matemáticas, evitando estado mutable (Lisp, Haskell, y rasgos en Python/JavaScript).
   - **Lógico**: se enuncian hechos y reglas y el sistema infiere respuestas (Prolog).
 
-> **[DATO CLAVE EXAMEN]** Distinción imperativo vs declarativo: en el **imperativo** el programador dice **CÓMO** resolver el problema (los pasos); en el **declarativo** dice **QUÉ** quiere y el sistema decide cómo. **SQL** (Tema 19) es el ejemplo típico de lenguaje **declarativo** de 4.ª generación.
+> **[DATO CLAVE]** Distinción imperativo vs declarativo: en el **imperativo** el programador dice **CÓMO** resolver el problema (los pasos); en el **declarativo** dice **QUÉ** quiere y el sistema decide cómo. **SQL** (Tema 19) es el ejemplo típico de lenguaje **declarativo** de 4.ª generación.
 
 **Según la forma de traducirse y ejecutarse**:
 
@@ -81,7 +81,7 @@ Una clasificación clásica y muy preguntada es la de **generaciones**:
 - **Interpretados**: un **intérprete** lee y ejecuta el programa **instrucción a instrucción** en tiempo de ejecución, sin producir un ejecutable independiente. Más flexible y portable, algo más lento (Python clásico, JavaScript).
 - **Híbridos (bytecode + máquina virtual)**: el fuente se compila a un **código intermedio** portable (*bytecode*) que ejecuta una **máquina virtual** (Java → JVM; C# → CLR). Combina portabilidad e interpretación con compilación **JIT** (*just-in-time*) para acelerar. → **Tema 21** (Java EE).
 
-> **[DATO CLAVE EXAMEN]** Compilador ≠ intérprete. El **compilador** traduce el programa **completo** antes de ejecutar y detecta muchos errores en compilación; el **intérprete** traduce y ejecuta **línea a línea** y los errores afloran en ejecución. Java usa un **modelo híbrido**: compila a *bytecode* y lo ejecuta la **JVM** («compile once, run anywhere»).
+> **[DATO CLAVE]** Compilador ≠ intérprete. El **compilador** traduce el programa **completo** antes de ejecutar y detecta muchos errores en compilación; el **intérprete** traduce y ejecuta **línea a línea** y los errores afloran en ejecución. Java usa un **modelo híbrido**: compila a *bytecode* y lo ejecuta la **JVM** («compile once, run anywhere»).
 
 ### 1.3. Elementos fundamentales de un lenguaje
 
@@ -129,9 +129,9 @@ Una **variable** es una posición de memoria **con nombre** cuyo **valor puede c
 
 Una **constante** es un dato con nombre cuyo **valor no cambia** una vez fijado (`PI = 3.1416`, `IVA = 0.21`). Aporta legibilidad (un nombre en vez de un «número mágico») y seguridad (el compilador impide modificarla). Un **literal** es un valor escrito directamente en el código (`42`, `"Madrid"`, `verdadero`).
 
-> **[DATO CLAVE EXAMEN]** **Declaración** vs **inicialización** vs **asignación**. **Declarar** = presentar la variable y su tipo (`entero edad`). **Inicializar** = darle su **primer** valor (`edad = 0`). **Asignar** = darle un valor **nuevo** después (`edad = 34`). Usar una variable **declarada pero no inicializada** es una fuente clásica de errores (valor «basura» en C).
+> **[DATO CLAVE]** **Declaración** vs **inicialización** vs **asignación**. **Declarar** = presentar la variable y su tipo (`entero edad`). **Inicializar** = darle su **primer** valor (`edad = 0`). **Asignar** = darle un valor **nuevo** después (`edad = 34`). Usar una variable **declarada pero no inicializada** es una fuente clásica de errores (valor «basura» en C).
 
-> **[EJEMPLO AYTO MADRID]** En un módulo del Padrón, `MAX_HABITANTES_VIVIENDA` sería una **constante**; `dni_ciudadano` y `codigo_distrito`, **variables**; y `21` (número de distritos de Madrid) aparecería mejor como constante con nombre `NUM_DISTRITOS` que como literal repetido por el código, evitando «números mágicos» difíciles de mantener [MCCONNELL, cap. 12].
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** En un módulo del Padrón, `MAX_HABITANTES_VIVIENDA` sería una **constante**; `dni_ciudadano` y `codigo_distrito`, **variables**; y `21` (número de distritos de Madrid) aparecería mejor como constante con nombre `NUM_DISTRITOS` que como literal repetido por el código, evitando «números mágicos» difíciles de mantener [MCCONNELL, cap. 12].
 
 ### 1.6. Expresiones y sentencias
 
@@ -144,7 +144,7 @@ Una **sentencia** (o instrucción) es una **orden completa** que el programa eje
 - **Sentencia de llamada**: `imprimir(area)` (invoca un subprograma).
 - **Sentencia compuesta o bloque**: agrupa varias sentencias como una sola (entre `inicio…fin`, `{ }` o por indentación).
 
-> **[DATO CLAVE EXAMEN]** Regla mnemotécnica: **una expresión se evalúa (da un valor); una sentencia se ejecuta (produce un efecto)**. `x + 1` es una expresión; `x = x + 1` es una sentencia (de asignación) que contiene una expresión.
+> **[DATO CLAVE]** Regla mnemotécnica: **una expresión se evalúa (da un valor); una sentencia se ejecuta (produce un efecto)**. `x + 1` es una expresión; `x = x + 1` es una sentencia (de asignación) que contiene una expresión.
 
 ---
 
@@ -161,7 +161,7 @@ Clasificación general [SEBESTA, cap. 6]:
 - **Tipos definidos por el usuario**: enumerados, subrangos, tipos abstractos y, en POO, clases (→ Tema 20).
 - **Tipos puntero/referencia**: contienen la **dirección** de otro dato en memoria.
 
-> **[REFERENCIA CRUZADA]** Cómo se **codifican en binario** estos tipos (complemento a dos para enteros, coma flotante IEEE 754 para reales, ASCII/Unicode para caracteres) corresponde al **Tema 11** (representación de la información). Las **estructuras de datos abstractas** que se construyen sobre estos tipos (listas, pilas, colas, árboles) se estudian en el **Tema 13**.
+> **[RELACIÓN CON OTROS TEMAS]** Cómo se **codifican en binario** estos tipos (complemento a dos para enteros, coma flotante IEEE 754 para reales, ASCII/Unicode para caracteres) corresponde al **Tema 11** (representación de la información). Las **estructuras de datos abstractas** que se construyen sobre estos tipos (listas, pilas, colas, árboles) se estudian en el **Tema 13**.
 
 ### 2.2. Tipos de datos simples o primitivos
 
@@ -172,9 +172,9 @@ Los cuatro primitivos clásicos [ISO-C; JLS]:
 - **Carácter** (`caracter`, *char*): un símbolo individual (`'A'`, `'ñ'`, `'7'`). Internamente es un código numérico (ASCII de 8 bits o **Unicode**, que cubre prácticamente todos los idiomas). Ojo: `'7'` (carácter) ≠ `7` (entero).
 - **Booleano** (`logico`, *bool*): solo dos valores, **verdadero** o **falso**. Es la base de las condiciones y de la lógica de control.
 
-> **[DATO CLAVE EXAMEN]** El tipo **real** tiene **precisión finita**: los números en coma flotante (IEEE 754) son aproximaciones. **Nunca** se deben comparar dos reales con `=` directamente (`a = b`); se comprueba si su diferencia es menor que una tolerancia pequeña (`|a − b| < ε`). Para dinero (tributos, tasas) se recomienda **entero de céntimos** o un tipo decimal exacto, no coma flotante.
+> **[DATO CLAVE]** El tipo **real** tiene **precisión finita**: los números en coma flotante (IEEE 754) son aproximaciones. **Nunca** se deben comparar dos reales con `=` directamente (`a = b`); se comprueba si su diferencia es menor que una tolerancia pequeña (`|a − b| < ε`). Para dinero (tributos, tasas) se recomienda **entero de céntimos** o un tipo decimal exacto, no coma flotante.
 
-> **[EJEMPLO AYTO MADRID]** Al liquidar el **IBI**, guardar el importe como `real` puede introducir céntimos erróneos por redondeo de coma flotante. La práctica correcta es almacenar el importe en **céntimos como entero** (`long`) o usar un tipo **decimal** exacto, y redondear solo al presentar. Un error de un céntimo multiplicado por miles de recibos es un problema contable real.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Al liquidar el **IBI**, guardar el importe como `real` puede introducir céntimos erróneos por redondeo de coma flotante. La práctica correcta es almacenar el importe en **céntimos como entero** (`long`) o usar un tipo **decimal** exacto, y redondear solo al presentar. Un error de un céntimo multiplicado por miles de recibos es un problema contable real.
 
 ### 2.3. Tipos de datos estructurados
 
@@ -199,9 +199,9 @@ El comportamiento depende del **sistema de tipos** del lenguaje [PIERCE, cap. 1;
 - **Tipado fuerte vs débil**: un lenguaje **fuertemente tipado** (Java, Python) impide o controla las mezclas de tipos incoherentes; uno **débilmente tipado** (C en muchos casos, JavaScript) las permite con coerciones automáticas que pueden sorprender (`"5" + 3` puede dar `"53"`).
 - **Tipado estático vs dinámico**: en el **estático** (C, Java) el tipo de cada variable se conoce y comprueba en **compilación**; en el **dinámico** (Python, JavaScript) el tipo va asociado al **valor** y se comprueba en **ejecución**, y una variable puede contener a lo largo del tiempo valores de distinto tipo.
 
-> **[DATO CLAVE EXAMEN]** No confundir los dos ejes. **Fuerte/débil** = cuán estricto es el lenguaje con las mezclas de tipos. **Estático/dinámico** = **cuándo** se comprueba el tipo (compilación vs ejecución). Son independientes: Python es **fuerte y dinámico**; C es **estático y relativamente débil**. → *Diagrama D5*.
+> **[DATO CLAVE]** No confundir los dos ejes. **Fuerte/débil** = cuán estricto es el lenguaje con las mezclas de tipos. **Estático/dinámico** = **cuándo** se comprueba el tipo (compilación vs ejecución). Son independientes: Python es **fuerte y dinámico**; C es **estático y relativamente débil**. → *Diagrama D5*.
 
-> **[EJERCICIO RESUELTO]** ¿Qué vale `resultado` tras `entero a = 7; entero b = 2; real resultado = a / b;` en un lenguaje con **división entera**? La división `a / b` se evalúa **primero** entre enteros → `3` (se pierde el decimal), y **luego** se convierte a real → `resultado = 3.0`, **no** `3.5`. Para obtener `3.5` hay que convertir **antes** de dividir: `resultado = (real) a / b`. Es un error clásico de examen.
+> **[EJERCICIO RESUELTO]** ¿Qué vale `resultado` tras `entero a = 7; entero b = 2; real resultado = a / b;` en un lenguaje con **división entera**? La división `a / b` se evalúa **primero** entre enteros → `3` (se pierde el decimal), y **luego** se convierte a real → `resultado = 3.0`, **no** `3.5`. Para obtener `3.5` hay que convertir **antes** de dividir: `resultado = (real) a / b`. Es un error frecuente.
 
 ---
 
@@ -223,7 +223,7 @@ Operan sobre números y devuelven un número:
 | `mod` / `%` | **Módulo** (resto) | `7 mod 2` | `1` |
 | `^` / `**` | Potencia | `2 ^ 10` | `1024` |
 
-> **[DATO CLAVE EXAMEN]** El operador **módulo** (`mod`, `%`) devuelve el **resto** de la división entera. Usos típicos de examen: `n mod 2 == 0` comprueba si `n` es **par**; `n mod k == 0` comprueba si `n` es **múltiplo** de `k`. La **división entera** (`div`) devuelve el **cociente** sin decimales.
+> **[DATO CLAVE]** El operador **módulo** (`mod`, `%`) devuelve el **resto** de la división entera. Usos típicos: `n mod 2 == 0` comprueba si `n` es **par**; `n mod k == 0` comprueba si `n` es **múltiplo** de `k`. La **división entera** (`div`) devuelve el **cociente** sin decimales.
 
 ### 3.2. Operadores relacionales y lógicos
 
@@ -236,7 +236,7 @@ Los **relacionales (o de comparación)** comparan dos valores y devuelven un **b
 | `<`  `>` | Menor / mayor que |
 | `<=`  `>=` | Menor o igual / mayor o igual |
 
-> **[DATO CLAVE EXAMEN]** No confundir `=` (asignación: **guarda** un valor) con `==` (comparación: **pregunta** si son iguales y devuelve verdadero/falso). Escribir `si (x = 5)` en vez de `si (x == 5)` es uno de los errores más frecuentes; en muchos lenguajes ni siquiera da error de compilación y provoca un fallo lógico difícil de encontrar.
+> **[DATO CLAVE]** No confundir `=` (asignación: **guarda** un valor) con `==` (comparación: **pregunta** si son iguales y devuelve verdadero/falso). Escribir `si (x = 5)` en vez de `si (x == 5)` es uno de los errores más frecuentes; en muchos lenguajes ni siquiera da error de compilación y provoca un fallo lógico difícil de encontrar.
 
 Los **lógicos (o booleanos)** combinan condiciones:
 
@@ -274,7 +274,7 @@ Cuando una expresión combina varios operadores, la **precedencia** decide **cu�
 8. Lógico `O`.
 9. Asignación (`=`, `+=`…).
 
-> **[DATO CLAVE EXAMEN]** «Primero lo de dentro del paréntesis; luego se multiplica y divide antes de sumar y restar; las comparaciones y la lógica, al final.» En caso de duda, **usar paréntesis**: mejoran la legibilidad y evitan errores de precedencia. `2 + 3 * 4` = `2 + 12` = **14**, no `20`.
+> **[DATO CLAVE]** «Primero lo de dentro del paréntesis; luego se multiplica y divide antes de sumar y restar; las comparaciones y la lógica, al final.» En caso de duda, **usar paréntesis**: mejoran la legibilidad y evitan errores de precedencia. `2 + 3 * 4` = `2 + 12` = **14**, no `20`.
 
 ---
 
@@ -290,7 +290,7 @@ El **teorema del programa estructurado** (Böhm y Jacopini, 1966) demuestra que 
 
 De aquí nace la **programación estructurada**, que proscribe el salto incondicional **`goto`** por hacer el código ilegible e inmantenible («código espagueti»), como argumentó Dijkstra en su célebre artículo de 1968 [DIJKSTRA68]. Un programa estructurado tiene **un único punto de entrada y uno de salida** por bloque, lo que facilita razonar sobre su corrección. → *Diagrama D6*.
 
-> **[DATO CLAVE EXAMEN]** Las **tres** estructuras de control suficientes (Böhm-Jacopini, 1966) son **secuencia, selección e iteración**. La programación estructurada **evita el `goto`** (Dijkstra, 1968). Es una pregunta recurrente por sus nombres y fechas.
+> **[DATO CLAVE]** Las **tres** estructuras de control suficientes (Böhm-Jacopini, 1966) son **secuencia, selección e iteración**. La programación estructurada **evita el `goto`** (Dijkstra, 1968).
 
 ### 4.2. Instrucciones condicionales
 
@@ -337,7 +337,7 @@ segun (codigo_distrito) hacer
 fin_segun
 ```
 
-> **[DATO CLAVE EXAMEN]** En muchos lenguajes (C, Java) cada `caso` de un `switch` necesita un **`break`** para no «caer» (*fall-through*) al siguiente caso. Olvidar el `break` es un error frecuente. La rama **`por_defecto`** (*default*) captura los valores no contemplados.
+> **[DATO CLAVE]** En muchos lenguajes (C, Java) cada `caso` de un `switch` necesita un **`break`** para no «caer» (*fall-through*) al siguiente caso. Olvidar el `break` es un error frecuente. La rama **`por_defecto`** (*default*) captura los valores no contemplados.
 
 ### 4.3. Bucles e iteraciones
 
@@ -369,7 +369,7 @@ para i desde 1 hasta 21 hacer
 fin_para
 ```
 
-> **[DATO CLAVE EXAMEN]** Diferencia clave: el **`mientras`** (precondicional) puede ejecutarse **cero** veces; el **`repetir…hasta`** (postcondicional) se ejecuta **como mínimo una** vez. El **`para`** se usa cuando el número de iteraciones es **conocido**; el `mientras`, cuando depende de una condición que puede cambiar. → *Diagrama D7*.
+> **[DATO CLAVE]** Diferencia clave: el **`mientras`** (precondicional) puede ejecutarse **cero** veces; el **`repetir…hasta`** (postcondicional) se ejecuta **como mínimo una** vez. El **`para`** se usa cuando el número de iteraciones es **conocido**; el `mientras`, cuando depende de una condición que puede cambiar. → *Diagrama D7*.
 
 **Control del bucle**: `romper` (*break*) sale del bucle inmediatamente; `continuar` (*continue*) salta a la siguiente iteración. Un **bucle infinito** ocurre cuando la condición nunca se hace falsa (olvidar incrementar el contador) — error grave que cuelga el programa.
 
@@ -394,13 +394,13 @@ funcion factorial(n)
 fin_funcion
 ```
 
-> **[DATO CLAVE EXAMEN]** Una función recursiva **debe** tener **caso base** (parada) y **caso recursivo** (que se acerque al caso base). Si falta el caso base o no se avanza hacia él, se produce **recursión infinita** y se agota la **pila** de llamadas (*stack overflow*). Cada llamada pendiente ocupa un marco en la **pila**.
+> **[DATO CLAVE]** Una función recursiva **debe** tener **caso base** (parada) y **caso recursivo** (que se acerque al caso base). Si falta el caso base o no se avanza hacia él, se produce **recursión infinita** y se agota la **pila** de llamadas (*stack overflow*). Cada llamada pendiente ocupa un marco en la **pila**.
 
 **Recursividad vs iteración**: todo algoritmo recursivo puede reescribirse de forma **iterativa** (con un bucle) y viceversa [CLRS]. La recursión suele ser **más elegante y legible** para problemas naturalmente recursivos (recorridos de árboles, *divide y vencerás*, Torres de Hanói), pero consume **más memoria** (marcos de pila) y puede ser más lenta. La iteración es más eficiente en memoria. → *Diagrama D8*.
 
 > **[EJERCICIO RESUELTO]** Traza de `factorial(4)`: `factorial(4) = 4 * factorial(3) = 4 * (3 * factorial(2)) = 4 * (3 * (2 * factorial(1)))`. `factorial(1)` es el caso base → `1`. Se «desenrolla»: `2*1=2`, `3*2=6`, `4*6=24`. Resultado **24**. Hubo 4 llamadas apiladas.
 
-> **[REFERENCIA CRUZADA]** El análisis del **coste** de los algoritmos recursivos e iterativos (notación O grande, ecuaciones de recurrencia) y las estructuras de datos sobre las que operan (pilas, árboles) se desarrollan en el **Tema 13** (Tipos abstractos, estructuras de datos y algoritmos).
+> **[RELACIÓN CON OTROS TEMAS]** El análisis del **coste** de los algoritmos recursivos e iterativos (notación O grande, ecuaciones de recurrencia) y las estructuras de datos sobre las que operan (pilas, árboles) se desarrollan en el **Tema 13** (Tipos abstractos, estructuras de datos y algoritmos).
 
 ### 4.5. Programación modular: procedimientos y funciones
 
@@ -411,7 +411,7 @@ La **modularidad** consiste en dividir un programa grande en **subprogramas** (m
 
 Ventajas de la modularidad [MCCONNELL, cap. 5-6]: **reutilización** (escribir una vez, usar muchas), **legibilidad**, **mantenimiento** (un cambio en un solo sitio), **abstracción** (usar un módulo sabiendo qué hace sin saber cómo) y **prueba** independiente. El **acoplamiento** entre módulos debe ser **bajo** y la **cohesión** dentro de cada módulo, **alta**.
 
-> **[DATO CLAVE EXAMEN]** **Función** = devuelve un valor (se usa en una expresión). **Procedimiento** = no devuelve valor, actúa por sus efectos. La **firma** (o cabecera) de un subprograma es su nombre + la lista de parámetros + el tipo devuelto. La **interfaz** es lo que el módulo expone; la **implementación**, cómo lo hace por dentro (encapsulación).
+> **[DATO CLAVE]** **Función** = devuelve un valor (se usa en una expresión). **Procedimiento** = no devuelve valor, actúa por sus efectos. La **firma** (o cabecera) de un subprograma es su nombre + la lista de parámetros + el tipo devuelto. La **interfaz** es lo que el módulo expone; la **implementación**, cómo lo hace por dentro (encapsulación).
 
 ### 4.6. Parámetros y mecanismos de paso de argumentos
 
@@ -425,9 +425,9 @@ Los **mecanismos de paso** más importantes:
 - **Paso por valor**: se pasa una **copia** del argumento. El subprograma trabaja sobre la copia; los cambios **no** afectan a la variable original del llamador. Es el más seguro y el predeterminado en muchos lenguajes (Java para primitivos, C por defecto).
 - **Paso por referencia**: se pasa la **dirección** (referencia) de la variable original. El subprograma accede a la variable real; los cambios **sí** persisten fuera. Permite que un subprograma modifique datos del llamador o devuelva varios resultados. En C se emula con **punteros**; en C++ y otros hay referencias explícitas.
 
-> **[DATO CLAVE EXAMEN]** **Por valor** = se copia el argumento → el original **no** cambia. **Por referencia** = se pasa la dirección → el original **sí** puede cambiar. Matiz frecuente: en Java y Python los **objetos** se pasan «por valor de la referencia», por lo que se puede modificar el objeto apuntado pero no reasignar la variable del llamador; los **primitivos** en Java van siempre por valor.
+> **[DATO CLAVE]** **Por valor** = se copia el argumento → el original **no** cambia. **Por referencia** = se pasa la dirección → el original **sí** puede cambiar. Matiz frecuente: en Java y Python los **objetos** se pasan «por valor de la referencia», por lo que se puede modificar el objeto apuntado pero no reasignar la variable del llamador; los **primitivos** en Java van siempre por valor.
 
-> **[EJERCICIO RESUELTO]** `procedimiento duplica(x) { x = x * 2 }`. Si `a = 10` y llamamos `duplica(a)`: **por valor**, `a` sigue valiendo **10** (se duplicó la copia); **por referencia**, `a` pasa a **20** (se duplicó el original). Es un clásico de examen para distinguir ambos mecanismos.
+> **[EJERCICIO RESUELTO]** `procedimiento duplica(x) { x = x * 2 }`. Si `a = 10` y llamamos `duplica(a)`: **por valor**, `a` sigue valiendo **10** (se duplicó la copia); **por referencia**, `a` pasa a **20** (se duplicó el original). El ejemplo permite distinguir ambos mecanismos.
 
 Otros mecanismos citados en la bibliografía: **por valor-resultado** (copia-restaura), **por nombre** (sustitución textual, en Algol) y **por defecto** (parámetros con valor predefinido si se omiten, en Python).
 
@@ -447,9 +447,9 @@ El **tiempo de vida** (*lifetime*) es el periodo durante el cual la variable **e
 - **Estática**: conserva su valor entre llamadas sucesivas al subprograma (palabra `static` en C).
 - **Dinámica**: se reserva y libera **explícitamente** en tiempo de ejecución (memoria del ***heap***/montículo, con `new`/`malloc`); su vida la controla el programador o el recolector de basura.
 
-> **[DATO CLAVE EXAMEN]** **Ámbito** = **dónde** es visible la variable (local/global). **Tiempo de vida** = **cuánto tiempo** existe en memoria. No son lo mismo: una variable `static` local tiene ámbito local (solo visible en su función) pero tiempo de vida **global** (persiste entre llamadas). La memoria se organiza en **pila** (variables automáticas, marcos de llamada) y ***heap*** (memoria dinámica). → *Diagrama D9*.
+> **[DATO CLAVE]** **Ámbito** = **dónde** es visible la variable (local/global). **Tiempo de vida** = **cuánto tiempo** existe en memoria. No son lo mismo: una variable `static` local tiene ámbito local (solo visible en su función) pero tiempo de vida **global** (persiste entre llamadas). La memoria se organiza en **pila** (variables automáticas, marcos de llamada) y ***heap*** (memoria dinámica). → *Diagrama D9*.
 
-> **[EJEMPLO AYTO MADRID]** En un módulo que calcula la tasa de un expediente, `importe_base` y `bonificacion` deben ser **variables locales** de la función de cálculo, no globales: así dos expedientes tramitados «a la vez» (dos llamadas) no se pisan los valores. Reservar una tabla de los 21 distritos que debe sobrevivir a toda la ejecución sería un caso de dato con **tiempo de vida** largo (estático o en *heap*).
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** En un módulo que calcula la tasa de un expediente, `importe_base` y `bonificacion` deben ser **variables locales** de la función de cálculo, no globales: así dos expedientes tramitados «a la vez» (dos llamadas) no se pisan los valores. Reservar una tabla de los 21 distritos que debe sobrevivir a toda la ejecución sería un caso de dato con **tiempo de vida** largo (estático o en *heap*).
 
 ---
 
@@ -469,11 +469,11 @@ poblacion[1] = 149000                          // asignar
 total = poblacion[1] + poblacion[2]            // leer
 ```
 
-> **[DATO CLAVE EXAMEN]** Los índices suelen empezar en **0** (C, Java, Python) o en **1** (según el pseudocódigo). Acceder a un índice fuera del rango declarado (`array[i]` con `i` inválido) es un error grave: en C corrompe memoria silenciosamente; en Java/Python lanza una **excepción** (`IndexOutOfBounds`). El acceso por índice es **O(1)** (constante).
+> **[DATO CLAVE]** Los índices suelen empezar en **0** (C, Java, Python) o en **1** (según el pseudocódigo). Acceder a un índice fuera del rango declarado (`array[i]` con `i` inválido) es un error grave: en C corrompe memoria silenciosamente; en Java/Python lanza una **excepción** (`IndexOutOfBounds`). El acceso por índice es **O(1)** (constante).
 
 Un **array multidimensional** (matriz) usa varios índices: `tarifa[distrito][tramo]`. Un array de dos dimensiones se recorre con **bucles anidados**.
 
-> **[REFERENCIA CRUZADA]** El array es la base para construir estructuras de datos más ricas —listas, pilas, colas, tablas *hash*— que se estudian como **tipos abstractos de datos** en el **Tema 13**. Frente a la **lista enlazada**, el array da acceso directo O(1) pero coste alto al insertar/borrar en medio (hay que desplazar elementos).
+> **[RELACIÓN CON OTROS TEMAS]** El array es la base para construir estructuras de datos más ricas —listas, pilas, colas, tablas *hash*— que se estudian como **tipos abstractos de datos** en el **Tema 13**. Frente a la **lista enlazada**, el array da acceso directo O(1) pero coste alto al insertar/borrar en medio (hay que desplazar elementos).
 
 ### 5.2. Registros o estructuras
 
@@ -495,9 +495,9 @@ c.edad = 34
 
 Combinando ambos se obtiene un **array de registros**, la estructura más habitual para representar una tabla o listado: `declarar censo : array[1..N] de Ciudadano` → `censo[i].nombre`.
 
-> **[DATO CLAVE EXAMEN]** **Array vs registro**: el **array** agrupa elementos del **mismo tipo** y se accede por **índice** (`v[i]`); el **registro** agrupa campos de **tipos distintos** y se accede por **nombre de campo** (`r.campo`). Un **array de registros** combina ambos y es la representación natural de una tabla de datos.
+> **[DATO CLAVE]** **Array vs registro**: el **array** agrupa elementos del **mismo tipo** y se accede por **índice** (`v[i]`); el **registro** agrupa campos de **tipos distintos** y se accede por **nombre de campo** (`r.campo`). Un **array de registros** combina ambos y es la representación natural de una tabla de datos.
 
-> **[EJEMPLO AYTO MADRID]** El **Padrón Municipal** se modela de forma natural como un **array (o lista) de registros** `Habitante`, con campos `dni`, `nombre`, `fecha_nacimiento`, `codigo_distrito`, `codigo_via`. Cada habitante es un registro; el censo completo, la colección. Esta representación en memoria es el paso previo a persistirlo en una **base de datos relacional** (Temas 17 y 19), donde el registro se convierte en **fila** y los campos en **columnas**.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** El **Padrón Municipal** se modela de forma natural como un **array (o lista) de registros** `Habitante`, con campos `dni`, `nombre`, `fecha_nacimiento`, `codigo_distrito`, `codigo_via`. Cada habitante es un registro; el censo completo, la colección. Esta representación en memoria es el paso previo a persistirlo en una **base de datos relacional** (Temas 17 y 19), donde el registro se convierte en **fila** y los campos en **columnas**.
 
 ### 5.3. Operaciones fundamentales sobre vectores y registros
 
@@ -544,7 +544,7 @@ Aunque varía según el lenguaje, un programa de alto nivel suele organizarse en
 
 Un buen código separa **datos** (tipos, estructuras), **lógica** (funciones) y **flujo principal**, y agrupa lo relacionado en **módulos/ficheros** cohesionados. La organización física en archivos y paquetes refleja la organización lógica.
 
-> **[EJEMPLO AYTO MADRID]** Una aplicación de gestión de tributos se organizaría en módulos: `padron` (altas/consultas de habitantes), `tributos` (cálculo de IBI, IVTM, tasas), `expedientes` (tramitación) y `comun` (utilidades, constantes como `NUM_DISTRITOS = 21`, tipos como `Ciudadano`). Cada módulo con **alta cohesión** (hace una cosa) y **bajo acoplamiento** (depende poco de los demás), de modo que tocar el cálculo del IBI no obligue a recompilar el Padrón.
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** Una aplicación de gestión de tributos se organizaría en módulos: `padron` (altas/consultas de habitantes), `tributos` (cálculo de IBI, IVTM, tasas), `expedientes` (tramitación) y `comun` (utilidades, constantes como `NUM_DISTRITOS = 21`, tipos como `Ciudadano`). Cada módulo con **alta cohesión** (hace una cosa) y **bajo acoplamiento** (depende poco de los demás), de modo que tocar el cálculo del IBI no obligue a recompilar el Padrón.
 
 ### 6.2. Buenas prácticas de programación
 
@@ -560,7 +560,7 @@ Prácticas ampliamente aceptadas para escribir código de calidad [MCCONNELL; KP
 - **KISS** (*Keep It Simple*): preferir la solución simple a la ingeniosa pero opaca.
 - **Control de versiones**: gestionar el código con herramientas como Git.
 
-> **[DATO CLAVE EXAMEN]** Siglas frecuentes: **DRY** (no repetir código), **KISS** (mantenlo simple), **YAGNI** (*You Aren't Gonna Need It*: no programar lo que no hace falta aún). La **legibilidad** prima: el código se lee muchas más veces de las que se escribe [MCCONNELL].
+> **[DATO CLAVE]** Siglas frecuentes: **DRY** (no repetir código), **KISS** (mantenlo simple), **YAGNI** (*You Aren't Gonna Need It*: no programar lo que no hace falta aún). La **legibilidad** prima: el código se lee muchas más veces de las que se escribe [MCCONNELL].
 
 ### 6.3. Documentación, pruebas y mantenimiento
 
@@ -577,7 +577,7 @@ Prácticas ampliamente aceptadas para escribir código de calidad [MCCONNELL; KP
 - **Caja blanca vs caja negra**: mirando el código interno (cobertura de caminos) vs solo entradas/salidas.
 - **Depuración** (*debugging*): localizar y corregir los errores (*bugs*) que las pruebas revelan.
 
-> **[DATO CLAVE EXAMEN]** No confundir tipos de error. **Error de compilación (sintáctico)**: el código no cumple la gramática; no llega a ejecutarse. **Error de ejecución (runtime)**: falla al ejecutar (división por cero, índice fuera de rango). **Error lógico**: el programa se ejecuta sin fallar pero da un **resultado incorrecto** — el más difícil de detectar, se caza con **pruebas**.
+> **[DATO CLAVE]** No confundir tipos de error. **Error de compilación (sintáctico)**: el código no cumple la gramática; no llega a ejecutarse. **Error de ejecución (runtime)**: falla al ejecutar (división por cero, índice fuera de rango). **Error lógico**: el programa se ejecuta sin fallar pero da un **resultado incorrecto** — el más difícil de detectar, se caza con **pruebas**.
 
 **Mantenimiento** — la fase **más larga y costosa** del ciclo de vida del software [ISO25010]. Tipos:
 
@@ -586,9 +586,9 @@ Prácticas ampliamente aceptadas para escribir código de calidad [MCCONNELL; KP
 - **Perfectivo**: mejorar rendimiento o añadir funcionalidad.
 - **Preventivo**: mejorar la estructura para facilitar el mantenimiento futuro (refactorización).
 
-La **mantenibilidad** —lo fácil que resulta modificar el software— es un atributo de calidad de la norma **ISO/IEC 25010** y depende directamente de las buenas prácticas de §6.2.
+La **mantenibilidad** —lo fácil que resulta modificar el software— es un atributo de calidad de la norma **ISO/IEC 25010:2023** y depende directamente de las buenas prácticas de §6.2.
 
-> **[REFERENCIA CRUZADA]** Los aspectos de **seguridad en el desarrollo** (validación de entradas frente a inyecciones, gestión segura de errores) se tratan en el **Tema 25**; la materialización de estos programas como **aplicaciones web** y **lenguajes de script**, en el **Tema 23**; y el salto al paradigma de **objetos** (clases, herencia, encapsulación) que reorganiza esta «estructura de un programa», en el **Tema 20**.
+> **[RELACIÓN CON OTROS TEMAS]** Los aspectos de **seguridad en el desarrollo** (validación de entradas frente a inyecciones, gestión segura de errores) se tratan en el **Tema 25**; la materialización de estos programas como **aplicaciones web** y **lenguajes de script**, en el **Tema 23**; y el salto al paradigma de **objetos** (clases, herencia, encapsulación) que reorganiza esta «estructura de un programa», en el **Tema 20**.
 
 ---
 
@@ -605,6 +605,6 @@ El diseño de lenguajes evoluciona, pero los fundamentos de este tema (tipos, op
 - **Multiplataforma y web**: *bytecode* y máquinas virtuales, **WebAssembly** (WASM) para ejecutar código de alto rendimiento en el navegador, y lenguajes/*frameworks* que compilan a múltiples destinos.
 - **Productividad e IA**: **asistentes de programación basados en IA** (autocompletado y generación de código) que aceleran el desarrollo, y plataformas **low-code / no-code** que permiten construir aplicaciones sencillas con poca o ninguna escritura de código. No sustituyen el criterio del programador: exigen saber leer, validar y corregir el código resultante.
 
-> **[DATO CLAVE EXAMEN]** Tendencias de fondo (no memorizar versiones): **seguridad de memoria** (Rust), **tipado gradual** (TypeScript, *type hints* de Python), rasgos **funcionales** e **inmutabilidad** en lenguajes clásicos, **concurrencia** de alto nivel (*async/await*), **WebAssembly** y **asistentes de IA / low-code**. Los **fundamentos** del tema (tipos, operadores, estructuras de control, modularidad) siguen plenamente vigentes por debajo de todas ellas.
+> **[DATO CLAVE]** Tendencias de fondo (no memorizar versiones): **seguridad de memoria** (Rust), **tipado gradual** (TypeScript, *type hints* de Python), rasgos **funcionales** e **inmutabilidad** en lenguajes clásicos, **concurrencia** de alto nivel (*async/await*), **WebAssembly** y **asistentes de IA / low-code**. Los **fundamentos** del tema (tipos, operadores, estructuras de control, modularidad) siguen plenamente vigentes por debajo de todas ellas.
 
-> **[EJEMPLO AYTO MADRID]** En una administración, estas tendencias se traducen en decisiones prácticas: elegir lenguajes con **tipado** que reduzca errores en aplicaciones críticas (tributos, Padrón), aprovechar el **tipado gradual** para modernizar aplicaciones heredadas sin reescribirlas, y adoptar asistentes de IA **con revisión humana** y control de versiones, garantizando siempre la **trazabilidad** y la seguridad que exige el Esquema Nacional de Seguridad (Tema 39).
+> **[EJEMPLO DE APLICACIÓN EN EL AYTO]** En una administración, estas tendencias se traducen en decisiones prácticas: elegir lenguajes con **tipado** que reduzca errores en aplicaciones críticas (tributos, Padrón), aprovechar el **tipado gradual** para modernizar aplicaciones heredadas sin reescribirlas, y adoptar asistentes de IA **con revisión humana** y control de versiones, garantizando siempre la **trazabilidad** y la seguridad que exige el Esquema Nacional de Seguridad (Tema 39).

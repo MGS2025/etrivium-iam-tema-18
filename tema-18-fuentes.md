@@ -23,7 +23,8 @@
 | `[MCCONNELL]` | McConnell, S. *Code Complete* (2.ª ed.). Microsoft Press. Buenas prácticas, nombrado, variables, estructura del código, defensas. |
 | `[KP]` | Kernighan, B. W.; Pike, R. *The Practice of Programming*. Addison-Wesley. Estilo, depuración, pruebas, portabilidad. |
 | `[IEEE754]` | IEEE 754-2019 *Standard for Floating-Point Arithmetic*. Representación de reales en coma flotante. |
-| `[ISO-C]` | ISO/IEC 9899:2018 *Programming languages — C*. Tipos primitivos, operadores, conversiones. |
+| `[ISO-C]` | ISO/IEC 9899:2024 *Programming languages — C* (C23). Anula y sustituye a la ISO/IEC 9899:2018 (C17): es la edición vigente de la norma del lenguaje C. Tipos primitivos, operadores, conversiones. |
+| `[ISO-C-2018]` | ISO/IEC 9899:2018 *Programming languages — C* (C17). Anulada y sustituida por la ISO/IEC 9899:2024. Se conserva la referencia porque es la que recogen los temarios al uso. |
 
 ## Tier 2 — Manuales y documentación de lenguajes
 
@@ -38,7 +39,8 @@
 
 | ID | Referencia |
 |---|---|
-| `[ISO25010]` | ISO/IEC 25010:2011 *Systems and software Quality Requirements and Evaluation (SQuaRE)* — mantenibilidad, fiabilidad. |
+| `[ISO25010]` | ISO/IEC 25010:2023 *Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model*. Anula y sustituye a la ISO/IEC 25010:2011: es la edición vigente del modelo de calidad del producto — mantenibilidad, fiabilidad. |
+| `[ISO25010-2011]` | ISO/IEC 25010:2011 *Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models*. Anulada y sustituida por la ISO/IEC 25010:2023. Se conserva la referencia porque es la que recogen los temarios al uso. |
 | `[ENS]` | Real Decreto 311/2022, Esquema Nacional de Seguridad — seguridad en el desarrollo y trazabilidad del código. |
 | `[BOAM10032]` | BOAM 10.032 (23-dic-2025). Bases específicas TIC C1 Ayto. Madrid — temario oficial. |
 

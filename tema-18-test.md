@@ -402,7 +402,7 @@ C) La potencia del primer número elevado al segundo
 
 <details><summary>Respuesta</summary>
 
-**Correcta: A) El resto de la división entera entre dos números** `n mod 2 == 0` comprueba si `n` es par; es un uso clásico de examen.
+**Correcta: A) El resto de la división entera entre dos números** `n mod 2 == 0` comprueba si `n` es par.
 
 *Referencia: §3.1 [SEBESTA]*
 </details>

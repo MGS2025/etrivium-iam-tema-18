@@ -4,6 +4,20 @@
 
 ---
 
+## v1.3 — 2026-10-01 — Normas vigentes y correcciones comunes de la revisión
+
+**Motivo**: revisión de la serie del 01-10-2026 (decisiones de Joan y María): normas caducadas con el patrón de dos filas en Fuentes y correcciones comunes (referencias al cliente y al origen del material, promesas sobre el examen, AP → AAPP).
+
+### Cambios
+
+- **ISO/IEC 9899:2018 (C17) → ISO/IEC 9899:2024 (C23)**: en Fuentes, `[ISO-C]` pasa a la edición 2024 como vigente y se añade `[ISO-C-2018]` como fila histórica. Ningún contenido depende de la diferencia C17/C23.
+- **ISO/IEC 25010:2011 → 25010:2023**: `[ISO25010]` pasa a la 2023 y se añade `[ISO25010-2011]` como histórica; la cita en línea de §6 dice «ISO/IEC 25010:2023». Se mantiene la cita sobre el mantenimiento como fase más costosa (decisión de Joan y María del 01-10).
+- Leyenda de las cajas: se quita «con alta probabilidad de aparecer en el test oficial».
+- Fuera las promesas sobre el examen («muy preguntada», «error clásico de examen», «usos típicos de examen», «clásico de examen», «pregunta recurrente»), también en la explicación de la pregunta 23 del test (sin cambio de enunciado, opciones ni respuesta).
+- Títulos de las cajas homogeneizados con los temas 1-10 (revisión jurídica): «Dato clave», «Ejemplo de aplicación en el Ayto» y «Relación con otros temas»; las cajas «Ejercicio resuelto» no cambian.
+
+---
+
 ## v1.2 — 2026-09-06 — Marcado del apartado complementario
 
 **Estado**: pendiente de validación por el IAM.
